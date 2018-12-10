@@ -9,7 +9,7 @@ public class ScatterplotMatrix : MonoBehaviour
     private float pointSize;
     private GameObject scatterplotMatrix;
 
-    public void initialize(CSVDataSource dataSource, float pointSize)
+    public void Initialize(CSVDataSource dataSource, float pointSize)
     {
         this.dataSource = dataSource;
         this.pointSize = pointSize;
@@ -23,10 +23,10 @@ public class ScatterplotMatrix : MonoBehaviour
 
     public void createScatterplots()
     {
-        gameObject.AddComponent<Scatterplot>().initialize(dataSource, scatterplotMatrix, pointSize, 0, 1, 2);
-        gameObject.AddComponent<Scatterplot>().initialize(dataSource, scatterplotMatrix, pointSize, 0, 1, 3);
-        gameObject.AddComponent<Scatterplot>().initialize(dataSource, scatterplotMatrix, pointSize, 0, 2, 3);
-        gameObject.AddComponent<Scatterplot>().initialize(dataSource, scatterplotMatrix, pointSize, 1, 2, 3);
+        gameObject.AddComponent<Scatterplot>().Initialize(dataSource, scatterplotMatrix, pointSize, 0, 1, 2);
+        gameObject.AddComponent<Scatterplot>().Initialize(dataSource, scatterplotMatrix, pointSize, 0, 1, 3);
+        gameObject.AddComponent<Scatterplot>().Initialize(dataSource, scatterplotMatrix, pointSize, 0, 2, 3);
+        gameObject.AddComponent<Scatterplot>().Initialize(dataSource, scatterplotMatrix, pointSize, 1, 2, 3);
     }
 
 	// Update is called once per frame

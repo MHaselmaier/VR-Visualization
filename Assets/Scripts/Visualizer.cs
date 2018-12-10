@@ -17,6 +17,6 @@ public class Visualizer : MonoBehaviour
         dataSource = gameObject.AddComponent<CSVDataSource>();
         dataSource.load(dataFile.text, null);
         scatterplotMatrix = gameObject.AddComponent<ScatterplotMatrix>();
-        scatterplotMatrix.initialize(dataSource, pointSize);
+        scatterplotMatrix.Initialize(dataSource, pointSize);
     }
 }
