@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VisualizerTest : MonoBehaviour
+public class Visualizer : MonoBehaviour
 {
     public TextAsset dataFile;
 
