@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Scatterplot : MonoBehaviour
 {
-    private GameObject axis;
+    private static GameObject axis, dataPoint;
 
     private CSVDataSource dataSource;
     private GameObject scatterplot;
@@ -16,10 +16,14 @@ public class Scatterplot : MonoBehaviour
 
     public void Awake()
     {
-        axis = Resources.Load("Prefabs/Axis") as GameObject;
+        if (null == axis || null == dataPoint)
+        {
+            axis = Resources.Load("Prefabs/Axis") as GameObject;
+            dataPoint = Resources.Load("Prefabs/DataPoint") as GameObject;
+        }
     }
 
-    public void Initialize(CSVDataSource dataSource, GameObject parent, float pointSize, int x, int y, int z)
+    public void Initialize(CSVDataSource dataSource, GameObject parent, float matrixPosX, float matrixPosY, float pointSize, int x, int y, int z)
     {
         this.dataSource = dataSource;
         this.pointSize = pointSize;
@@ -27,11 +31,14 @@ public class Scatterplot : MonoBehaviour
         this.y = y;
         this.z = z;
 
+        float posOffset = 1;
+
         scatterplot = new GameObject("Scatterplot");
         scatterplot.transform.parent = parent.transform;
 
         CreateAxis();
         CreateDataPoints();
+        scatterplot.transform.Translate(new Vector3(matrixPosX + posOffset * matrixPosX, matrixPosY + posOffset * matrixPosY));
     }
 
     private void CreateAxis()
@@ -65,14 +72,12 @@ public class Scatterplot : MonoBehaviour
         Vector3 boundingBoxMin = Vector3.positiveInfinity;
         Vector3 boundingBoxMax = Vector3.negativeInfinity;
         points = new GameObject[dataSource.DataCount];
+        
         for (int i = 0; dataSource.DataCount > i; ++i)
         {
-            GameObject point = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-            point.name = "DataPoint";
-            point.transform.parent = scatterplot.transform;
+            GameObject point = Instantiate(dataPoint, scatterplot.transform);
             point.transform.localScale = Vector3.one * pointSize;
             point.transform.position = new Vector3(dataSource[x].Data[i], dataSource[y].Data[i], dataSource[z].Data[i]);
-            point.GetComponent<Renderer>().material.color = Color.grey;
             points[i] = point;
 
             boundingBoxMin = Vector3.Min(boundingBoxMin, point.transform.position);
@@ -95,9 +100,11 @@ public class Scatterplot : MonoBehaviour
         }
     }
 
-	// Update is called once per frame
 	void Update()
     {
-		
-	}
+        foreach (GameObject point in points)
+        {
+            point.transform.rotation = Camera.main.transform.rotation;
+        }
+    }
 }

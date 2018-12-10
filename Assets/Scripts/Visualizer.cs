@@ -19,4 +19,9 @@ public class Visualizer : MonoBehaviour
         scatterplotMatrix = gameObject.AddComponent<ScatterplotMatrix>();
         scatterplotMatrix.Initialize(dataSource, pointSize);
     }
+
+    void Update()
+    {
+        print(1.0f / Time.deltaTime);
+    }
 }
