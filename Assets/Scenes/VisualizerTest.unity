@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028355, g: 0.22571374, b: 0.30692255, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1210,7 +1210,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -8.89, y: -158.7}
+  m_AnchoredPosition: {x: -8.89, y: -123}
   m_SizeDelta: {x: 72.73, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &105021054
@@ -1932,7 +1932,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 73, y: 0}
-  m_SizeDelta: {x: 49.6, y: 30}
+  m_SizeDelta: {x: 65, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &199705221
 MonoBehaviour:
@@ -2812,7 +2812,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.049999, y: -123.7}
+  m_AnchoredPosition: {x: 0.049999, y: -88}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &368090972
@@ -6006,7 +6006,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 825683898}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26da6f3ffe0eb85409320587e30c9bc4, type: 3}
+  m_Script: {fileID: 11500000, guid: 8d5a5074bf5b8204993296751cfafa90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   visualizer: {fileID: 1745499720}
@@ -9995,8 +9995,8 @@ MonoBehaviour:
   actualHeadset: {fileID: 1665664544}
   actualLeftController: {fileID: 1369949181}
   actualRightController: {fileID: 1647545119}
-  modelAliasLeftController: {fileID: 1549229462}
-  modelAliasRightController: {fileID: 1900693587}
+  modelAliasLeftController: {fileID: 0}
+  modelAliasRightController: {fileID: 0}
   cachedSystemSDKInfo:
     baseTypeName: VRTK.SDK_BaseSystem
     fallbackTypeName: VRTK.SDK_FallbackSystem
@@ -10779,7 +10779,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -19, y: 0}
-  m_SizeDelta: {x: 47.5, y: 30}
+  m_SizeDelta: {x: 65, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1532243582
 MonoBehaviour:
@@ -11646,10 +11646,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1745499719}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0420aa8698b73d746a4754d707c529c2, type: 3}
+  m_Script: {fileID: 11500000, guid: a3f3acd2188319d4d92559d8b08c1b9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pointSize: 0.2
+  pointSize: 0.03
 --- !u!4 &1745499721
 Transform:
   m_ObjectHideFlags: 0
@@ -11695,7 +11695,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.049988, y: -82.5}
+  m_AnchoredPosition: {x: 0.049988, y: -51}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1749988621
@@ -11774,8 +11774,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 57.1, y: -158.7}
-  m_SizeDelta: {x: 38.2, y: 30}
+  m_AnchoredPosition: {x: 66, y: -123}
+  m_SizeDelta: {x: 65, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1792539492
 MonoBehaviour:
@@ -13623,7 +13623,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.049988, y: -235}
+  m_AnchoredPosition: {x: 0.049988, y: -167}
   m_SizeDelta: {x: 156.8, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2045377097
