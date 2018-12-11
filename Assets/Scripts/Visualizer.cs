@@ -22,4 +22,9 @@ public class Visualizer : MonoBehaviour
             scatterplotMatrix.initialize(dataSource, pointSize);
         }
     }
+
+    void Update()
+    {
+        print(1.0f / Time.deltaTime);
+    }
 }
