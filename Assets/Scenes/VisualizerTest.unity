@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028355, g: 0.22571374, b: 0.30692255, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3704,10 +3704,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 504113940}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c3d3423efa297c418680b9e3ffa0b5e, type: 3}
+  m_Script: {fileID: 11500000, guid: ecfc46c1f745a1d498552fd71e597745, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  showHoverState: 0
+  showHoverState: 1
 --- !u!1 &517538496
 GameObject:
   m_ObjectHideFlags: 0
@@ -9995,8 +9995,8 @@ MonoBehaviour:
   actualHeadset: {fileID: 1665664544}
   actualLeftController: {fileID: 1369949181}
   actualRightController: {fileID: 1647545119}
-  modelAliasLeftController: {fileID: 0}
-  modelAliasRightController: {fileID: 0}
+  modelAliasLeftController: {fileID: 1549229462}
+  modelAliasRightController: {fileID: 1900693587}
   cachedSystemSDKInfo:
     baseTypeName: VRTK.SDK_BaseSystem
     fallbackTypeName: VRTK.SDK_FallbackSystem
@@ -10559,10 +10559,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1475039050}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c3d3423efa297c418680b9e3ffa0b5e, type: 3}
+  m_Script: {fileID: 11500000, guid: ecfc46c1f745a1d498552fd71e597745, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  showHoverState: 0
+  showHoverState: 1
 --- !u!1 &1510776135
 GameObject:
   m_ObjectHideFlags: 0
@@ -11649,7 +11649,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3f3acd2188319d4d92559d8b08c1b9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pointSize: 0.03
+  pointSize: 0.02
 --- !u!4 &1745499721
 Transform:
   m_ObjectHideFlags: 0
