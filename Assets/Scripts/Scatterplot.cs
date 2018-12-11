@@ -35,6 +35,7 @@ public class Scatterplot : MonoBehaviour
 
         scatterplot = new GameObject("Scatterplot");
         scatterplot.transform.parent = parent.transform;
+        scatterplot.AddComponent<BoxCollider>();
 
         CreateAxis();
         CreateDataPoints();
