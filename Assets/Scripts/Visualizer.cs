@@ -9,26 +9,22 @@ using UnityEngine;
 public class Visualizer : MonoBehaviour
 {
     public float pointSize = 0.03f;
-    void Awake(){}
 
-    public void LoadData(string filePath){
-        
-        if(File.Exists(filePath)){
-                Debug.Log("Lol");
-                Task.Run(() => {
-                    CSVDataSource dataSource = new CSVDataSource();
-                    dataSource.load(File.ReadAllText(filePath), null);
+    public void LoadData(string filePath)
+    {    
+        if (File.Exists(filePath))
+        {
+            Task.Run(() =>
+            {
+                CSVDataSource dataSource = new CSVDataSource();
+                dataSource.load(File.ReadAllText(filePath), null);
 
-                    UnityMainThreadDispatcher.Instance().Enqueue(() => {
-                        ScatterplotMatrix scatterplotMatrix = gameObject.AddComponent<ScatterplotMatrix>();
-                        scatterplotMatrix.Initialize(dataSource, pointSize);
-
-                    });
+                UnityMainThreadDispatcher.Instance().Enqueue(() =>
+                {
+                    ScatterplotMatrix scatterplotMatrix = gameObject.AddComponent<ScatterplotMatrix>();
+                    scatterplotMatrix.Initialize(dataSource, pointSize);
                 });
+            });
         }
-    }
-
-    void Update()
-    {
     }
 }
