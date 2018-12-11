@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class ImportDialog : MonoBehaviour {
 
-	public VisualizerController visualizer;
+	public Visualizer visualizer;
 
 	Canvas renderer;
 	Dropdown inputFiles;

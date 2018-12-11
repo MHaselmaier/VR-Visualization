@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VisualizerController : MonoBehaviour
+public class Visualizer : MonoBehaviour
 {
     public float pointSize = 0.03f;
 
