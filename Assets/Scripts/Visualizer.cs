@@ -1,5 +1,7 @@
 ﻿using IATK;
 using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,24 +9,26 @@ using UnityEngine;
 public class Visualizer : MonoBehaviour
 {
     public float pointSize = 0.03f;
-
-    private CSVDataSource dataSource;
-    private ScatterplotMatrix scatterplotMatrix;
-
     void Awake(){}
 
     public void LoadData(string filePath){
         
         if(File.Exists(filePath)){
-            dataSource = gameObject.AddComponent<CSVDataSource>();
-            dataSource.load(File.ReadAllText(filePath), null);
-            scatterplotMatrix = gameObject.AddComponent<ScatterplotMatrix>();
-            scatterplotMatrix.Initialize(dataSource, pointSize);
+                Debug.Log("Lol");
+                Task.Run(() => {
+                    CSVDataSource dataSource = new CSVDataSource();
+                    dataSource.load(File.ReadAllText(filePath), null);
+
+                    UnityMainThreadDispatcher.Instance().Enqueue(() => {
+                        ScatterplotMatrix scatterplotMatrix = gameObject.AddComponent<ScatterplotMatrix>();
+                        scatterplotMatrix.Initialize(dataSource, pointSize);
+
+                    });
+                });
         }
     }
 
     void Update()
     {
-        print(1.0f / Time.deltaTime);
     }
 }
