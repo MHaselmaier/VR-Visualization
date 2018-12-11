@@ -19,7 +19,7 @@ public class Visualizer : MonoBehaviour
             dataSource = gameObject.AddComponent<CSVDataSource>();
             dataSource.load(File.ReadAllText(filePath), null);
             scatterplotMatrix = gameObject.AddComponent<ScatterplotMatrix>();
-            scatterplotMatrix.initialize(dataSource, pointSize);
+            scatterplotMatrix.Initialize(dataSource, pointSize);
         }
     }
 
