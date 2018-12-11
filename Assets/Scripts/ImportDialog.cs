@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,7 +24,7 @@ public class ImportDialog : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		renderer = this.gameObject.GetComponent<Canvas>();
-		renderer.enabled = false;
+		setVisible(false);
 
 		this.csvDataDirectory = Application.dataPath;
 		this.csvDataDirectory = Path.Combine(csvDataDirectory, csvDirectoryName);
@@ -40,9 +41,6 @@ public class ImportDialog : MonoBehaviour {
 		}
 
 		this.dataFieldFrom = GameObject.Find("dropdown_data_from").GetComponent<Dropdown>();
-		this.dataFieldFrom.options.Add(new Dropdown.OptionData(){text = "0"});
-		this.dataFieldFrom.options.Add(new Dropdown.OptionData(){text = "1"});
-
 		this.dataFieldTo = GameObject.Find("dropdown_data_to").GetComponent<Dropdown>();
 
 		this.hasFieldLabel = GameObject.Find("checkbox_has_field_label").GetComponent<Toggle>();
@@ -50,6 +48,13 @@ public class ImportDialog : MonoBehaviour {
 
 		this.fieldLabelCell = GameObject.Find("dropdown_field_label_cell").GetComponent<Dropdown>();
 		this.fieldLabelCell.interactable = this.hasFieldLabel.isOn;
+
+		for(int num = 0; num < 20; num++){
+			Dropdown.OptionData option = new Dropdown.OptionData(){text = num.ToString()};
+			this.dataFieldFrom.options.Add(option);
+			this.dataFieldTo.options.Add(option);
+			this.fieldLabelCell.options.Add(option);
+		}
 
 		this.buttonImport = GameObject.Find("button_import").GetComponent<Button>();
 		this.buttonImport.onClick.AddListener(onButtonImportClicked);
@@ -59,8 +64,12 @@ public class ImportDialog : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if(Input.GetKeyDown(KeyCode.X)){
-			renderer.enabled = !renderer.enabled;
+			setVisible(!renderer.enabled);
 		}	
+	}
+
+	void setVisible(bool value){
+		renderer.enabled = value;
 	}
 
 	void onHasFieldLabelChanged(bool value){
@@ -70,5 +79,6 @@ public class ImportDialog : MonoBehaviour {
 	void onButtonImportClicked(){		
 		var filePath = Path.Combine(this.csvDataDirectory, this.inputFiles.options.ToArray()[this.inputFiles.value].text);
 		this.visualizer.LoadData(filePath);	
+		setVisible(false);
 	}
 }
