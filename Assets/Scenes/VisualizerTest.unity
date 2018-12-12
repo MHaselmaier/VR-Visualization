@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028355, g: 0.22571374, b: 0.30692255, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2322,7 +2322,7 @@ MonoBehaviour:
   validCollisionColor: {r: 0, g: 0.49803922, b: 0, a: 1}
   invalidCollisionColor: {r: 0.8, g: 0, b: 0, a: 1}
   tracerVisibility: 0
-  cursorVisibility: 0
+  cursorVisibility: 2
   maximumLength: 100
   scaleFactor: 0.002
   cursorScaleMultiplier: 25
@@ -2342,7 +2342,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ec704cceb26f6f49b6c900fc83d8d18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enableTeleport: 1
+  enableTeleport: 0
   targetListPolicy: {fileID: 0}
   pointerRenderer: {fileID: 504113942}
   activationButton: 10
@@ -7029,7 +7029,7 @@ MonoBehaviour:
   validCollisionColor: {r: 0, g: 0.49803922, b: 0, a: 1}
   invalidCollisionColor: {r: 0.8, g: 0, b: 0, a: 1}
   tracerVisibility: 0
-  cursorVisibility: 0
+  cursorVisibility: 2
   maximumLength: 100
   scaleFactor: 0.002
   cursorScaleMultiplier: 25
@@ -7049,7 +7049,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ec704cceb26f6f49b6c900fc83d8d18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enableTeleport: 1
+  enableTeleport: 0
   targetListPolicy: {fileID: 0}
   pointerRenderer: {fileID: 1475039052}
   activationButton: 10
@@ -7655,7 +7655,7 @@ GameObject:
   - component: {fileID: 1745499720}
   m_Layer: 0
   m_Name: Visualizer
-  m_TagString: Untagged
+  m_TagString: Visualizer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

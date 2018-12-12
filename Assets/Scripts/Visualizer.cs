@@ -21,8 +21,9 @@ public class Visualizer : MonoBehaviour
 
                 UnityMainThreadDispatcher.Instance().Enqueue(() =>
                 {
-                    ScatterplotMatrix scatterplotMatrix = gameObject.AddComponent<ScatterplotMatrix>();
-                    scatterplotMatrix.Initialize(dataSource, pointSize);
+                    Instantiate(Resources.Load<GameObject>("Prefabs/ScatterplotMatrix"), transform)
+                        .GetComponent<ScatterplotMatrix>()
+                        .Initialize(dataSource, pointSize);
                 });
             });
         }

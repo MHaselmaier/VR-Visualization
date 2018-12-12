@@ -6,18 +6,13 @@ using UnityEngine;
 
 public class ScatterplotMatrix : MonoBehaviour
 {
-    private CSVDataSource dataSource;
-    private float pointSize;
-    private GameObject scatterplotMatrix;
+    public CSVDataSource dataSource;
+    public float pointSize;
 
     public void Initialize(CSVDataSource dataSource, float pointSize)
     {
         this.dataSource = dataSource;
         this.pointSize = pointSize;
-
-        scatterplotMatrix = new GameObject("Scatterplotmatrix");
-        scatterplotMatrix.transform.parent = gameObject.transform;
-
 
         CreateScatterplots();
     }
@@ -33,7 +28,10 @@ public class ScatterplotMatrix : MonoBehaviour
             int x = dimensionCombinations[i, 0];
             int y = dimensionCombinations[i, 1];
             int z = dimensionCombinations[i, 2];
-            gameObject.AddComponent<Scatterplot>().Initialize(dataSource, scatterplotMatrix, matrixPosX, matrixPosY, pointSize, x, y, z);
+
+            Instantiate(Resources.Load<GameObject>("Prefabs/Scatterplot"), transform)
+                .GetComponent<Scatterplot>()
+                .Initialize(dataSource, gameObject, matrixPosX, matrixPosY, pointSize, x, y, z);
         }
     }
 
