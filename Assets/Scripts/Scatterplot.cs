@@ -35,34 +35,13 @@ public class Scatterplot : MonoBehaviour
 
     private void CreateDataPoints()
     {
-        Vector3 boundingBoxMin = Vector3.positiveInfinity;
-        Vector3 boundingBoxMax = Vector3.negativeInfinity;
-        points = new GameObject[dataSource.DataCount];
-        
+        points = new GameObject[dataSource.DataCount];   
         for (int i = 0; dataSource.DataCount > i; ++i)
         {
             Vector3 position = new Vector3(dataSource[x].Data[i], dataSource[y].Data[i], dataSource[z].Data[i]);
             GameObject point = Instantiate(Resources.Load<GameObject>("Prefabs/DataPoint"), transform);
             point.GetComponent<DataPoint>().Initialize(i, pointSize, position);
             points[i] = point;
-
-            boundingBoxMin = Vector3.Min(boundingBoxMin, point.transform.position);
-            boundingBoxMax = Vector3.Max(boundingBoxMax, point.transform.position);
-        }
-
-        ScaleDataPoints(boundingBoxMin, boundingBoxMax);
-    }
-
-    private void ScaleDataPoints(Vector3 boundingBoxMin, Vector3 boundingBoxMax)
-    {
-        Vector3 maxDistanceFromCenter = (boundingBoxMax - boundingBoxMin) / 2;
-        Vector3 cloudCenter = boundingBoxMin + maxDistanceFromCenter;
-        float scaleFactor = Mathf.Max(maxDistanceFromCenter.x, maxDistanceFromCenter.y, maxDistanceFromCenter.z) * 2;
-
-        foreach (GameObject point in points)
-        {
-            point.transform.Translate(-cloudCenter);
-            point.transform.position /= scaleFactor;
         }
     }
 }
