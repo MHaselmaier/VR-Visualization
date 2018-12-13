@@ -11,7 +11,7 @@ public class Scatterplot : MonoBehaviour
 
     private DataPoint[] dataPoints;
 
-    public void Initialize(CSVDataSource dataSource, float matrixPosX, float matrixPosY, float pointSize, int xDim, int yDim, int zDim)
+    public void Initialize(CSVDataSource dataSource, float matrixPosX, float matrixPosZ, float pointSize, int xDim, int yDim, int zDim)
     {
         this.dataSource = dataSource;
         this.pointSize = pointSize;
@@ -23,7 +23,7 @@ public class Scatterplot : MonoBehaviour
 
         InitializeAxesLabel();
         CreateDataPoints();
-        transform.Translate(new Vector3(matrixPosX + posOffset * matrixPosX, matrixPosY + posOffset * matrixPosY));
+        transform.Translate(new Vector3(matrixPosX + posOffset * matrixPosX, 0, matrixPosZ + posOffset * matrixPosZ));
     }
 
     private void InitializeAxesLabel()

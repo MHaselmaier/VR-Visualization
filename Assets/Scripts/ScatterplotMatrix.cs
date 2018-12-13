@@ -34,13 +34,13 @@ public class ScatterplotMatrix : MonoBehaviour
         for (int i = 0; dimCombinations.GetLength(0) > i; ++i)
         {
             int matrixPosX = i % matrixWidth;
-            int matrixPosY = i / matrixWidth;
+            int matrixPosZ = i / matrixWidth;
             int xDim = dimCombinations[i, 0];
             int yDim = dimCombinations[i, 1];
             int zDim = dimCombinations[i, 2];
 
             Scatterplot scatterplot = Instantiate(scatterplotPrefab, transform).GetComponent<Scatterplot>();
-            scatterplot.Initialize(dataSource, matrixPosX, matrixPosY, pointSize, xDim, yDim, zDim);
+            scatterplot.Initialize(dataSource, matrixPosX, matrixPosZ, pointSize, xDim, yDim, zDim);
             scatterplots[i] = scatterplot;
 
             yield return null;
