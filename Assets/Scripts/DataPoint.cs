@@ -38,4 +38,10 @@ public class DataPoint : MonoBehaviour
 
         return data;
     }
+
+    public void Select()
+    {
+        ScatterplotMatrix scatterplotMatrix = scatterplot.GetComponentInParent<ScatterplotMatrix>();
+        scatterplotMatrix.SelectDataPoint(index);
+    }
 }

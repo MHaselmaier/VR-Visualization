@@ -49,7 +49,6 @@ public class ControllerPointerEventListener : MonoBehaviour
             SphereCollider collider = dataPoint.GetComponent<SphereCollider>();
             if (null != collider)
             {
-                dataPoint.GetComponent<Renderer>().material.color = Color.red;
                 collider.enabled = true;
             }
         }
@@ -67,7 +66,6 @@ public class ControllerPointerEventListener : MonoBehaviour
                     SphereCollider collider = dataPoint.GetComponent<SphereCollider>();
                     if (null != collider)
                     {
-                        dataPoint.GetComponent<Renderer>().material.color = Color.white;
                         collider.enabled = false;
                     }
                 }
@@ -82,6 +80,8 @@ public class ControllerPointerEventListener : MonoBehaviour
         print(data[0, 0] + ": " + data[0, 1]);
         print(data[1, 0] + ": " + data[1, 1]);
         print(data[2, 0] + ": " + data[2, 1]);
+
+        dataPoint.Select();
     }
 
     private void DoPointerOut(object sender, DestinationMarkerEventArgs e)

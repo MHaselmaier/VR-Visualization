@@ -9,6 +9,8 @@ public class ScatterplotMatrix : MonoBehaviour
     public CSVDataSource dataSource;
     public float pointSize;
 
+    private Scatterplot[] scatterplots;
+
     public void Initialize(CSVDataSource dataSource, float pointSize)
     {
         this.dataSource = dataSource;
@@ -22,7 +24,8 @@ public class ScatterplotMatrix : MonoBehaviour
         GameObject scatterplotPrefab = Resources.Load("Prefabs/Scatterplot") as GameObject;
         int[,] dimCombinations = CalculateDimensionCombinations();
         int matrixWidth = (int)(Mathf.Sqrt(dimCombinations.GetLength(0)) + 1);
-        
+
+        scatterplots = new Scatterplot[dimCombinations.GetLength(0)];
         StartCoroutine(CreateScatterplotsCoroutine(scatterplotPrefab, dimCombinations, matrixWidth));
     }
 
@@ -36,9 +39,10 @@ public class ScatterplotMatrix : MonoBehaviour
             int yDim = dimCombinations[i, 1];
             int zDim = dimCombinations[i, 2];
 
-            Instantiate(scatterplotPrefab, transform)
-                .GetComponent<Scatterplot>()
-                .Initialize(dataSource, matrixPosX, matrixPosY, pointSize, xDim, yDim, zDim);
+            Scatterplot scatterplot = Instantiate(scatterplotPrefab, transform).GetComponent<Scatterplot>();
+            scatterplot.Initialize(dataSource, matrixPosX, matrixPosY, pointSize, xDim, yDim, zDim);
+            scatterplots[i] = scatterplot;
+
             yield return null;
         }
     }
@@ -62,6 +66,14 @@ public class ScatterplotMatrix : MonoBehaviour
         }
 
         return result;
+    }
+
+    public void SelectDataPoint(int index)
+    {
+        foreach (Scatterplot scatterplot in scatterplots)
+        {
+            scatterplot.SelectDataPoint(index);
+        }
     }
 }
 
