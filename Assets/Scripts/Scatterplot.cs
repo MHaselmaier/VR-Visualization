@@ -7,17 +7,17 @@ public class Scatterplot : MonoBehaviour
 {
     public CSVDataSource dataSource;
     public float pointSize;
-    public int x, y, z;
+    public int xDim, yDim, zDim;
 
     private GameObject[] points;
 
-    public void Initialize(CSVDataSource dataSource, GameObject parent, float matrixPosX, float matrixPosY, float pointSize, int x, int y, int z)
+    public void Initialize(CSVDataSource dataSource, float matrixPosX, float matrixPosY, float pointSize, int xDim, int yDim, int zDim)
     {
         this.dataSource = dataSource;
         this.pointSize = pointSize;
-        this.x = x;
-        this.y = y;
-        this.z = z;
+        this.xDim = xDim;
+        this.yDim = yDim;
+        this.zDim = zDim;
 
         float posOffset = 1;
 
@@ -28,18 +28,20 @@ public class Scatterplot : MonoBehaviour
 
     private void InitializeAxesLabel()
     {
-        gameObject.GetComponentInChildrenWithTag<TextMesh>("X Axis Label").text = dataSource[x].Identifier;
-        gameObject.GetComponentInChildrenWithTag<TextMesh>("Y Axis Label").text = dataSource[y].Identifier;
-        gameObject.GetComponentInChildrenWithTag<TextMesh>("Z Axis Label").text = dataSource[z].Identifier;
+        gameObject.GetComponentInChildrenWithTag<TextMesh>("X Axis Label").text = dataSource[xDim].Identifier;
+        gameObject.GetComponentInChildrenWithTag<TextMesh>("Y Axis Label").text = dataSource[yDim].Identifier;
+        gameObject.GetComponentInChildrenWithTag<TextMesh>("Z Axis Label").text = dataSource[zDim].Identifier;
     }
 
     private void CreateDataPoints()
     {
-        points = new GameObject[dataSource.DataCount];   
+        GameObject pointPrefab = Resources.Load<GameObject>("Prefabs/DataPoint");
+
+        points = new GameObject[dataSource.DataCount];
         for (int i = 0; dataSource.DataCount > i; ++i)
         {
-            Vector3 position = new Vector3(dataSource[x].Data[i], dataSource[y].Data[i], dataSource[z].Data[i]);
-            GameObject point = Instantiate(Resources.Load<GameObject>("Prefabs/DataPoint"), transform);
+            Vector3 position = new Vector3(dataSource[xDim].Data[i], dataSource[yDim].Data[i], dataSource[zDim].Data[i]);
+            GameObject point = Instantiate(pointPrefab, transform);
             point.GetComponent<DataPoint>().Initialize(i, pointSize, position);
             points[i] = point;
         }

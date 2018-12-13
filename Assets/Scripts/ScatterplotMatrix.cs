@@ -17,21 +17,29 @@ public class ScatterplotMatrix : MonoBehaviour
         CreateScatterplots();
     }
 
-    public void CreateScatterplots()
+    private void CreateScatterplots()
     {
-        int[,] dimensionCombinations = CalculateDimensionCombinations();
-        int matrixWidth = (int)(Mathf.Sqrt(dimensionCombinations.GetLength(0)) + 1);
-        for (int i = 0; dimensionCombinations.GetLength(0) > i; ++i)
+        GameObject scatterplotPrefab = Resources.Load("Prefabs/Scatterplot") as GameObject;
+        int[,] dimCombinations = CalculateDimensionCombinations();
+        int matrixWidth = (int)(Mathf.Sqrt(dimCombinations.GetLength(0)) + 1);
+        
+        StartCoroutine(CreateScatterplotsCoroutine(scatterplotPrefab, dimCombinations, matrixWidth));
+    }
+
+    IEnumerator CreateScatterplotsCoroutine(GameObject scatterplotPrefab, int[,] dimCombinations, int matrixWidth)
+    {
+        for (int i = 0; dimCombinations.GetLength(0) > i; ++i)
         {
             int matrixPosX = i % matrixWidth;
             int matrixPosY = i / matrixWidth;
-            int x = dimensionCombinations[i, 0];
-            int y = dimensionCombinations[i, 1];
-            int z = dimensionCombinations[i, 2];
+            int xDim = dimCombinations[i, 0];
+            int yDim = dimCombinations[i, 1];
+            int zDim = dimCombinations[i, 2];
 
-            Instantiate(Resources.Load<GameObject>("Prefabs/Scatterplot"), transform)
+            Instantiate(scatterplotPrefab, transform)
                 .GetComponent<Scatterplot>()
-                .Initialize(dataSource, gameObject, matrixPosX, matrixPosY, pointSize, x, y, z);
+                .Initialize(dataSource, matrixPosX, matrixPosY, pointSize, xDim, yDim, zDim);
+            yield return null;
         }
     }
 

@@ -21,9 +21,9 @@ public class DataPoint : MonoBehaviour
     public string[,] GetData()
     {
         CSVDataSource dataSource = scatterplot.dataSource;
-        int xDim = scatterplot.x;
-        int yDim = scatterplot.y;
-        int zDim = scatterplot.z;
+        int xDim = scatterplot.xDim;
+        int yDim = scatterplot.yDim;
+        int zDim = scatterplot.zDim;
 
         string[,] data = new string[3, 2];
 
