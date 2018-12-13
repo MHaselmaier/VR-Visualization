@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 using System.Linq;
+using System.Globalization;
 
 namespace IATK
 {
@@ -351,7 +352,13 @@ namespace IATK
                                     case DataType.Float:
                                         {
                                             double result = 0.0f;
-                                            double.TryParse(cleanedValue, out result);
+
+                                            // changed the parsing of floats to support comma and dot as decimal point
+                                            // copied from: https://stackoverflow.com/a/19678636
+                                            //double.TryParse(cleanedValue, out result);
+                                            cleanedValue = cleanedValue.Replace(',', '.');
+                                            double.TryParse(cleanedValue, NumberStyles.Any, CultureInfo.InvariantCulture, out result);
+
                                             dataArray[i - 1, k] = (float)result;
                                             break;
                                         }
