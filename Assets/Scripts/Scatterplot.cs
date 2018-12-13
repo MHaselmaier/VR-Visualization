@@ -57,15 +57,4 @@ public class Scatterplot : MonoBehaviour
             point.transform.position /= scaleFactor;
         }
     }
-
-    public string GetData(int index)
-    {
-        string data = "";
-
-        for (int dimension = 0; dataSource.DimensionCount > dimension; ++dimension)
-        {
-            data += dataSource[dimension].Identifier + ": " + dataSource.getOriginalValue(dataSource[dimension].Data[index], dataSource[dimension].Identifier) + ", ";
-        }
-        return  data + "Index: " + index;
-    }
 }
