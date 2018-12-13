@@ -82,6 +82,10 @@ public class ControllerPointerEventListener : MonoBehaviour
         print(data[0, 0] + ": " + data[0, 1]);
         print(data[1, 0] + ": " + data[1, 1]);
         print(data[2, 0] + ": " + data[2, 1]);
+
+        var go = Instantiate(Resources.Load("Prefabs/AttributeDialog"), dataPoint.gameObject.transform.position, Quaternion.identity) as GameObject;
+        var canvas = dataPoint.gameObject.AddComponent<Canvas>();
+        go.transform.SetParent(canvas.transform, false);
     }
 
     private void DoPointerOut(object sender, DestinationMarkerEventArgs e)

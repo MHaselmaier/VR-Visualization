@@ -24,7 +24,7 @@ public class AttributeDialog : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		SetVisible(false);
+		//SetVisible(false);
 		this.attribute1 = GameObject.Find("label_attribute_1").GetComponent<Text>();
 		this.attribute2 = GameObject.Find("label_attribute_2").GetComponent<Text>();
 		this.attribute3 = GameObject.Find("label_attribute_3").GetComponent<Text>();
