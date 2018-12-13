@@ -1,4 +1,5 @@
 ﻿using IATK;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,6 +17,23 @@ public class DataPoint : MonoBehaviour
         transform.position = position;
 
         scatterplot = transform.parent.GetComponent<Scatterplot>();
+        
+        initTextMeshes();
+        ShowText(false);
+    }
+
+    private void initTextMeshes(){
+        var data = GetData();
+
+        gameObject.GetComponentInChildrenWithTag<TextMesh>("Attribute1").text = String.Format("{0}:{1}", data[0,0], data[0,1]);
+        gameObject.GetComponentInChildrenWithTag<TextMesh>("Attribute2").text = String.Format("{0}:{1}", data[1,0], data[2,1]);
+        gameObject.GetComponentInChildrenWithTag<TextMesh>("Attribute3").text = String.Format("{0}:{1}", data[2,0], data[2,1]);
+    }
+
+    public void ShowText(bool show){
+        gameObject.GetComponentInChildrenWithTag<TextMesh>("Attribute1").gameObject.SetActive(show);
+        gameObject.GetComponentInChildrenWithTag<TextMesh>("Attribute2").gameObject.SetActive(show);
+        gameObject.GetComponentInChildrenWithTag<TextMesh>("Attribute3").gameObject.SetActive(show);
     }
     
     public string[,] GetData()
@@ -37,5 +55,11 @@ public class DataPoint : MonoBehaviour
         data[2, 1] = dataSource.getOriginalValue(dataSource[zDim].Data[index], dataSource[zDim].Identifier).ToString();
 
         return data;
+    }
+
+    public void Select()
+    {
+        ScatterplotMatrix scatterplotMatrix = scatterplot.GetComponentInParent<ScatterplotMatrix>();
+        scatterplotMatrix.SelectDataPoint(index);
     }
 }

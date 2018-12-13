@@ -9,9 +9,9 @@ public class Scatterplot : MonoBehaviour
     public float pointSize;
     public int xDim, yDim, zDim;
 
-    private GameObject[] points;
+    private DataPoint[] dataPoints;
 
-    public void Initialize(CSVDataSource dataSource, float matrixPosX, float matrixPosY, float pointSize, int xDim, int yDim, int zDim)
+    public void Initialize(CSVDataSource dataSource, float matrixPosX, float matrixPosZ, float pointSize, int xDim, int yDim, int zDim)
     {
         this.dataSource = dataSource;
         this.pointSize = pointSize;
@@ -23,7 +23,7 @@ public class Scatterplot : MonoBehaviour
 
         InitializeAxesLabel();
         CreateDataPoints();
-        transform.Translate(new Vector3(matrixPosX + posOffset * matrixPosX, matrixPosY + posOffset * matrixPosY));
+        transform.Translate(new Vector3(matrixPosX + posOffset * matrixPosX, 0, matrixPosZ + posOffset * matrixPosZ));
     }
 
     private void InitializeAxesLabel()
@@ -37,13 +37,28 @@ public class Scatterplot : MonoBehaviour
     {
         GameObject pointPrefab = Resources.Load<GameObject>("Prefabs/DataPoint");
 
-        points = new GameObject[dataSource.DataCount];
+        dataPoints = new DataPoint[dataSource.DataCount];
         for (int i = 0; dataSource.DataCount > i; ++i)
         {
             Vector3 position = new Vector3(dataSource[xDim].Data[i], dataSource[yDim].Data[i], dataSource[zDim].Data[i]);
-            GameObject point = Instantiate(pointPrefab, transform);
-            point.GetComponent<DataPoint>().Initialize(i, pointSize, position);
-            points[i] = point;
+            DataPoint dataPoint = Instantiate(pointPrefab, transform).GetComponent<DataPoint>();
+            dataPoint.Initialize(i, pointSize, position);
+            dataPoints[i] = dataPoint;
+        }
+    }
+
+    public void SelectDataPoint(int index)
+    {
+        foreach (DataPoint dataPoint in dataPoints)
+        {
+            if (dataPoint.index == index)
+            {
+                dataPoint.GetComponent<Renderer>().material.color = Color.red;
+            }
+            else
+            {
+                dataPoint.GetComponent<Renderer>().material.color = Color.white;
+            }
         }
     }
 }

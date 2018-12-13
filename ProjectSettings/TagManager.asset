@@ -11,6 +11,11 @@ TagManager:
   - X Axis Label
   - Y Axis Label
   - Z Axis Label
+  - View
+  - Undefined
+  - Attribute1
+  - Attribute2
+  - Attribute3
   layers:
   - Default
   - TransparentFX
