@@ -27,25 +27,24 @@ public class ControllerPointerEventListener : MonoBehaviour
 
     private void DoPointerIn(object sender, DestinationMarkerEventArgs e)
     {
-        print("IN: " + e.target.tag);
         switch (e.target.tag)
         {
         case "Scatterplot":
-            HandleScatterplotDoPointerIn(e.target);
+            HandleScatterplotDoPointerIn(e.target.GetComponent<Scatterplot>());
             break;
         case "DataPoint":
-            HandleDataPointDoPointerIn(e.target);
+            HandleDataPointDoPointerIn(e.target.GetComponent<DataPoint>());
             break;
         }
     }
 
-    private void HandleScatterplotDoPointerIn(Transform scatterplot)
+    private void HandleScatterplotDoPointerIn(Scatterplot scatterplot)
     {
-        Transform scatterplotMatrix = scatterplot.parent;
+        Transform scatterplotMatrix = scatterplot.transform.parent;
         ResetPreviouslyActiveScatterplotColliders(scatterplotMatrix);
 
         scatterplot.GetComponent<BoxCollider>().enabled = false;
-        foreach (Transform dataPoint in scatterplot)
+        foreach (Transform dataPoint in scatterplot.transform)
         {
             SphereCollider collider = dataPoint.GetComponent<SphereCollider>();
             if (null != collider)
@@ -77,34 +76,31 @@ public class ControllerPointerEventListener : MonoBehaviour
         }
     }
 
-    private void HandleDataPointDoPointerIn(Transform dataPoint)
+    private void HandleDataPointDoPointerIn(DataPoint dataPoint)
     {
-        print("Selected DataPoint");
+        print(dataPoint.GetScatterplot().GetData(dataPoint.index));
     }
 
     private void DoPointerOut(object sender, DestinationMarkerEventArgs e)
     {
-        print("Out: " + e.target.tag);
         switch (e.target.tag)
         {
         case "DataPoint":
-            HandleDataPointDoPointerOut(e.target);
+            HandleDataPointDoPointerOut(e.target.GetComponent<DataPoint>());
             break;
         }
     }
 
-    private void HandleDataPointDoPointerOut(Transform dataPoint)
+    private void HandleDataPointDoPointerOut(DataPoint dataPoint)
     {
-        print("Deselected DataPoint");
+
     }
 
     private void DoPointerHover(object sender, DestinationMarkerEventArgs e)
     {
-        //print("HOVER: " + e.target.name);
     }
 
     private void DoPointerDestinationSet(object sender, DestinationMarkerEventArgs e)
     {
-        //print("DESTINATION: " + e.target.name);
     }
 }

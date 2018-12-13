@@ -168,7 +168,7 @@ namespace IATK
             if (meta.type == DataType.String)
             {
                 normValue = normaliseValue(valueClosestTo(this[identifier].Data, normalisedValue), 0f, 1f, meta.minValue, meta.maxValue);
-                return textualDimensionsList[identifier][(int)normValue]; // textualDimensions[(int)normValue];
+                return textualDimensionsList[identifier][(int)Mathf.Round(normValue)]; // textualDimensions[(int)normValue];
             }
             else return normValue;
         }

@@ -33,9 +33,9 @@ public class Scatterplot : MonoBehaviour
         
         for (int i = 0; dataSource.DataCount > i; ++i)
         {
+            Vector3 position = new Vector3(dataSource[x].Data[i], dataSource[y].Data[i], dataSource[z].Data[i]);
             GameObject point = Instantiate(Resources.Load<GameObject>("Prefabs/DataPoint"), transform);
-            point.transform.localScale = Vector3.one * pointSize;
-            point.transform.position = new Vector3(dataSource[x].Data[i], dataSource[y].Data[i], dataSource[z].Data[i]);
+            point.GetComponent<DataPoint>().Initialize(i, pointSize, position);
             points[i] = point;
 
             boundingBoxMin = Vector3.Min(boundingBoxMin, point.transform.position);
@@ -58,11 +58,14 @@ public class Scatterplot : MonoBehaviour
         }
     }
 
-	void Update()
+    public string GetData(int index)
     {
-        foreach (GameObject point in points)
+        string data = "";
+
+        for (int dimension = 0; dataSource.DimensionCount > dimension; ++dimension)
         {
-            point.transform.rotation = Camera.main.transform.rotation;
+            data += dataSource[dimension].Identifier + ": " + dataSource.getOriginalValue(dataSource[dimension].Data[index], dataSource[dimension].Identifier) + ", ";
         }
+        return  data + "Index: " + index;
     }
 }
