@@ -8,6 +8,9 @@ TagManager:
   - ScatterplotMatrix
   - Scatterplot
   - DataPoint
+  - X Axis Label
+  - Y Axis Label
+  - Z Axis Label
   layers:
   - Default
   - TransparentFX

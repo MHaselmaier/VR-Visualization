@@ -21,8 +21,16 @@ public class Scatterplot : MonoBehaviour
 
         float posOffset = 1;
 
+        InitializeAxesLabel();
         CreateDataPoints();
         transform.Translate(new Vector3(matrixPosX + posOffset * matrixPosX, matrixPosY + posOffset * matrixPosY));
+    }
+
+    private void InitializeAxesLabel()
+    {
+        gameObject.GetComponentInChildrenWithTag<TextMesh>("X Axis Label").text = dataSource[x].Identifier;
+        gameObject.GetComponentInChildrenWithTag<TextMesh>("Y Axis Label").text = dataSource[y].Identifier;
+        gameObject.GetComponentInChildrenWithTag<TextMesh>("Z Axis Label").text = dataSource[z].Identifier;
     }
 
     private void CreateDataPoints()
