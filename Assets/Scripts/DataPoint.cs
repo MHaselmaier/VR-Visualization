@@ -25,9 +25,9 @@ public class DataPoint : MonoBehaviour
     private void initTextMeshes(){
         var data = GetData();
 
-        gameObject.GetComponentInChildrenWithTag<TextMesh>("Attribute1").text = String.Format("{0}:{1}", data[0,0], data[0,1]);
-        gameObject.GetComponentInChildrenWithTag<TextMesh>("Attribute2").text = String.Format("{0}:{1}", data[1,0], data[2,1]);
-        gameObject.GetComponentInChildrenWithTag<TextMesh>("Attribute3").text = String.Format("{0}:{1}", data[2,0], data[2,1]);
+        gameObject.GetComponentInChildrenWithTag<TextMesh>("Attribute1").text = String.Format("{0}: {1}", data[0,0], data[0,1]);
+        gameObject.GetComponentInChildrenWithTag<TextMesh>("Attribute2").text = String.Format("{0}: {1}", data[1,0], data[2,1]);
+        gameObject.GetComponentInChildrenWithTag<TextMesh>("Attribute3").text = String.Format("{0}: {1}", data[2,0], data[2,1]);
     }
 
     public void ShowText(bool show){

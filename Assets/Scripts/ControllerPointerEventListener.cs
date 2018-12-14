@@ -76,13 +76,7 @@ public class ControllerPointerEventListener : MonoBehaviour
 
     private void HandleDataPointDoPointerIn(DataPoint dataPoint)
     {
-        string[,] data = dataPoint.GetData();
-        print(data[0, 0] + ": " + data[0, 1]);
-        print(data[1, 0] + ": " + data[1, 1]);
-        print(data[2, 0] + ": " + data[2, 1]);
         dataPoint.Select();
-
-        dataPoint.ShowText(true);
     }
 
     private void DoPointerOut(object sender, DestinationMarkerEventArgs e)

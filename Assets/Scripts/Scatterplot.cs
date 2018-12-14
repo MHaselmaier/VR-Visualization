@@ -54,10 +54,12 @@ public class Scatterplot : MonoBehaviour
             if (dataPoint.index == index)
             {
                 dataPoint.GetComponent<Renderer>().material.color = Color.red;
+                dataPoint.ShowText(true);
             }
             else
             {
                 dataPoint.GetComponent<Renderer>().material.color = Color.white;
+                dataPoint.ShowText(false);
             }
         }
     }
