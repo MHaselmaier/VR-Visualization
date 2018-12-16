@@ -63,4 +63,23 @@ public class Scatterplot : MonoBehaviour
             }
         }
     }
+
+    protected void OnMVRWandEnter(VRSelection iSelection)
+    {
+        foreach (Transform scatterplot in transform.parent)
+        {
+            Collider collider = scatterplot.GetComponent<BoxCollider>();
+            bool previouslySelected = !collider.enabled;
+
+            collider.enabled = previouslySelected;
+            foreach (Transform dataPoint in scatterplot)
+            {
+                collider = dataPoint.GetComponent<SphereCollider>();
+                if (null != collider)
+                {
+                    collider.enabled = !previouslySelected;
+                }
+            }
+        }
+    }
 }

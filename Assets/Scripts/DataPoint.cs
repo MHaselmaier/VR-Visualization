@@ -9,6 +9,7 @@ public class DataPoint : MonoBehaviour
     public int index = -1;
 
     private Scatterplot scatterplot;
+    private GameObject attributes;
 
     public void Initialize(int index, float pointSize, Vector3 position)
     {
@@ -17,23 +18,55 @@ public class DataPoint : MonoBehaviour
         transform.position = position;
 
         scatterplot = transform.parent.GetComponent<Scatterplot>();
-        
+        attributes = transform.Find("Attributes").gameObject;
+
         initTextMeshes();
         ShowText(false);
     }
 
-    private void initTextMeshes(){
+    private void initTextMeshes()
+    {
         var data = GetData();
 
-        gameObject.GetComponentInChildrenWithTag<TextMesh>("Attribute1").text = String.Format("{0}: {1}", data[0,0], data[0,1]);
-        gameObject.GetComponentInChildrenWithTag<TextMesh>("Attribute2").text = String.Format("{0}: {1}", data[1,0], data[2,1]);
-        gameObject.GetComponentInChildrenWithTag<TextMesh>("Attribute3").text = String.Format("{0}: {1}", data[2,0], data[2,1]);
+        TextMesh attribute1 = attributes.GetComponentInChildrenWithTag<TextMesh>("Attribute1");
+        TextMesh attribute2 = attributes.GetComponentInChildrenWithTag<TextMesh>("Attribute2");
+        TextMesh attribute3 = attributes.GetComponentInChildrenWithTag<TextMesh>("Attribute3");
+
+        attribute1.text = String.Format("{0}: {1}", data[0,0], data[0,1]);
+        attribute2.text = String.Format("{0}: {1}", data[1,0], data[2,1]);
+        attribute3.text = String.Format("{0}: {1}", data[2,0], data[2,1]);
+        
+        Transform background = attributes.transform.Find("Background");
+        Vector3 newScale = background.localScale;
+        newScale.x = Mathf.Max(GetTextMeshWidth(attribute1), GetTextMeshWidth(attribute2), GetTextMeshWidth(attribute3));
+        background.localScale = newScale;
+
+        Vector3 newPosition = background.localPosition;
+        newPosition.x = attribute3.transform.localPosition.x + background.localScale.x / 2f;
+        background.localPosition = newPosition;
     }
 
-    public void ShowText(bool show){
-        gameObject.GetComponentInChildrenWithTag<TextMesh>("Attribute1").gameObject.SetActive(show);
+    private float GetTextMeshWidth(TextMesh mesh)
+    {
+        // from http://answers.unity.com/comments/1072098/view.html
+        float width = 0;
+        foreach (char symbol in mesh.text)
+        {
+            CharacterInfo info;
+            if (mesh.font.GetCharacterInfo(symbol, out info, mesh.fontSize, mesh.fontStyle))
+            {
+                width += info.advance;
+            }
+        }
+        return width * mesh.characterSize * 0.1f * mesh.transform.localScale.x;
+    }
+
+    public void ShowText(bool show)
+    {
+        attributes.SetActive(show);
+        /*gameObject.GetComponentInChildrenWithTag<TextMesh>("Attribute1").gameObject.SetActive(show);
         gameObject.GetComponentInChildrenWithTag<TextMesh>("Attribute2").gameObject.SetActive(show);
-        gameObject.GetComponentInChildrenWithTag<TextMesh>("Attribute3").gameObject.SetActive(show);
+        gameObject.GetComponentInChildrenWithTag<TextMesh>("Attribute3").gameObject.SetActive(show);*/
     }
     
     public string[,] GetData()
@@ -57,7 +90,7 @@ public class DataPoint : MonoBehaviour
         return data;
     }
 
-    public void Select()
+    protected void VRAction(VRSelection iSelection)
     {
         ScatterplotMatrix scatterplotMatrix = scatterplot.GetComponentInParent<ScatterplotMatrix>();
         scatterplotMatrix.SelectDataPoint(index);
