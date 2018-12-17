@@ -14,10 +14,6 @@ public class LookAtCamera : MonoBehaviour
                 Vector3 lookDir = transform.position - head.transform.position;
                 transform.rotation = Quaternion.LookRotation(lookDir);
             }
-            else
-            {
-                print(null);
-            }
         }
     }
 }
