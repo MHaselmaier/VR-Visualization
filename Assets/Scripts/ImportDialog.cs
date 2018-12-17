@@ -17,6 +17,7 @@ public class ImportDialog : MonoBehaviour {
 	Text labelFieldLabelCell;
 	Dropdown fieldLabelCell;
 	Button buttonImport;
+    vrJoystick joy;
 
 	private string csvDirectoryName = "Datasets";
 	private string csvDataDirectory;
@@ -59,14 +60,22 @@ public class ImportDialog : MonoBehaviour {
 		this.buttonImport = GameObject.Find("button_import").GetComponent<Button>();
 		this.buttonImport.onClick.AddListener(onButtonImportClicked);
 
+        this.joy = MiddleVR.VRDeviceMgr.GetJoystickByIndex(0);
 	}
-
+    
 	// Update is called once per frame
 	void Update () {
-		if(Input.GetKeyDown(KeyCode.X)){
+		if(joy.IsButtonPressed(3)){
 			setVisible(!renderer.enabled);
-		}	
-	}
+		}
+
+        if (renderer.enabled)
+        {
+            GameObject head = GameObject.Find("HeadNode");
+            transform.position = head.transform.position + head.transform.forward * 10;
+            transform.rotation = Quaternion.LookRotation(transform.position - head.transform.position);
+        }
+    }
 
 	void setVisible(bool value){
 		renderer.enabled = value;
