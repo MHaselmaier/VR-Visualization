@@ -9,17 +9,19 @@ public class ImportDialog : MonoBehaviour {
 
 	public Visualizer visualizer;
 
-	Canvas renderer;
-	Dropdown inputFiles;
-	Dropdown dataFieldFrom;
-	Dropdown dataFieldTo;
-	Toggle hasFieldLabel;
-	Text labelFieldLabelCell;
-	Dropdown fieldLabelCell;
-	Button buttonImport;
-    vrJoystick joy;
+	private Canvas renderer;
+    private Dropdown inputFiles;
+    private Dropdown dataFieldFrom;
+    private Dropdown dataFieldTo;
+    private Toggle hasFieldLabel;
+    private Text labelFieldLabelCell;
+    private Dropdown fieldLabelCell;
+    private Button buttonImport;
 
-	private string csvDirectoryName = "Datasets";
+    private vrJoystick joy;
+    private bool lastFramePressed = false;
+
+    private string csvDirectoryName = "Datasets";
 	private string csvDataDirectory;
 
 	// Use this for initialization
@@ -62,17 +64,19 @@ public class ImportDialog : MonoBehaviour {
 
         this.joy = MiddleVR.VRDeviceMgr.GetJoystickByIndex(0);
 	}
-    
+
 	// Update is called once per frame
 	void Update () {
-		if(joy.IsButtonPressed(3)){
+        bool pressed = joy.IsButtonPressed(3);
+		if(pressed && !lastFramePressed){
 			setVisible(!renderer.enabled);
 		}
+        lastFramePressed = pressed;
 
         if (renderer.enabled)
         {
             GameObject head = GameObject.Find("HeadNode");
-            transform.position = head.transform.position + head.transform.forward * 10;
+            transform.position = head.transform.position + head.transform.forward * 7;
             transform.rotation = Quaternion.LookRotation(transform.position - head.transform.position);
         }
     }

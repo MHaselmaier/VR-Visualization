@@ -12,6 +12,11 @@ public class Visualizer : MonoBehaviour
     {    
         if (File.Exists(filePath))
         {
+            foreach (Transform scatterplotMatrix in transform)
+            {
+                GameObject.Destroy(scatterplotMatrix.gameObject);
+            }
+
             CSVDataSource dataSource = new CSVDataSource();
             dataSource.load(File.ReadAllText(filePath), null);
                 

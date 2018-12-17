@@ -33,8 +33,8 @@ public class ScatterplotMatrix : MonoBehaviour
     {
         for (int i = 0; dimCombinations.GetLength(0) > i; ++i)
         {
-            int matrixPosX = i % matrixWidth;
-            int matrixPosZ = i / matrixWidth;
+            int matrixPosX = i % matrixWidth * 2;
+            int matrixPosZ = i / matrixWidth * 2;
             int xDim = dimCombinations[i, 0];
             int yDim = dimCombinations[i, 1];
             int zDim = dimCombinations[i, 2];
@@ -43,8 +43,12 @@ public class ScatterplotMatrix : MonoBehaviour
             scatterplot.Initialize(dataSource, matrixPosX, matrixPosZ, pointSize, xDim, yDim, zDim);
             scatterplots[i] = scatterplot;
 
+            scatterplot.transform.localScale += Vector3.one;
+
             yield return null;
         }
+
+        transform.localScale = Vector3.one * 2;
     }
 
     private int[,] CalculateDimensionCombinations()

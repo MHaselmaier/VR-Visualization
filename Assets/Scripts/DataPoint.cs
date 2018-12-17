@@ -33,7 +33,7 @@ public class DataPoint : MonoBehaviour
         TextMesh attribute3 = attributes.GetComponentInChildrenWithTag<TextMesh>("Attribute3");
 
         attribute1.text = String.Format("{0}: {1}", data[0,0], data[0,1]);
-        attribute2.text = String.Format("{0}: {1}", data[1,0], data[2,1]);
+        attribute2.text = String.Format("{0}: {1}", data[1,0], data[1,1]);
         attribute3.text = String.Format("{0}: {1}", data[2,0], data[2,1]);
         
         Transform background = attributes.transform.Find("Background");
@@ -64,9 +64,6 @@ public class DataPoint : MonoBehaviour
     public void ShowText(bool show)
     {
         attributes.SetActive(show);
-        /*gameObject.GetComponentInChildrenWithTag<TextMesh>("Attribute1").gameObject.SetActive(show);
-        gameObject.GetComponentInChildrenWithTag<TextMesh>("Attribute2").gameObject.SetActive(show);
-        gameObject.GetComponentInChildrenWithTag<TextMesh>("Attribute3").gameObject.SetActive(show);*/
     }
     
     public string[,] GetData()
