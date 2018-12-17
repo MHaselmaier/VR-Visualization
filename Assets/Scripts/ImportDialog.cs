@@ -4,12 +4,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class ImportDialog : MonoBehaviour {
 
 	public Visualizer visualizer;
 
 	private Canvas renderer;
+    private GameObject panel;
+    private BoxCollider collider;
     private Dropdown inputFiles;
     private Dropdown dataFieldFrom;
     private Dropdown dataFieldTo;
@@ -27,7 +30,8 @@ public class ImportDialog : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		renderer = this.gameObject.GetComponent<Canvas>();
-		setVisible(false);
+        this.collider = this.gameObject.GetComponent<BoxCollider>();
+        this.panel = GameObject.Find("Panel");
 
 		this.csvDataDirectory = Application.dataPath;
 		this.csvDataDirectory = Path.Combine(csvDataDirectory, csvDirectoryName);
@@ -63,6 +67,7 @@ public class ImportDialog : MonoBehaviour {
 		this.buttonImport.onClick.AddListener(onButtonImportClicked);
 
         this.joy = MiddleVR.VRDeviceMgr.GetJoystickByIndex(0);
+		setVisible(false);
 	}
 
 	// Update is called once per frame
@@ -83,6 +88,8 @@ public class ImportDialog : MonoBehaviour {
 
 	void setVisible(bool value){
 		renderer.enabled = value;
+        collider.enabled = value;
+        panel.SetActive(value);
 	}
 
 	void onHasFieldLabelChanged(bool value){
