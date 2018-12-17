@@ -47,8 +47,6 @@ public class ScatterplotMatrix : MonoBehaviour
 
             yield return null;
         }
-
-        transform.localScale = Vector3.one * 2;
     }
 
     private int[,] CalculateDimensionCombinations()
