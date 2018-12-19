@@ -11,18 +11,17 @@ public class ScatterplotMatrix : MonoBehaviour
 
     private Scatterplot[] scatterplots;
 
-    public void Initialize(CSVDataSource dataSource, float pointSize)
+    public void Initialize(CSVDataSource dataSource, int[,] dimCombinations, float pointSize)
     {
         this.dataSource = dataSource;
         this.pointSize = pointSize;
 
-        CreateScatterplots();
+        CreateScatterplots(dimCombinations);
     }
 
-    private void CreateScatterplots()
+    private void CreateScatterplots(int[,] dimCombinations)
     {
         GameObject scatterplotPrefab = Resources.Load("Prefabs/Scatterplot") as GameObject;
-        int[,] dimCombinations = CalculateDimensionCombinations();
         int matrixWidth = (int)(Mathf.Sqrt(dimCombinations.GetLength(0)) + 1);
 
         scatterplots = new Scatterplot[dimCombinations.GetLength(0)];
@@ -49,43 +48,11 @@ public class ScatterplotMatrix : MonoBehaviour
         }
     }
 
-    private int[,] CalculateDimensionCombinations()
-    {
-        int[] indices = new int[dataSource.DimensionCount];
-        for (int i = 0; dataSource.DimensionCount > i; ++i)
-        {
-            indices[i] = i;
-        }
-
-        IEnumerable<int>[] combinations = indices.Combinations(3).ToArray();
-        int[,] result = new int[combinations.GetLength(0), 3];
-        for (int i = 0; combinations.GetLength(0) > i; ++i)
-        {
-            for (int j = 0; 3 > j; ++j)
-            {
-                result[i, j] = combinations[i].ToArray()[j];
-            }
-        }
-
-        return result;
-    }
-
     public void SelectDataPoint(int index)
     {
         foreach (Scatterplot scatterplot in scatterplots)
         {
             scatterplot.SelectDataPoint(index);
         }
-    }
-}
-
-static class Extension
-{
-    // Copied from https://stackoverflow.com/a/1898744
-    public static IEnumerable<IEnumerable<T>> Combinations<T>(this IEnumerable<T> elements, int k)
-    {
-        return k == 0 ? new[] { new T[0] } :
-            elements.SelectMany((e, i) =>
-                elements.Skip(i + 1).Combinations(k - 1).Select(c => (new[] { e }).Concat(c)));
     }
 }
