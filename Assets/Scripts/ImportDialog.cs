@@ -19,6 +19,8 @@ public class ImportDialog : MonoBehaviour {
     private Dropdown inputFiles;
     private GameObject toggleList;
     private Scrollbar scrollbar;
+    private Button selectAll;
+    private Button deselectAll;
     private Button buttonImport;
 
     private vrButtons wandButtons;
@@ -52,7 +54,12 @@ public class ImportDialog : MonoBehaviour {
         this.toggleList = GameObject.Find("toggle_list");
         this.scrollbar = GameObject.Find("scrollbar").GetComponent<Scrollbar>();
 
-		this.buttonImport = GameObject.Find("button_import").GetComponent<Button>();
+        this.selectAll = GameObject.Find("button_select_all").GetComponent<Button>();
+        this.selectAll.onClick.AddListener(OnSelectAll);
+        this.deselectAll = GameObject.Find("button_deselect_all").GetComponent<Button>();
+        this.deselectAll.onClick.AddListener(OnDeselectAll);
+
+        this.buttonImport = GameObject.Find("button_import").GetComponent<Button>();
 		this.buttonImport.onClick.AddListener(onButtonImportClicked);
 
         this.wandButtons = MiddleVR.VRDeviceMgr.GetJoystickByIndex(0).GetButtonsDevice();
@@ -116,6 +123,22 @@ public class ImportDialog : MonoBehaviour {
         collider.enabled = value;
         panel.SetActive(value);
 	}
+
+    void OnSelectAll()
+    {
+        for (int i = 0; this.toggleList.transform.childCount > i; ++i)
+        {
+            this.toggleList.transform.GetChild(i).GetComponent<Toggle>().isOn = true;
+        }
+    }
+
+    void OnDeselectAll()
+    {
+        for (int i = 0; this.toggleList.transform.childCount > i; ++i)
+        {
+            this.toggleList.transform.GetChild(i).GetComponent<Toggle>().isOn = false;
+        }
+    }
 
 	void onButtonImportClicked(){
         List<int> scatterplotIndices = new List<int>();
