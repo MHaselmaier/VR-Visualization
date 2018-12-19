@@ -84,7 +84,7 @@ public class ImportDialog : MonoBehaviour {
         {
             GameObject toggle = Instantiate(scatterplotTogglePrefab, this.toggleList.transform) as GameObject;
             toggle.GetComponentInChildren<Text>().text = possibleScatterplots[possibility];
-            toggle.GetComponent<RectTransform>().SetPositionAndRotation(new Vector3(-200, -25 * possibility + 120) / 100, Quaternion.identity);
+            toggle.GetComponent<RectTransform>().anchoredPosition = (Vector3.down * 20 * possibility);
         }
         this.toggleList.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 20 * possibilities);
         
