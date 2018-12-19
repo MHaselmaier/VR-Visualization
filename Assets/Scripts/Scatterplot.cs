@@ -55,11 +55,13 @@ public class Scatterplot : MonoBehaviour
             {
                 dataPoint.GetComponent<Renderer>().material.color = Color.red;
                 dataPoint.ShowText(true);
+                dataPoint.transform.localScale = Vector3.one * 0.04f;
             }
             else
             {
                 dataPoint.GetComponent<Renderer>().material.color = Color.white;
                 dataPoint.ShowText(false);
+                dataPoint.transform.localScale = Vector3.one * 0.03f;
             }
         }
     }
