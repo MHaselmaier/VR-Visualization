@@ -21,8 +21,7 @@ public class ImportDialog : MonoBehaviour {
     private Scrollbar scrollbar;
     private Button buttonImport;
 
-    private vrJoystick joy;
-    private bool lastFramePressed = false;
+    private vrButtons wandButtons;
 
     private string csvDirectoryName = "Datasets";
 	private string csvDataDirectory;
@@ -56,7 +55,7 @@ public class ImportDialog : MonoBehaviour {
 		this.buttonImport = GameObject.Find("button_import").GetComponent<Button>();
 		this.buttonImport.onClick.AddListener(onButtonImportClicked);
 
-        this.joy = MiddleVR.VRDeviceMgr.GetJoystickByIndex(0);
+        this.wandButtons = MiddleVR.VRDeviceMgr.GetJoystickByIndex(0).GetButtonsDevice();
 		setVisible(false);
 
         // Call manually to trigger the loading of the CSV file
@@ -98,12 +97,11 @@ public class ImportDialog : MonoBehaviour {
         {
             this.scrollbar.size = 1;
         }
-
-        bool pressed = joy.IsButtonPressed(3);
-		if(pressed && !lastFramePressed){
+        
+        if(wandButtons.IsToggled(3))
+        {
 			setVisible(!renderer.enabled);
 		}
-        lastFramePressed = pressed;
 
         if (renderer.enabled)
         {
