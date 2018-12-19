@@ -101,9 +101,9 @@ public class ImportDialog : MonoBehaviour {
         {
             GameObject toggle = Instantiate(scatterplotTogglePrefab, this.toggleList.transform) as GameObject;
             toggle.GetComponentInChildren<Text>().text = possibleScatterplots[possibility];
-            toggle.GetComponent<RectTransform>().anchoredPosition = (Vector3.down * 20 * possibility);
+            toggle.GetComponent<RectTransform>().anchoredPosition = (Vector3.down * 25 * possibility);
         }
-        this.toggleList.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 20 * possibilities);
+        this.toggleList.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 25 * possibilities);
         
         this.scrollbar.value = 1;
     }
@@ -111,7 +111,7 @@ public class ImportDialog : MonoBehaviour {
     // Update is called once per frame
     void Update () {
 
-        if (10 >= this.toggleList.transform.childCount)
+        if (8 >= this.toggleList.transform.childCount)
         {
             this.scrollbar.size = 1;
         }
