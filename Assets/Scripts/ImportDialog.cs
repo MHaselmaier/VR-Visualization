@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEditor;
+using System;
 
 public class ImportDialog : MonoBehaviour {
 
@@ -22,6 +23,9 @@ public class ImportDialog : MonoBehaviour {
     private Button selectAll;
     private Button deselectAll;
     private Button buttonImport;
+    private Button decrement;
+    private Text pointSize;
+    private Button increment;
 
     private vrButtons wandButtons;
 
@@ -61,6 +65,13 @@ public class ImportDialog : MonoBehaviour {
 
         this.buttonImport = GameObject.Find("button_import").GetComponent<Button>();
 		this.buttonImport.onClick.AddListener(onButtonImportClicked);
+
+        this.decrement = GameObject.Find("button_decrement").GetComponent<Button>();
+        this.decrement.onClick.AddListener(onButtonDecrement);
+        this.pointSize = GameObject.Find("label_point_size_value").GetComponent<Text>();
+        this.pointSize.text = this.visualizer.pointSize.ToString();
+        this.increment = GameObject.Find("button_increment").GetComponent<Button>();
+        this.increment.onClick.AddListener(onButtonIncrement);
 
         this.wandButtons = MiddleVR.VRDeviceMgr.GetJoystickByIndex(0).GetButtonsDevice();
 		setVisible(false);
@@ -153,4 +164,16 @@ public class ImportDialog : MonoBehaviour {
 		this.visualizer.CreateScatterplotMatrix(scatterplotIndices.ToArray());
 		setVisible(false);
 	}
+
+    void onButtonDecrement()
+    {
+        this.visualizer.pointSize = (float)Math.Round(this.visualizer.pointSize - 0.01, 2);
+        this.pointSize.text = this.visualizer.pointSize.ToString();
+    }
+
+    void onButtonIncrement()
+    {
+        this.visualizer.pointSize = (float)Math.Round(this.visualizer.pointSize + 0.01, 2);
+        this.pointSize.text = this.visualizer.pointSize.ToString();
+    }
 }

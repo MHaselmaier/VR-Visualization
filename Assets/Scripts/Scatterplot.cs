@@ -6,7 +6,20 @@ using UnityEngine;
 public class Scatterplot : MonoBehaviour
 {
     public CSVDataSource dataSource;
-    public float pointSize;
+
+    private float _pointSize;
+    public float pointSize
+    {
+        get { return _pointSize; }
+        set
+        {
+            _pointSize = value;
+            foreach (DataPoint dataPoint in dataPoints)
+            {
+                dataPoint.pointSize = value;
+            }
+        }
+    }
     public int xDim, yDim, zDim;
 
     private DataPoint[] dataPoints;
@@ -55,13 +68,13 @@ public class Scatterplot : MonoBehaviour
             {
                 dataPoint.GetComponent<Renderer>().material.color = Color.red;
                 dataPoint.ShowText(true);
-                dataPoint.transform.localScale = Vector3.one * 0.04f;
+                dataPoint.pointSize = pointSize + 0.01f;
             }
             else
             {
                 dataPoint.GetComponent<Renderer>().material.color = Color.white;
                 dataPoint.ShowText(false);
-                dataPoint.transform.localScale = Vector3.one * 0.03f;
+                dataPoint.pointSize = pointSize;
             }
         }
     }

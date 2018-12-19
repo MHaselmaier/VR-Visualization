@@ -8,13 +8,24 @@ public class DataPoint : MonoBehaviour
 {
     public int index = -1;
 
+    private float _pointSize;
+    public float pointSize
+    {
+        get { return _pointSize; }
+        set
+        {
+            _pointSize = value;
+            transform.localScale = Vector3.one * value;
+        }
+    }
+
     private Scatterplot scatterplot;
     private GameObject attributes;
 
     public void Initialize(int index, float pointSize, Vector3 position)
     {
         this.index = index;
-        transform.localScale = Vector3.one * pointSize;
+        this.pointSize = pointSize;
         transform.position = position;
 
         scatterplot = transform.parent.GetComponent<Scatterplot>();
