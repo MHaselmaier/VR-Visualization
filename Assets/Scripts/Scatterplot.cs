@@ -41,9 +41,9 @@ public class Scatterplot : MonoBehaviour
 
     private void InitializeAxesLabel()
     {
-        gameObject.GetComponentInChildrenWithTag<TextMesh>("X Axis Label").text = dataSource[xDim].Identifier;
-        gameObject.GetComponentInChildrenWithTag<TextMesh>("Y Axis Label").text = dataSource[yDim].Identifier;
-        gameObject.GetComponentInChildrenWithTag<TextMesh>("Z Axis Label").text = dataSource[zDim].Identifier;
+        gameObject.transform.Find("X Axis").GetComponentInChildren<TextMesh>().text = dataSource[xDim].Identifier;
+        gameObject.transform.Find("Y Axis").GetComponentInChildren<TextMesh>().text = dataSource[yDim].Identifier;
+        gameObject.transform.Find("Z Axis").GetComponentInChildren<TextMesh>().text = dataSource[zDim].Identifier;
     }
 
     private void CreateDataPoints()

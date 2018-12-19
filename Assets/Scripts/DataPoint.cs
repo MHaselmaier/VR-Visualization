@@ -39,9 +39,9 @@ public class DataPoint : MonoBehaviour
     {
         var data = GetData();
 
-        TextMesh attribute1 = attributes.GetComponentInChildrenWithTag<TextMesh>("Attribute1");
-        TextMesh attribute2 = attributes.GetComponentInChildrenWithTag<TextMesh>("Attribute2");
-        TextMesh attribute3 = attributes.GetComponentInChildrenWithTag<TextMesh>("Attribute3");
+        TextMesh attribute1 = attributes.transform.Find("attribute1").GetComponent<TextMesh>();
+        TextMesh attribute2 = attributes.transform.Find("attribute2").GetComponent<TextMesh>();
+        TextMesh attribute3 = attributes.transform.Find("attribute3").GetComponent<TextMesh>();
 
         attribute1.text = String.Format("{0}: {1}", data[0,0], data[0,1]);
         attribute2.text = String.Format("{0}: {1}", data[1,0], data[1,1]);
