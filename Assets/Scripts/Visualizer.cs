@@ -26,11 +26,15 @@ public class Visualizer : MonoBehaviour
 
     private ScatterplotMatrix scatterplotMatrix;
 
+    public void Start()
+    {
+        dataSource = gameObject.AddComponent<CSVDataSource>();
+    }
+
     public void LoadDataSource(string filePath)
     {
         if (File.Exists(filePath))
         {
-            dataSource = new CSVDataSource();
             dataSource.load(File.ReadAllText(filePath), null);
             possibleScatterplots = CalculatePossibleScatterplots();
             Debug.Log("Loaded CSV file from: " + filePath);

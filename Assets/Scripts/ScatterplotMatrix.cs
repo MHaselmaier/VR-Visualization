@@ -22,7 +22,7 @@ public class ScatterplotMatrix : MonoBehaviour
         }
     }
 
-    private Scatterplot[] scatterplots;
+    private Scatterplot[] scatterplots = new Scatterplot[0];
 
     public void Initialize(CSVDataSource dataSource, int[,] dimCombinations, float pointSize)
     {

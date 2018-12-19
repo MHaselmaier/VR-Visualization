@@ -22,7 +22,7 @@ public class Scatterplot : MonoBehaviour
     }
     public int xDim, yDim, zDim;
 
-    private DataPoint[] dataPoints;
+    private DataPoint[] dataPoints = new DataPoint[0];
 
     public void Initialize(CSVDataSource dataSource, float matrixPosX, float matrixPosZ, float pointSize, int xDim, int yDim, int zDim)
     {
@@ -41,9 +41,10 @@ public class Scatterplot : MonoBehaviour
 
     private void InitializeAxesLabel()
     {
-        gameObject.transform.Find("X Axis").GetComponentInChildren<TextMesh>().text = dataSource[xDim].Identifier;
-        gameObject.transform.Find("Y Axis").GetComponentInChildren<TextMesh>().text = dataSource[yDim].Identifier;
-        gameObject.transform.Find("Z Axis").GetComponentInChildren<TextMesh>().text = dataSource[zDim].Identifier;
+        Transform axes = transform.Find("Axes");
+        axes.Find("X Axis").GetComponentInChildren<TextMesh>().text = dataSource[xDim].Identifier;
+        axes.Find("Y Axis").GetComponentInChildren<TextMesh>().text = dataSource[yDim].Identifier;
+        axes.Find("Z Axis").GetComponentInChildren<TextMesh>().text = dataSource[zDim].Identifier;
     }
 
     private void CreateDataPoints()
