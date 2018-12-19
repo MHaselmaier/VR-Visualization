@@ -168,13 +168,13 @@ public class ImportDialog : MonoBehaviour {
 
     void onButtonDecrement()
     {
-        this.visualizer.pointSize = (float)Math.Round(this.visualizer.pointSize - 0.01, 2);
+        this.visualizer.pointSize = Mathf.Max(0, (float)Math.Round(this.visualizer.pointSize - 0.001, 3));
         this.pointSize.text = this.visualizer.pointSize.ToString();
     }
 
     void onButtonIncrement()
     {
-        this.visualizer.pointSize = (float)Math.Round(this.visualizer.pointSize + 0.01, 2);
+        this.visualizer.pointSize = (float)Math.Round(this.visualizer.pointSize + 0.001, 3);
         this.pointSize.text = this.visualizer.pointSize.ToString();
     }
 }

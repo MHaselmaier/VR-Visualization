@@ -7,7 +7,7 @@ using System.Linq;
 
 public class Visualizer : MonoBehaviour
 {
-    private float _pointSize;
+    private float _pointSize = 0.02f;
     public float pointSize
     {
         get { return _pointSize; }
