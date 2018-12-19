@@ -26,7 +26,7 @@ public class Visualizer : MonoBehaviour
 
     private ScatterplotMatrix scatterplotMatrix;
 
-    public void Start()
+    public void Awake()
     {
         dataSource = gameObject.AddComponent<CSVDataSource>();
     }

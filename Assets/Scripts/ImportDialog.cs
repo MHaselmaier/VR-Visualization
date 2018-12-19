@@ -54,6 +54,7 @@ public class ImportDialog : MonoBehaviour {
 			FileInfo fileInfo = new FileInfo(file);
 			this.inputFiles.options.Add(new Dropdown.OptionData(){text = fileInfo.Name});
 		}
+        this.inputFiles.RefreshShownValue();
 
         this.toggleList = GameObject.Find("toggle_list");
         this.scrollbar = GameObject.Find("scrollbar").GetComponent<Scrollbar>();
@@ -82,7 +83,7 @@ public class ImportDialog : MonoBehaviour {
 
     private void InputFileSelectionChanged(int elem)
     {
-        var filePath = Path.Combine(this.csvDataDirectory, this.inputFiles.options.ToArray()[elem].text);
+        string filePath = Path.Combine(this.csvDataDirectory, this.inputFiles.options.ToArray()[elem].text);
         this.visualizer.LoadDataSource(filePath);
 
         CreateScatterplotToggles();
