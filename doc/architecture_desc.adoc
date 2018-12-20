@@ -1,3 +1,53 @@
+Zur Visualisierung der Daten stellt die VR-Anwendung vier Komponenten zur Verfügung, 
+welche hierachisch aufgebaut sind. Die _Visualizer_-Komponente stellt die Schnittstelle
+zwischen der UI und der internen Datenstruktur dar. Sie ist dafür zuständig, die Daten 
+aus einer CSV-Datei einzulesen, der UI die nötigen Informationen bereitzustellen und 
+die vom Benutzer gewählte _ScatterplotMatrix_ zu erstellen. Die _ScatterplotMatrix_-Komponente
+wird als Kind des _Visualizers_ erstellt. Sie ist für das Erzeugen und Positionieren der
+einzelnen _Scatterplots_ verantwortlich. Die _Scatterplot_-Komponente erstellt ein 3D-Diagramm,
+in dem die drei übergebenen Dimensionen für alle Datenpunkte gegeneinander aufgetragen werden.
+Die _DataPoint_-Komponente stellt einen Datenpunkt als Kugel im _Scatterplot_ dar. Wie die Szene
+nach dem Importieren einer CSV-Datei aussieht, ist auf Abbildung 
+
+[ditaa]
+.Szene
+....
++----------+
+|Visualizer|
++----------+
+        |   +-----------------+
+        +-->|ScatterplotMatrix|
+            +-----------------+
+                        |   +-----------+
+                        +-->|Scatterplot|
+                        :   +-----------+
+                        |           |   +---------+
+                        |           +-->|DataPoint|
+                        |           |   +---------+
+                        |           |   +---------+
+                        |           +-->|DataPoint|
+                        |           :   +---------+
+                        |           |   +---------+
+                        |           +-->|DataPoint|
+                        |               +---------+
+                        |   +-----------+
+                        +-->|Scatterplot|
+                            +-----------+
+                                    |   +---------+
+                                    +-->|DataPoint|
+                                    |   +---------+
+                                    |   +---------+
+                                    +-->|DataPoint|
+                                    :   +---------+
+                                    |   +---------+
+                                    +-->|DataPoint|
+                                        +---------+
+....
+
+
+
+
+
 === Programmablauf
 Das folgende Diagramm stellt den Programmablauf beim erstmaligen Starten der Anwendung dar:
 
