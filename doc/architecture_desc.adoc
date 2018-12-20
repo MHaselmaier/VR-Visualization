@@ -1,0 +1,15 @@
+=== Programmablauf
+Das folgende Diagramm stellt den Programmablauf beim erstmaligen Starten der Anwendung dar:
+
+[ditaa]
+....
++------------+   +-----------------------+   +----------+
+| Menübutton |-->| ImportDialog          |-->| Aus blub |   
+| Pressed    |   | - Gerendert           |   +----------+
++------------+   | - Collider aktiviert  |         |
+                 +-----------------------+         |
+                                                   |
+                                   +-----------+   |
+                                   | Nach Blub |<--+
+                                   +-----------+
+....
