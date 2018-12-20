@@ -5,8 +5,8 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.8">
-<meta name="author" content="Matthias Haselmeier, Andreas M. Brunnet">
-<title>Dokumentation VR Visualisierung: Virtual Reality, Master Informatik</title>
+<meta name="author" content="Matthias Haselmaier, Andreas M. Brunnet">
+<title>Dokumentation VR-Visualization: Virtual Reality, Master Informatik</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -430,54 +430,427 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 #footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
 @media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
 </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+.listingblock .pygments .hll { background-color: #ffffcc }
+.listingblock .pygments, .listingblock .pygments code { background: #f8f8f8; }
+.listingblock .pygments .tok-c { color: #408080; font-style: italic } /* Comment */
+.listingblock .pygments .tok-err { border: 1px solid #FF0000 } /* Error */
+.listingblock .pygments .tok-k { color: #008000; font-weight: bold } /* Keyword */
+.listingblock .pygments .tok-o { color: #666666 } /* Operator */
+.listingblock .pygments .tok-ch { color: #408080; font-style: italic } /* Comment.Hashbang */
+.listingblock .pygments .tok-cm { color: #408080; font-style: italic } /* Comment.Multiline */
+.listingblock .pygments .tok-cp { color: #BC7A00 } /* Comment.Preproc */
+.listingblock .pygments .tok-cpf { color: #408080; font-style: italic } /* Comment.PreprocFile */
+.listingblock .pygments .tok-c1 { color: #408080; font-style: italic } /* Comment.Single */
+.listingblock .pygments .tok-cs { color: #408080; font-style: italic } /* Comment.Special */
+.listingblock .pygments .tok-gd { color: #A00000 } /* Generic.Deleted */
+.listingblock .pygments .tok-ge { font-style: italic } /* Generic.Emph */
+.listingblock .pygments .tok-gr { color: #FF0000 } /* Generic.Error */
+.listingblock .pygments .tok-gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.listingblock .pygments .tok-gi { color: #00A000 } /* Generic.Inserted */
+.listingblock .pygments .tok-go { color: #888888 } /* Generic.Output */
+.listingblock .pygments .tok-gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.listingblock .pygments .tok-gs { font-weight: bold } /* Generic.Strong */
+.listingblock .pygments .tok-gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.listingblock .pygments .tok-gt { color: #0044DD } /* Generic.Traceback */
+.listingblock .pygments .tok-kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.listingblock .pygments .tok-kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.listingblock .pygments .tok-kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.listingblock .pygments .tok-kp { color: #008000 } /* Keyword.Pseudo */
+.listingblock .pygments .tok-kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.listingblock .pygments .tok-kt { color: #B00040 } /* Keyword.Type */
+.listingblock .pygments .tok-m { color: #666666 } /* Literal.Number */
+.listingblock .pygments .tok-s { color: #BA2121 } /* Literal.String */
+.listingblock .pygments .tok-na { color: #7D9029 } /* Name.Attribute */
+.listingblock .pygments .tok-nb { color: #008000 } /* Name.Builtin */
+.listingblock .pygments .tok-nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.listingblock .pygments .tok-no { color: #880000 } /* Name.Constant */
+.listingblock .pygments .tok-nd { color: #AA22FF } /* Name.Decorator */
+.listingblock .pygments .tok-ni { color: #999999; font-weight: bold } /* Name.Entity */
+.listingblock .pygments .tok-ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.listingblock .pygments .tok-nf { color: #0000FF } /* Name.Function */
+.listingblock .pygments .tok-nl { color: #A0A000 } /* Name.Label */
+.listingblock .pygments .tok-nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.listingblock .pygments .tok-nt { color: #008000; font-weight: bold } /* Name.Tag */
+.listingblock .pygments .tok-nv { color: #19177C } /* Name.Variable */
+.listingblock .pygments .tok-ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.listingblock .pygments .tok-w { color: #bbbbbb } /* Text.Whitespace */
+.listingblock .pygments .tok-mb { color: #666666 } /* Literal.Number.Bin */
+.listingblock .pygments .tok-mf { color: #666666 } /* Literal.Number.Float */
+.listingblock .pygments .tok-mh { color: #666666 } /* Literal.Number.Hex */
+.listingblock .pygments .tok-mi { color: #666666 } /* Literal.Number.Integer */
+.listingblock .pygments .tok-mo { color: #666666 } /* Literal.Number.Oct */
+.listingblock .pygments .tok-sa { color: #BA2121 } /* Literal.String.Affix */
+.listingblock .pygments .tok-sb { color: #BA2121 } /* Literal.String.Backtick */
+.listingblock .pygments .tok-sc { color: #BA2121 } /* Literal.String.Char */
+.listingblock .pygments .tok-dl { color: #BA2121 } /* Literal.String.Delimiter */
+.listingblock .pygments .tok-sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.listingblock .pygments .tok-s2 { color: #BA2121 } /* Literal.String.Double */
+.listingblock .pygments .tok-se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.listingblock .pygments .tok-sh { color: #BA2121 } /* Literal.String.Heredoc */
+.listingblock .pygments .tok-si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.listingblock .pygments .tok-sx { color: #008000 } /* Literal.String.Other */
+.listingblock .pygments .tok-sr { color: #BB6688 } /* Literal.String.Regex */
+.listingblock .pygments .tok-s1 { color: #BA2121 } /* Literal.String.Single */
+.listingblock .pygments .tok-ss { color: #19177C } /* Literal.String.Symbol */
+.listingblock .pygments .tok-bp { color: #008000 } /* Name.Builtin.Pseudo */
+.listingblock .pygments .tok-fm { color: #0000FF } /* Name.Function.Magic */
+.listingblock .pygments .tok-vc { color: #19177C } /* Name.Variable.Class */
+.listingblock .pygments .tok-vg { color: #19177C } /* Name.Variable.Global */
+.listingblock .pygments .tok-vi { color: #19177C } /* Name.Variable.Instance */
+.listingblock .pygments .tok-vm { color: #19177C } /* Name.Variable.Magic */
+.listingblock .pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
+</style>
 </head>
 <body class="article">
 <div id="header">
-<h1>Dokumentation VR Visualisierung: Virtual Reality, Master Informatik</h1>
+<h1>Dokumentation VR-Visualization: Virtual Reality, Master Informatik</h1>
 <div class="details">
-<span id="author" class="author">Matthias Haselmeier, Andreas M. Brunnet</span><br>
+<span id="author" class="author">Matthias Haselmaier, Andreas M. Brunnet</span><br>
 </div>
 </div>
 <div id="content">
-<div id="preamble">
+<div class="sect1">
+<h2 id="_vorwort">Vorwort</h2>
 <div class="sectionbody">
-<div class="quoteblock abstract">
-<blockquote>
-<strong>Abstract</strong>
-Im Rahmen der Veranstaltung <sub>Virtual Reality</sub> wurde eine VR-Anwendung auf Basis der Unity 3D-Engine entwickelt, mit deren Hilfe eine Betrachung von Machine Learning Daten im Raum ermöglicht wird. Hierbei hat der Anwender die Möglichkeit innerhalb der als Scatterplots visualisierten Daten umher zu wandern. Darüber hinaus lässt sich ein für den Nutzer interessanter Datenpunkt mittels VR üblicher Selektiergestik auswählen.
-Die Attribute und Werte des selektierten Datenpunks werden relativ zu seiner Position dem Nutzer dargestellt. Über das Hervorheben des selektierten Punktes in sämtlichen Scatterplot-Matrizen hat der Anwender direkte Übersicht über die Verteilung des Punktes innerhalb des Datensets.
-</blockquote>
+<div class="paragraph">
+<p>Im Rahmen der Veranstaltung <em>Virtual Reality</em> wurde eine VR-Anwendung auf Basis der Unity 3D-Engine entwickelt, mit deren Hilfe eine Betrachung von Machine Learning Daten im Raum ermöglicht wird. Hierbei hat der Anwender die Möglichkeit innerhalb der als Scatterplots visualisierten Daten umher zu wandern. Darüber hinaus lässt sich ein für den Nutzer interessanter Datenpunkt mittels VR üblicher Selektiergestik auswählen.
+Die Attribute und Werte des selektierten Datenpunks werden relativ zu seiner Position dem Nutzer dargestellt. Über das Hervorheben des selektierten Punktes in sämtlichen Scatterplot-Matrizen hat der Anwender direkte Übersicht über die Verteilung des Punktes innerhalb des Datensets.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_vorbereitung">Vorbereitung</h2>
+<h2 id="_allgemeine_informationen">Allgemeine Informationen</h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_software_und_bibliotheken">Software und Bibliotheken</h3>
+<div class="sect3">
+<h4 id="_verwendete_software_und_bibliotheken">Verwendete Software und Bibliotheken</h4>
 <div class="paragraph">
-<p><strong>MiddleVR</strong>: Dient der Entkopplung von VR-Hardware und der Applikation. Als Middleware abstrahiert MiddleVR Eingaben durch Hardware wie der HTC Vive Pro und stellt diese auf Seite der Anwendung als verallgemeinerte Schnittstelle zur Verfügung.</p>
+<p><strong>MiddleVR</strong> (<a href="#MiddleVR">[mvr]</a>): Dient der Entkopplung von VR-Hardware und der Applikation. Als Middleware abstrahiert MiddleVR Eingaben durch Hardware wie der HTC Vive Pro und stellt diese auf Seite der Anwendung als verallgemeinerte Schnittstelle zur Verfügung.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Während der Navigation in UI Komponenten fiel auf, dass Tasteneingaben nicht <em>debounced</em> werden. So werden beispielsweise Checkboxen schwer steuerbar. Auch andere UI Komponenten waren unter diesen Bedingungen nicht zufiedenstellend nutzbar.
+Entsprechend wurde innerhalb der zuständigen MiddleVR Klasse <em>VRCanvas</em> die Abfrage von Tastenevents auf <em>Toogled</em> umgestellt, um so ein <em>pressed</em> / <em>released</em> Verhalten zu erhalten.
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
-<p><strong>IATK (Immersive Analytics Toolkit)</strong>: Das Toolkit stellt eine Reihe von Funktionalitäten für das Arbeiten mit Daten zur Verfügung. Unter anderem ist ein CSV-Parser enthalten, der im Gegensatz zu einem üblichen CSV-Parser Wertnormalisierungen vornimmt.</p>
+<p><strong>IATK</strong> (<a href="#IATK">[iatk]</a>): Das Toolkit stellt eine Reihe von Funktionalitäten für das Arbeiten mit Daten zur Verfügung. Unter anderem ist ein CSV-Parser enthalten, der im Gegensatz zu einem üblichen CSV-Parser Wertnormalisierungen unabhängig vom vorliegenden Datentyp vornimmt.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Es musste eine Anpassung am Parser vorgenommen werden. Dort wird in der Methode <em>GetOriginalValue</em> ein Float-Wert als Index für ein Array genommen. Hierbei wird die implizite Typkonvertierung und die daraus resultierende Abrundung zum Problem, da an diesem Punkt ein Runden zur nächsten Ganzzahl erfolgen sollte. Dieser Fehler wurde mittels <em>Mathf.Round</em> behoben.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Die Möglichkeiten des Frameworks zur Datenvisualisierung wurden nach ersten Tests mit dem Framework verworfen, da eine Eigenimplementierung der nötigen Visualisierungskomponenten mit den nötigen Interaktionsmöglichkeiten, wie der Datenpunktauswahl (siehe <a href="#_kurzeinleitung">Kurzeinleitung</a>, <a href="#datapoint_selection">Abb. 1</a>) somit umsetzbar wurde.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_verworfene_software_und_bibliotheken">Verworfene Software und Bibliotheken</h4>
+<div class="paragraph">
+<p><strong>VRTK</strong> (<a href="#VRTK">[vrtk]</a>): Wie auch MiddleVR dient VRTK der Entkopplung von Eingabegeräten und der Applikation. Eine erste Integration in das Projekt verlief ohne größere Probleme, sodass das Testen der Anwendung mittels Maus und Tastatur (Modus: Simulation) möglich war.
+Probleme traten jedoch beim Versuch der Integration einer Vive-Pro Konfiguration auf, da VRTK seit einiger Zeit nicht mehr aktualisiert wird. Entsprechend kam es zu Komplikationen mit der aktuellen API der Vive-Pro (SteamVR, <a href="#SteamVR">[svr]</a>).
+Entsprechend wurde als alternative Lösung MiddleVR erfolgreich evaluiert und im Projekt statt VRTK integriert.</p>
+</div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_installation">Installation</h3>
-
+<h3 id="_benutzung">Benutzung</h3>
+<div class="paragraph">
+<p>Die Anwendung benötigt zum Starten eine vorhandene MiddleVR Konfigurationsdatei. Die Voreinstellung des Pfades verweist auf die Datei am VR-Labor Rechner. Kann diese Datei nicht gefunden werden oder wird die Anwendung auf einem anderen System ausgeführt, muss diese mit folgendem zusätzlichen Argument gestartet werden:</p>
+</div>
+<div class="listingblock">
+<div class="title">Listing 1. MiddleVR Konfiguration laden</div>
+<div class="content">
+<pre>VR-Visualization.exe --config "path/to/my/config.vrx"</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Hiermit wird der voreingestellte Pfad überschrieben und die angegebene Konfigurationsdatei stattdessen geladen.</p>
+</div>
+<div class="sect3">
+<h4 id="_kurzeinleitung">Kurzeinleitung</h4>
+<div class="paragraph">
+<p>Das Projekt kann über das <a href="https://github.com/MHaselmaier/VR-Visualization.git">GitHub-Repository</a> bezogen werden. Folgendes beinhaltet das Repository:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Dokumentation als .pdf, .html und dessen Sourcen</p>
+</li>
+<li>
+<p>Applikationssourcen</p>
+</li>
+<li>
+<p>Lauffähiger Build im entsprechenden Verzeichnis (Auf VR-Lab Rechner getestet)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Nach dem Starten findet sich der Nutzer im leeren 3D-Raum wieder.</p>
+</div>
+<div id="htc_vive_pro" class="imageblock text-center">
+<div class="content">
+<img src="imgs/htc_vive_pro_controller.png" alt="htc vive pro controller" width="200">
+</div>
+<div class="title">Abbildung 1. HTC Vive Pro Controller</div>
+</div>
+<div class="paragraph">
+<p>Für die UI Steuerung sind die <em>Menütaste</em> und der <em>Trigger</em> von Interesse (Bsp. <a href="#htc_vive_pro">Abb. 1</a>). Nach Betätigen der Menütaste öffnet sich der Import Dialog (Abb. <a href="#import_dialog">Abb. 2</a>).</p>
+</div>
+<div id="import_dialog" class="imageblock text-center">
+<div class="content">
+<img src="imgs/import_dialog.png" alt="import dialog" width="300">
+</div>
+<div class="title">Abbildung 2. Dialog zum Datenimport</div>
+</div>
+<div class="paragraph">
+<p>Der Dialog bewegt sich mit der Kamera des Anwenders. Somit lässt sich der Dialog an jeder Position in der Szene in eine angenehm zu bedienende Position bringen.</p>
+</div>
+<div class="paragraph">
+<p>Dort kann die gewünschte CVS-Datei ausgewählt werden. Danach lässt sich über die Checkbox-Liste auswählen, welche Attributskombinationen in der Szene visualisiert werden sollen.
+Mit dem Import-Button schließt sich der Dialog und die Scatterplot-Matrix wird aufgebaut.</p>
+</div>
+<div class="paragraph">
+<p>Nun kann der Anwender mit Hilfe des Steuerkreuzes oder Steuerpads (siehe Bsp. <a href="#htc_vive_pro">Abb. 1</a>) zwischen den Scatterplots umher wandern ( Abb. <a href="#scatterplot_matrix">Abb. 3</a>).</p>
+</div>
+<div id="scatterplot_matrix" class="imageblock text-center">
+<div class="content">
+<img src="imgs/scatterplot_matrix.png" alt="scatterplot matrix" width="300">
+</div>
+<div class="title">Abbildung 3. Scatterplot Matrix</div>
+</div>
+<div class="paragraph">
+<p>Ist ein Datenpunkt von besonderem Interesse, kann dieser mit Hilfe des <em>Wands</em> und drücken des Triggers selektiert werden. Der Datenpunkt erscheint nun in roter Farbe und größerer Skalierung (Abb. <a href="#datapoint_selection">Abb. 1</a>).</p>
+</div>
+<div id="datapoint_selection" class="imageblock text-center">
+<div class="content">
+<img src="imgs/datapoint_selection.png" alt="datapoint selection" width="300">
+</div>
+<div class="title">Abbildung 4. Selektion eines Datenpunktes</div>
+</div>
+<div class="paragraph">
+<p>Das Hervorheben des Datenpunkts findet hierbei in jedem Scatterplot statt, der diesen Punkt beinhaltet.
+Zusätzlich zum visuellen Hervorheben des Punktes wird relativ zu dessen Position und stets zum Anwender gerichtet eine Liste der drei Attribute und Werte des Datenpunktes dargestellt.</p>
+</div>
+<div class="paragraph">
+<p>Sollten dichtere Punktwolken vorliegen und die Auswahl eines Punkes deshalb zu schwierig sein, lässt sich über das Import Menü die größe der Datenpunkte (Abb. <a href="#datapoint_scaling">Abb. 2</a>) in Echtzeit ändern. Die zuständigen Buttons finden sich unter dem Importieren-Button (Abb. <a href="#import_dialog">Abb. 2</a>). Umgekehrt lassen sich die Punkte auch vergrößern um beispielsweise bei wenigen Punkten eine bessere Visualisierung zu erzielen.</p>
+</div>
+<table id="datapoint_scaling" class="tableblock frame-none grid-none stretch">
+<caption class="title">Skalierung von Datenpunkten</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="image"><img src="imgs/datapoint_size_normal.png" alt="datapoint size normal" width="200"></span></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="image"><img src="imgs/datapoint_size_minimized.png" alt="datapoint size minimized" width="200"></span></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_aufgewendete_zeit">Aufgewendete Zeit</h3>
+<div class="paragraph">
+<p>VIEL</p>
+</div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_benutzung">Benutzung</h2>
+<h2 id="_architektur_der_anwendung">Architektur der Anwendung</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>Zur Visualisierung der Daten stellt die VR-Anwendung vier Komponenten zur Verfügung,
+welche hierachisch aufgebaut sind. Die <em>Visualizer</em>-Komponente stellt die Schnittstelle
+zwischen der UI und der internen Datenstruktur dar. Sie ist dafür zuständig, die Daten
+aus einer CSV-Datei einzulesen, der UI die nötigen Informationen bereitzustellen und
+die vom Benutzer gewählte <em>ScatterplotMatrix</em> zu erstellen. Die <em>ScatterplotMatrix</em>-Komponente
+wird als Kind des <em>Visualizers</em> erstellt. Sie ist für das Erzeugen und Positionieren der
+einzelnen <em>Scatterplots</em> verantwortlich. Die <em>Scatterplot</em>-Komponente erstellt ein 3D-Diagramm,
+in dem die drei übergebenen Dimensionen für alle <em>DataPoints</em> gegeneinander aufgetragen werden.
+Die <em>DataPoint</em>-Komponente stellt einen Datenpunkt als Kugel im <em>Scatterplot</em> dar. Wie die Szene
+nach dem Importieren einer CSV-Datei aussieht, ist auf <a href="#scene">Abb. 4</a> gezeigt. Im Folgenden
+werden die Komponenten genauer beschrieben.</p>
+</div>
+<div id="scene" class="imageblock">
+<div class="content">
+<img src="imgs/diag-8c7787d9a8fd9e945a34d293cb991fb8.png" alt="diag 8c7787d9a8fd9e945a34d293cb991fb8" width="550" height="532">
+</div>
+<div class="title">Abbildung 5. Szene</div>
+</div>
+<div class="sect2">
+<h3 id="_visualizer">Visualizer</h3>
+<div class="paragraph">
+<p>Die Schnittstelle des <em>Visualizer</em> besteht drei Methoden und einem Attribut. Die Methoden
+<em>LoadDataSource(TextAsset)</em> wird vom <em>ImportDialog</em> aufgerufen, wenn der Benutzer im DropDown-Menü
+eine neue CSV-Datei auswählt. Neben dem eigentlichen Laden der CSV-Datei werden zusätzlich alle
+möglichen 3er-Kombinationen der in der Datei enthaltenen Dimensionen gebildet. Hierzu wird
+<em>CalculatePossibleScatterplots()</em> aufgerufen, welche ein zweidimensionales <em>int</em>-Array
+zurück gibt. Die erste Dimension dieses Arrays stellt dabei die einzelnen Kombinationen der
+Dimensionen der CSV-Datei dar. Die zweite Dimension hat die Größe 3 und besteht aus den drei Indizes
+der jeweiligen Dimension der CSV-Datei. Der <em>ImportDialog</em> erhält die 3er-Kombinationen als <em>string</em>
+-Array über die Methode <em>GetPossibleScatterplots()</em>. Somit können dem Benutzer die möglichen
+<em>Scatterplot</em>-Varianten angezeigt werden. Wird der <em>Importieren</em>-Button angeklickt, ruft der <em>ImportDialog</em>
+die Methode <em>CreateScatterplotMatrix(int[])</em> auf. Über den Parameter werden die Indizes der vom Benutzer
+gewünschten <em>Scatterplots</em> übergeben. Es wird dann eine neue <em>ScatterplotMatrix</em> instantiiert. Wurder
+vorher bereits eine <em>ScatterplotMatrix</em> erzeugt, wird diese gelöscht. Es ist somit zu jeder Zeit immer
+nur eine <em>ScatterplotMatrix</em> in der Szene. Über das Attribut <em>pointSize</em> kann die Größe der <em>DataPoints</em>
+angepasst werden. Der <em>ImportDialog</em> inkrementiert bzw. dekrementiert diesen Wert, wenn der Benutzer die
+entsprechenden Buttons klickt.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_programmablauf">Programmablauf</h3>
+<div class="paragraph">
+<p>Das folgende Diagramm stellt den Programmablauf beim erstmaligen Starten der Anwendung dar:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Blub</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Blub</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>blub</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Blub</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Ich</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Mag</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>Züge</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>du</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>magst</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>LKW</p>
+<div class="olist upperalpha">
+<ol class="upperalpha" type="A">
+<li>
+<p>Tut Tut</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+<div class="sect3">
+<h4 id="_neue_subüberschrift">Neue Subüberschrift</h4>
+<div class="paragraph">
+<p>Blub <a href="#referenz_auf_bereich">Mein Bereich</a></p>
+</div>
+<div id="referenz_auf_bereich" class="exampleblock">
+<div class="title">Beispiel 1. Mein Bereich</div>
+<div class="content">
+<div class="paragraph">
+<p>Übernimmt Ascii Zeug</p>
+</div>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Listing 2. Source Code</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c#"><span></span><span class="tok-k">public</span> <span class="tok-k">void</span> <span class="tok-nf">Foo</span><span class="tok-p">(){</span>
 
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Und noch Ref auf Überschrift <a href="#_neue_subüberschrift">Neue Subüberschrift</a>.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_quellen_ressourcen">Quellen / Ressourcen</h2>
+<div class="sectionbody">
+<div class="ulist bibliography">
+<ul class="bibliography">
+<li>
+<p><a id="MiddleVR"></a>[mvr]: <a href="https://www.middlevr.com/home" class="bare">https://www.middlevr.com/home</a></p>
+</li>
+<li>
+<p><a id="IATK"></a>[iatk] Immersive Analytics Toolkit: <a href="https://github.com/MaximeCordeil/IATK" class="bare">https://github.com/MaximeCordeil/IATK</a></p>
+</li>
+<li>
+<p><a id="VRTK"></a>[vrtk] Virtual Reality Toolkit: <a href="https://vrtoolkit.readme.io" class="bare">https://vrtoolkit.readme.io</a></p>
+</li>
+<li>
+<p><a id="SteamVR"></a>[svr]: <a href="https://steamcommunity.com/steamvr" class="bare">https://steamcommunity.com/steamvr</a></p>
+</li>
+<li>
+<p><a id="GitHub-Repository"></a>[github] Projekt Repository: <a href="https://github.com/MHaselmaier/VR-Visualization.git" class="bare">https://github.com/MHaselmaier/VR-Visualization.git</a></p>
+</li>
+<li>
+<p><a id="Unity-Documentation"></a>[udoc]: <a href="https://docs.unity3d.com/Manual/index.html" class="bare">https://docs.unity3d.com/Manual/index.html</a></p>
+</li>
+<li>
+<p><a id="MiddleVR-Documentation"></a>[mdoc]: <a href="https://www.middlevr.com/doc/current/" class="bare">https://www.middlevr.com/doc/current/</a></p>
+</li>
+</ul>
+</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-12-19 12:13:44 +0100
+Last updated 2018-12-20 16:50:10 +0100
 </div>
 </div>
 </body>
