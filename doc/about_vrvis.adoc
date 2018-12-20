@@ -17,7 +17,7 @@ Die Installation der Anwendung besteht lediglich aus dem Entpacken des Archivs i
 Die Anwendung benötigt zum Starten eine vorhandene MiddleVR Konfigurationsdatei. Die Voreinstellung des Pfades verweist auf die Datei am VR-Labor Rechner. Kann diese Datei nicht gefunden werden oder wird die Anwendung auf einem anderen System ausgeführt, muss diese mit folgendem zusätzlichen Argument gestartet werden:
 
 ----
-vrvis.exe --config "path/to/my/config.vrx"
+vr-visualization.exe --config "path/to/my/config.vrx"
 ----
 
 Hiermit wird der voreingestellte Pfad überschrieben und die angegebene Konfigurationsdatei stattdessen geladen.

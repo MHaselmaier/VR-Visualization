@@ -1,6 +1,7 @@
-= Dokumentation VR Visualisierung: Virtual Reality, Master Informatik
+= Dokumentation VR-Visualization: Virtual Reality, Master Informatik
 :author: Matthias Haselmeier, Andreas M. Brunnet
 :vr: Virtual Reality
+:icons: font
 
 == Vorwort
 Im Rahmen der Veranstaltung _{vr}_ wurde eine VR-Anwendung auf Basis der Unity 3D-Engine entwickelt, mit deren Hilfe eine Betrachung von Machine Learning Daten im Raum ermöglicht wird. Hierbei hat der Anwender die Möglichkeit innerhalb der als Scatterplots visualisierten Daten umher zu wandern. Darüber hinaus lässt sich ein für den Nutzer interessanter Datenpunkt mittels VR üblicher Selektiergestik auswählen. 
