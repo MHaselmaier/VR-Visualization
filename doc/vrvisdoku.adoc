@@ -1,5 +1,5 @@
 = Dokumentation VR-Visualization: Virtual Reality, Master Informatik
-:author: Matthias Haselmeier, Andreas M. Brunnet
+:author: Matthias Haselmaier, Andreas M. Brunnet
 :vr: Virtual Reality
 :icons: font
 :imagesdir: imgs/
