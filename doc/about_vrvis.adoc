@@ -1,0 +1,16 @@
+=== Software und Bibliotheken
+*MiddleVR*: Dient der Entkopplung von VR-Hardware und der Applikation. Als Middleware abstrahiert MiddleVR Eingaben durch Hardware wie der HTC Vive Pro und stellt diese auf Seite der Anwendung als verallgemeinerte Schnittstelle zur Verfügung.
+
+[NOTE]
+Während der Navigation in UI Komponenten fiel auf, dass Tasteneingaben nicht _debounced_ werden. So werden beispielsweise Checkboxen schwer steuerbar. Auch andere UI Komponenten waren unter diesen Bedingungen nicht zufiedenstellend nutzbar.
+Entsprechend wurde innerhalb der zuständigen MiddleVR Klasse _VRCanvas_ die Abfrage von Tastenevents auf _Toogled_ umgestellt, um so ein _pressed_ / _released_ Verhalten zu erhalten.
+
+*IATK (Immersive Analytics Toolkit)*: Das Toolkit stellt eine Reihe von Funktionalitäten für das Arbeiten mit Daten zur Verfügung. Unter anderem ist ein CSV-Parser enthalten, der im Gegensatz zu einem üblichen CSV-Parser Wertnormalisierungen unabhängig vom vorliegenden Datentyp vornimmt. 
+
+[NOTE]
+Es musste eine Anpassung am Parser vorgenommen werden. Dort wird in der Methode _GetOriginalValue_ ein Float-Wert als Index für ein Array genommen. Hierbei wird die implizite Typkonvertierung und die daraus resultierende Abrundung zum Problem, da an diesem Punkt ein Runden zur nächsten Ganzzahl erfolgen sollte. Dieser Fehler wurde mittels _Mathf.Round_ behoben.
+
+=== Installation
+
+
+=== Benutzung
