@@ -7,6 +7,7 @@
 :listing-caption: Listing
 :example-caption: Beispiel
 :source-highlighter: pygments
+:figure-counter: 0
 
 == Vorwort
 Im Rahmen der Veranstaltung _{vr}_ wurde eine VR-Anwendung auf Basis der Unity 3D-Engine entwickelt, mit deren Hilfe eine Betrachung von Machine Learning Daten im Raum ermöglicht wird. Hierbei hat der Anwender die Möglichkeit innerhalb der als Scatterplots visualisierten Daten umher zu wandern. Darüber hinaus lässt sich ein für den Nutzer interessanter Datenpunkt mittels VR üblicher Selektiergestik auswählen. 
@@ -17,3 +18,8 @@ include::about_vrvis.adoc[]
 
 == Architektur der Anwendung
 include::architecture_desc.adoc[]
+
+[bibliography]
+== Resourcen
+- [[[MiddleVR, mvr]]]: https://www.middlevr.com/home/
+- [[[IATK, iatk]]] Immersive Analytics Toolkit: https://github.com/MaximeCordeil/IATK

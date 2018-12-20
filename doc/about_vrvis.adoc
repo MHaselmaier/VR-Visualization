@@ -1,11 +1,11 @@
 === Software und Bibliotheken
-*MiddleVR*: Dient der Entkopplung von VR-Hardware und der Applikation. Als Middleware abstrahiert MiddleVR Eingaben durch Hardware wie der HTC Vive Pro und stellt diese auf Seite der Anwendung als verallgemeinerte Schnittstelle zur Verfügung.
+*MiddleVR* (<<MiddleVR>>): Dient der Entkopplung von VR-Hardware und der Applikation. Als Middleware abstrahiert MiddleVR Eingaben durch Hardware wie der HTC Vive Pro und stellt diese auf Seite der Anwendung als verallgemeinerte Schnittstelle zur Verfügung.
 
 [NOTE]
 Während der Navigation in UI Komponenten fiel auf, dass Tasteneingaben nicht _debounced_ werden. So werden beispielsweise Checkboxen schwer steuerbar. Auch andere UI Komponenten waren unter diesen Bedingungen nicht zufiedenstellend nutzbar.
 Entsprechend wurde innerhalb der zuständigen MiddleVR Klasse _VRCanvas_ die Abfrage von Tastenevents auf _Toogled_ umgestellt, um so ein _pressed_ / _released_ Verhalten zu erhalten.
 
-*IATK (Immersive Analytics Toolkit)*: Das Toolkit stellt eine Reihe von Funktionalitäten für das Arbeiten mit Daten zur Verfügung. Unter anderem ist ein CSV-Parser enthalten, der im Gegensatz zu einem üblichen CSV-Parser Wertnormalisierungen unabhängig vom vorliegenden Datentyp vornimmt. 
+*IATK* (<<IATK>>): Das Toolkit stellt eine Reihe von Funktionalitäten für das Arbeiten mit Daten zur Verfügung. Unter anderem ist ein CSV-Parser enthalten, der im Gegensatz zu einem üblichen CSV-Parser Wertnormalisierungen unabhängig vom vorliegenden Datentyp vornimmt. 
 
 [NOTE]
 Es musste eine Anpassung am Parser vorgenommen werden. Dort wird in der Methode _GetOriginalValue_ ein Float-Wert als Index für ein Array genommen. Hierbei wird die implizite Typkonvertierung und die daraus resultierende Abrundung zum Problem, da an diesem Punkt ein Runden zur nächsten Ganzzahl erfolgen sollte. Dieser Fehler wurde mittels _Mathf.Round_ behoben.
@@ -13,8 +13,9 @@ Es musste eine Anpassung am Parser vorgenommen werden. Dort wird in der Methode 
 === Benutzung
 Die Anwendung benötigt zum Starten eine vorhandene MiddleVR Konfigurationsdatei. Die Voreinstellung des Pfades verweist auf die Datei am VR-Labor Rechner. Kann diese Datei nicht gefunden werden oder wird die Anwendung auf einem anderen System ausgeführt, muss diese mit folgendem zusätzlichen Argument gestartet werden:
 
+.MiddleVR Konfiguration laden
 ----
-vr-visualization.exe --config "path/to/my/config.vrx"
+VR-Visualization.exe --config "path/to/my/config.vrx"
 ----
 
 Hiermit wird der voreingestellte Pfad überschrieben und die angegebene Konfigurationsdatei stattdessen geladen.
@@ -22,13 +23,13 @@ Hiermit wird der voreingestellte Pfad überschrieben und die angegebene Konfigur
 ==== Kurzeinleitung
 Nach dem Starten findet sich der Nutzer im leeren 3D-Raum wieder.
 
-[[htc_vive_pro, ]]
+[[htc_vive_pro, Abb. {counter:figure-counter}]]
 .HTC Vive Pro Controller
-image::htc_vive_pro_controller.png[width=200]
+image::htc_vive_pro_controller.png[width=200, align=center]
 Für die UI Steuerung sind die _Menütaste_ und der _Trigger_ von Interesse (siehe Bsp. <<htc_vive_pro>>). Nach Betätigen der Menütaste öffnet sich der Import Dialog. Dort kann die gewünschte CVS-Datei ausgewählt werden. Danach lässt sich über die Checkbox-Liste auswählen, welche Attributskombinationen in der Szene visualisiert werden sollen.
 Mit dem Import-Button schließt sich der Dialog und die Scatterplot-Matrix wird aufgebaut. 
 
-Nun kann der Anwender mit Hilfe des Steuerkreuzes oder Steuerpads zwischen den Scatterplots umher wandern. Ist ein Datenpunkt von besonderem Interesse, kann dieser mit Hilfe des _Wands_ und drücken des Triggers selektiert werden. Der Datenpunkt erscheint nun in roter Farbe und größerer Skalierung. Das Hervorheben des Datenpunkts findet hierbei in jedem Scatterplot statt, der diesen Punkt beinhaltet. 
+Nun kann der Anwender mit Hilfe des Steuerkreuzes oder Steuerpads (siehe Bsp. <<htc_vive_pro>>) zwischen den Scatterplots umher wandern. Ist ein Datenpunkt von besonderem Interesse, kann dieser mit Hilfe des _Wands_ und drücken des Triggers selektiert werden. Der Datenpunkt erscheint nun in roter Farbe und größerer Skalierung. Das Hervorheben des Datenpunkts findet hierbei in jedem Scatterplot statt, der diesen Punkt beinhaltet. 
 Zusätzlich zum visuellen Hervorheben des Punktes wird relativ zu dessen Position und stets zum Anwender gerichtet eine Liste der drei Attribute und Werte des Datenpunktes dargestellt.
 
-Sollten dichtere Punktwolken vorliegen und die geringe
+Sollten dichtere Punktwolken vorliegen und die Auswahl eines Punkes deshalb zu schwierig sein, lässt sich über das Import Menü die größe der Datenpunkte in Echtzeit ändern. Die zuständigen Buttons finden sich unter dem Import Button. Umgekehrt lassen sich die Punkte auch vergrößern um beispielsweise bei wenigen Punkten eine bessere Visualisierung zu erzielen.
