@@ -7,23 +7,41 @@ using System.Linq;
 
 public class Visualizer : MonoBehaviour
 {
-    public float pointSize = 0.03f;
+    private float _pointSize = 0.02f;
+    public float pointSize
+    {
+        get { return _pointSize; }
+        set
+        {
+            _pointSize = value;
+            if (null != scatterplotMatrix)
+            {
+                scatterplotMatrix.pointSize = value;
+            }
+        }
+    }
 
     private CSVDataSource dataSource;
     private int[,] possibleScatterplots;
 
-    public void LoadDataSource(string filePath)
+    private ScatterplotMatrix scatterplotMatrix;
+
+    public void Awake()
     {
-        if (File.Exists(filePath))
+        dataSource = gameObject.AddComponent<CSVDataSource>();
+    }
+
+    public void LoadDataSource(TextAsset dataFile)
+    {
+        if (null != dataFile)
         {
-            dataSource = new CSVDataSource();
-            dataSource.load(File.ReadAllText(filePath), null);
+            dataSource.load(dataFile.text, null);
             possibleScatterplots = CalculatePossibleScatterplots();
-            Debug.Log("Loaded CSV file from: " + filePath);
+            Debug.Log("Loaded CSV file from: " + dataFile.name);
         }
         else
         {
-            Debug.LogError("Filepath to CSV file doeas not exist: " + filePath);
+            Debug.LogError("Datafile is null!");
         }
     }
 
@@ -43,9 +61,9 @@ public class Visualizer : MonoBehaviour
     {
         if (dataSource.IsLoaded)
         {
-            foreach (Transform scatterplotMatrix in transform)
+            if (null != scatterplotMatrix)
             {
-                GameObject.Destroy(scatterplotMatrix.gameObject);
+                Destroy(scatterplotMatrix.gameObject);
             }
 
             int[,] dimCombinations = new int[scatterplotIndices.GetLength(0), 3];
@@ -57,9 +75,9 @@ public class Visualizer : MonoBehaviour
                 }
             }
 
-            Instantiate(Resources.Load<GameObject>("Prefabs/ScatterplotMatrix"), transform)
-                .GetComponent<ScatterplotMatrix>()
-                .Initialize(dataSource, dimCombinations, pointSize);
+            scatterplotMatrix = Instantiate(Resources.Load<GameObject>("Prefabs/ScatterplotMatrix"), transform)
+                .GetComponent<ScatterplotMatrix>();
+            scatterplotMatrix.Initialize(dataSource, dimCombinations, pointSize);
             Debug.Log("ScatterplotMatrix was created.");
         }
         else

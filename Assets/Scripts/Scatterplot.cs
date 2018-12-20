@@ -6,10 +6,23 @@ using UnityEngine;
 public class Scatterplot : MonoBehaviour
 {
     public CSVDataSource dataSource;
-    public float pointSize;
+
+    private float _pointSize;
+    public float pointSize
+    {
+        get { return _pointSize; }
+        set
+        {
+            _pointSize = value;
+            foreach (DataPoint dataPoint in dataPoints)
+            {
+                dataPoint.pointSize = value;
+            }
+        }
+    }
     public int xDim, yDim, zDim;
 
-    private DataPoint[] dataPoints;
+    private DataPoint[] dataPoints = new DataPoint[0];
 
     public void Initialize(CSVDataSource dataSource, float matrixPosX, float matrixPosZ, float pointSize, int xDim, int yDim, int zDim)
     {
@@ -28,9 +41,10 @@ public class Scatterplot : MonoBehaviour
 
     private void InitializeAxesLabel()
     {
-        gameObject.GetComponentInChildrenWithTag<TextMesh>("X Axis Label").text = dataSource[xDim].Identifier;
-        gameObject.GetComponentInChildrenWithTag<TextMesh>("Y Axis Label").text = dataSource[yDim].Identifier;
-        gameObject.GetComponentInChildrenWithTag<TextMesh>("Z Axis Label").text = dataSource[zDim].Identifier;
+        Transform axes = transform.Find("Axes");
+        axes.Find("X Axis").GetComponentInChildren<TextMesh>().text = dataSource[xDim].Identifier;
+        axes.Find("Y Axis").GetComponentInChildren<TextMesh>().text = dataSource[yDim].Identifier;
+        axes.Find("Z Axis").GetComponentInChildren<TextMesh>().text = dataSource[zDim].Identifier;
     }
 
     private void CreateDataPoints()
@@ -55,11 +69,13 @@ public class Scatterplot : MonoBehaviour
             {
                 dataPoint.GetComponent<Renderer>().material.color = Color.red;
                 dataPoint.ShowText(true);
+                dataPoint.pointSize = pointSize + 0.01f;
             }
             else
             {
                 dataPoint.GetComponent<Renderer>().material.color = Color.white;
                 dataPoint.ShowText(false);
+                dataPoint.pointSize = pointSize;
             }
         }
     }

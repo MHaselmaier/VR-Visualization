@@ -7,9 +7,22 @@ using UnityEngine;
 public class ScatterplotMatrix : MonoBehaviour
 {
     public CSVDataSource dataSource;
-    public float pointSize;
 
-    private Scatterplot[] scatterplots;
+    private float _pointSize;
+    public float pointSize
+    {
+        get { return _pointSize; }
+        set
+        {
+            _pointSize = value;
+            foreach (Scatterplot scatterplot in scatterplots)
+            {
+                scatterplot.pointSize = value;
+            }
+        }
+    }
+
+    private Scatterplot[] scatterplots = new Scatterplot[0];
 
     public void Initialize(CSVDataSource dataSource, int[,] dimCombinations, float pointSize)
     {

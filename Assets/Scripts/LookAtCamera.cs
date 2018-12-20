@@ -4,16 +4,18 @@ using UnityEngine;
 
 public class LookAtCamera : MonoBehaviour
 {
+    private GameObject headNode;
+
+    void Start()
+    {
+        headNode = GameObject.Find("HeadNode");
+    }
+
     void Update()
     {
         if (gameObject.activeSelf)
         {
-            GameObject head = GameObject.Find("HeadNode");
-            if (null != head)
-            {
-                Vector3 lookDir = transform.position - head.transform.position;
-                transform.rotation = Quaternion.LookRotation(lookDir);
-            }
+            transform.rotation = Quaternion.LookRotation(transform.position - headNode.transform.position);
         }
     }
 }

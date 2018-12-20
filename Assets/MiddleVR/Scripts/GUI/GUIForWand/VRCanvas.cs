@@ -54,7 +54,7 @@ public class VRCanvas : MonoBehaviour
                 m_PreviouslyHoveredObjects.RemoveAt(previouslyHoveredObjectNdx);
             }
 
-            if (MiddleVR.VRDeviceMgr.IsWandButtonPressed(0))
+            if (MiddleVR.VRDeviceMgr.IsWandButtonToggled(0, true))
             {
                 var pointer = new PointerEventData(null);
                 pointer.button = PointerEventData.InputButton.Left;
@@ -67,7 +67,7 @@ public class VRCanvas : MonoBehaviour
 
                 m_PreviouslyPressedObjects.Add(hoveredObjects[i]);
             }
-            else
+            else if (MiddleVR.VRDeviceMgr.IsWandButtonToggled(0, false))
             {
                 var pointer = new PointerEventData(null);
                 pointer.button = PointerEventData.InputButton.Left;

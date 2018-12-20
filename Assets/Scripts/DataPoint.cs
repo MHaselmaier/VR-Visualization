@@ -8,13 +8,24 @@ public class DataPoint : MonoBehaviour
 {
     public int index = -1;
 
+    private float _pointSize;
+    public float pointSize
+    {
+        get { return _pointSize; }
+        set
+        {
+            _pointSize = value;
+            transform.localScale = Vector3.one * value;
+        }
+    }
+
     private Scatterplot scatterplot;
     private GameObject attributes;
 
     public void Initialize(int index, float pointSize, Vector3 position)
     {
         this.index = index;
-        transform.localScale = Vector3.one * pointSize;
+        this.pointSize = pointSize;
         transform.position = position;
 
         scatterplot = transform.parent.GetComponent<Scatterplot>();
@@ -28,9 +39,9 @@ public class DataPoint : MonoBehaviour
     {
         var data = GetData();
 
-        TextMesh attribute1 = attributes.GetComponentInChildrenWithTag<TextMesh>("Attribute1");
-        TextMesh attribute2 = attributes.GetComponentInChildrenWithTag<TextMesh>("Attribute2");
-        TextMesh attribute3 = attributes.GetComponentInChildrenWithTag<TextMesh>("Attribute3");
+        TextMesh attribute1 = attributes.transform.Find("attribute1").GetComponent<TextMesh>();
+        TextMesh attribute2 = attributes.transform.Find("attribute2").GetComponent<TextMesh>();
+        TextMesh attribute3 = attributes.transform.Find("attribute3").GetComponent<TextMesh>();
 
         attribute1.text = String.Format("{0}: {1}", data[0,0], data[0,1]);
         attribute2.text = String.Format("{0}: {1}", data[1,0], data[1,1]);
