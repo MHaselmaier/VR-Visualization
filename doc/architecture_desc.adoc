@@ -7,9 +7,10 @@ wird als Kind des _Visualizers_ erstellt. Sie ist für das Erzeugen und Position
 einzelnen _Scatterplots_ verantwortlich. Die _Scatterplot_-Komponente erstellt ein 3D-Diagramm,
 in dem die drei übergebenen Dimensionen für alle _DataPoints_ gegeneinander aufgetragen werden.
 Die _DataPoint_-Komponente stellt einen Datenpunkt als Kugel im _Scatterplot_ dar. Wie die Szene
-nach dem Importieren einer CSV-Datei aussieht, ist auf Abbildung <<Szene>> gezeigt. Im Folgenden
+nach dem Importieren einer CSV-Datei aussieht, ist auf <<scene>> gezeigt. Im Folgenden
 werden die Komponenten genauer beschrieben.
 
+[[scene, Abb. {counter:figure-counter}]]
 [ditaa]
 .Szene
 ....
@@ -69,20 +70,6 @@ entsprechenden Buttons klickt.
 
 === Programmablauf
 Das folgende Diagramm stellt den Programmablauf beim erstmaligen Starten der Anwendung dar:
-
-[ditaa]
-....
-+------------+   +-----------------------+   +----------+
-| Menübutton |-->| ImportDialog          |-->| Aus blub |   
-| Pressed    |   | - Gerendert           |   +----------+
-+------------+   | - Collider aktiviert  |         |
-                 +-----------------------+         |
-                                                   |
-                                   +-----------+   |
-                                   | Nach Blub |<--+
-                                   +-----------+
-....
-
 
 * Blub
 ** Blub
