@@ -5,9 +5,10 @@ aus einer CSV-Datei einzulesen, der UI die nötigen Informationen bereitzustelle
 die vom Benutzer gewählte _ScatterplotMatrix_ zu erstellen. Die _ScatterplotMatrix_-Komponente
 wird als Kind des _Visualizers_ erstellt. Sie ist für das Erzeugen und Positionieren der
 einzelnen _Scatterplots_ verantwortlich. Die _Scatterplot_-Komponente erstellt ein 3D-Diagramm,
-in dem die drei übergebenen Dimensionen für alle Datenpunkte gegeneinander aufgetragen werden.
+in dem die drei übergebenen Dimensionen für alle _DataPoints_ gegeneinander aufgetragen werden.
 Die _DataPoint_-Komponente stellt einen Datenpunkt als Kugel im _Scatterplot_ dar. Wie die Szene
-nach dem Importieren einer CSV-Datei aussieht, ist auf Abbildung 
+nach dem Importieren einer CSV-Datei aussieht, ist auf Abbildung <<Szene>> gezeigt. Im Folgenden
+werden die Komponenten genauer beschrieben.
 
 [ditaa]
 .Szene
@@ -24,9 +25,11 @@ nach dem Importieren einer CSV-Datei aussieht, ist auf Abbildung
                         |           |   +---------+
                         |           +-->|DataPoint|
                         |           |   +---------+
+                        |           |
                         |           |   +---------+
                         |           +-->|DataPoint|
                         |           :   +---------+
+                        |           |
                         |           |   +---------+
                         |           +-->|DataPoint|
                         |               +---------+
@@ -36,17 +39,33 @@ nach dem Importieren einer CSV-Datei aussieht, ist auf Abbildung
                                     |   +---------+
                                     +-->|DataPoint|
                                     |   +---------+
+                                    |
                                     |   +---------+
                                     +-->|DataPoint|
                                     :   +---------+
+                                    |
                                     |   +---------+
                                     +-->|DataPoint|
                                         +---------+
 ....
 
-
-
-
+=== Visualizer
+Die Schnittstelle des _Visualizer_ besteht drei Methoden und einem Attribut. Die Methoden
+_LoadDataSource(TextAsset)_ wird vom _ImportDialog_ aufgerufen, wenn der Benutzer im DropDown-Menü
+eine neue CSV-Datei auswählt. Neben dem eigentlichen Laden der CSV-Datei werden zusätzlich alle
+möglichen 3er-Kombinationen der in der Datei enthaltenen Dimensionen gebildet. Hierzu wird 
+_CalculatePossibleScatterplots()_ aufgerufen, welche ein zweidimensionales _int_-Array
+zurück gibt. Die erste Dimension dieses Arrays stellt dabei die einzelnen Kombinationen der 
+Dimensionen der CSV-Datei dar. Die zweite Dimension hat die Größe 3 und besteht aus den drei Indizes
+der jeweiligen Dimension der CSV-Datei. Der _ImportDialog_ erhält die 3er-Kombinationen als _string_
+-Array über die Methode _GetPossibleScatterplots()_. Somit können dem Benutzer die möglichen
+_Scatterplot_-Varianten angezeigt werden. Wird der _Importieren_-Button angeklickt, ruft der _ImportDialog_
+die Methode _CreateScatterplotMatrix(int[])_ auf. Über den Parameter werden die Indizes der vom Benutzer
+gewünschten _Scatterplots_ übergeben. Es wird dann eine neue _ScatterplotMatrix_ instantiiert. Wurder
+vorher bereits eine _ScatterplotMatrix_ erzeugt, wird diese gelöscht. Es ist somit zu jeder Zeit immer
+nur eine _ScatterplotMatrix_ in der Szene. Über das Attribut _pointSize_ kann die Größe der _DataPoints_
+angepasst werden. Der _ImportDialog_ inkrementiert bzw. dekrementiert diesen Wert, wenn der Benutzer die
+entsprechenden Buttons klickt.
 
 === Programmablauf
 Das folgende Diagramm stellt den Programmablauf beim erstmaligen Starten der Anwendung dar:
