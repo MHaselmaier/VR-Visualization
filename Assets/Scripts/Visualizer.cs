@@ -31,17 +31,17 @@ public class Visualizer : MonoBehaviour
         dataSource = gameObject.AddComponent<CSVDataSource>();
     }
 
-    public void LoadDataSource(string filePath)
+    public void LoadDataSource(TextAsset dataFile)
     {
-        if (File.Exists(filePath))
+        if (null != dataFile)
         {
-            dataSource.load(File.ReadAllText(filePath), null);
+            dataSource.load(dataFile.text, null);
             possibleScatterplots = CalculatePossibleScatterplots();
-            Debug.Log("Loaded CSV file from: " + filePath);
+            Debug.Log("Loaded CSV file from: " + dataFile.name);
         }
         else
         {
-            Debug.LogError("Filepath to CSV file doeas not exist: " + filePath);
+            Debug.LogError("Datafile is null!");
         }
     }
 

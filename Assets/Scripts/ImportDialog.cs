@@ -31,7 +31,7 @@ public class ImportDialog : MonoBehaviour {
     private vrButtons wandButtons;
 
     private string csvDirectoryName = "Datasets";
-	private string csvDataDirectory;
+    private TextAsset[] dataFiles;
 
 	// Use this for initialization
 	void Start () {
@@ -41,20 +41,14 @@ public class ImportDialog : MonoBehaviour {
         this.collider = this.gameObject.GetComponent<BoxCollider>();
         this.panel = GameObject.Find("Panel");
 
-		this.csvDataDirectory = Application.dataPath;
-		this.csvDataDirectory = Path.Combine(csvDataDirectory, csvDirectoryName);
-
-		if(!Directory.Exists(this.csvDataDirectory)){
-			Directory.CreateDirectory(this.csvDataDirectory);
-		}
-
 		this.inputFiles = GameObject.Find("dropdown_input_files").GetComponent<Dropdown>();
         this.inputFiles.onValueChanged.AddListener(InputFileSelectionChanged);
 
-		foreach(string file in Directory.GetFiles(this.csvDataDirectory, "*.csv")){
-			FileInfo fileInfo = new FileInfo(file);
-			this.inputFiles.options.Add(new Dropdown.OptionData(){text = fileInfo.Name});
-		}
+        this.dataFiles = Resources.LoadAll<TextAsset>(csvDirectoryName);
+        foreach (TextAsset dataFile in this.dataFiles)
+        {
+            this.inputFiles.options.Add(new Dropdown.OptionData() { text = dataFile.name });
+        }
         this.inputFiles.RefreshShownValue();
 
         this.toggleList = GameObject.Find("toggle_list");
@@ -85,8 +79,7 @@ public class ImportDialog : MonoBehaviour {
 
     private void InputFileSelectionChanged(int elem)
     {
-        string filePath = Path.Combine(this.csvDataDirectory, this.inputFiles.options.ToArray()[elem].text);
-        this.visualizer.LoadDataSource(filePath);
+        this.visualizer.LoadDataSource(this.dataFiles[elem]);
 
         CreateScatterplotToggles();
     }
