@@ -26,3 +26,4 @@ include::architecture_desc.adoc[]
 - [[[IATK, iatk]]] Immersive Analytics Toolkit: https://github.com/MaximeCordeil/IATK
 - [[[VRTK, vrtk]]] Virtual Reality Toolkit: https://vrtoolkit.readme.io
 - [[[SteamVR, svr]]]: https://steamcommunity.com/steamvr
+- [[[GitHub Repository, github]]] Projekt Repository: https://github.com/MHaselmaier/VR-Visualization.git

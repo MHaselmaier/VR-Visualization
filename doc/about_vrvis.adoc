@@ -1,4 +1,5 @@
 === Software und Bibliotheken
+==== Verwendete Software und Bibliotheken
 *MiddleVR* (<<MiddleVR>>): Dient der Entkopplung von VR-Hardware und der Applikation. Als Middleware abstrahiert MiddleVR Eingaben durch Hardware wie der HTC Vive Pro und stellt diese auf Seite der Anwendung als verallgemeinerte Schnittstelle zur Verfügung.
 
 [NOTE]
@@ -9,6 +10,13 @@ Entsprechend wurde innerhalb der zuständigen MiddleVR Klasse _VRCanvas_ die Abf
 
 [NOTE]
 Es musste eine Anpassung am Parser vorgenommen werden. Dort wird in der Methode _GetOriginalValue_ ein Float-Wert als Index für ein Array genommen. Hierbei wird die implizite Typkonvertierung und die daraus resultierende Abrundung zum Problem, da an diesem Punkt ein Runden zur nächsten Ganzzahl erfolgen sollte. Dieser Fehler wurde mittels _Mathf.Round_ behoben.
+
+Die Möglichkeiten des Frameworks zur Datenvisualisierung wurden nach ersten Tests mit dem Framework verworfen, da eine Eigenimplementierung der nötigen Visualisierungskomponenten mit den nötigen Interaktionsmöglichkeiten, wie der Datenpunktauswahl (siehe <<Kurzeinleitung>>, <<datapoint_selection>>) somit umsetzbar wurde. 
+
+==== Verworfene Software und Bibliotheken
+*VRTK* (<<VRTK>>): Wie auch MiddleVR dient VRTK der Entkopplung von Eingabegeräten und der Applikation. Eine erste Integration in das Projekt verlief ohne größere Probleme, sodass das Testen der Anwendung mittels Maus und Tastatur (Modus: Simulation) möglich war. 
+Probleme traten jedoch beim Versuch der Integration einer Vive-Pro Konfiguration auf, da VRTK seit einiger Zeit nicht mehr aktualisiert wird. Entsprechend kam es zu Komplikationen mit der aktuellen API der Vive-Pro (SteamVR, <<SteamVR>>). 
+Entsprechend wurde als alternative Lösung MiddleVR erfolgreich evaluiert und im Projekt statt VRTK integriert.
 
 === Benutzung
 Die Anwendung benötigt zum Starten eine vorhandene MiddleVR Konfigurationsdatei. Die Voreinstellung des Pfades verweist auf die Datei am VR-Labor Rechner. Kann diese Datei nicht gefunden werden oder wird die Anwendung auf einem anderen System ausgeführt, muss diese mit folgendem zusätzlichen Argument gestartet werden:
@@ -21,15 +29,51 @@ VR-Visualization.exe --config "path/to/my/config.vrx"
 Hiermit wird der voreingestellte Pfad überschrieben und die angegebene Konfigurationsdatei stattdessen geladen.
 
 ==== Kurzeinleitung
+Das Projekt kann über das https://github.com/MHaselmaier/VR-Visualization.git[GitHub-Repository] bezogen werden. Folgendes beinhaltet das Repository:
+
+* Dokumentation als .pdf, .html und dessen Sourcen
+* Applikationssourcen
+* Lauffähiger Build im entsprechenden Verzeichnis (Auf VR-Lab Rechner getestet)
+
 Nach dem Starten findet sich der Nutzer im leeren 3D-Raum wieder.
 
 [[htc_vive_pro, Abb. {counter:figure-counter}]]
 .HTC Vive Pro Controller
 image::htc_vive_pro_controller.png[width=200, align=center]
-Für die UI Steuerung sind die _Menütaste_ und der _Trigger_ von Interesse (siehe Bsp. <<htc_vive_pro>>). Nach Betätigen der Menütaste öffnet sich der Import Dialog. Dort kann die gewünschte CVS-Datei ausgewählt werden. Danach lässt sich über die Checkbox-Liste auswählen, welche Attributskombinationen in der Szene visualisiert werden sollen.
+Für die UI Steuerung sind die _Menütaste_ und der _Trigger_ von Interesse (Bsp. <<htc_vive_pro>>). Nach Betätigen der Menütaste öffnet sich der Import Dialog (Abb. <<import_dialog>>). 
+
+[[import_dialog, Abb. {counter:figure-counter}]]
+.Dialog zum Datenimport
+image::import_dialog.png[width=300, align=center]
+
+Der Dialog bewegt sich mit der Kamera des Anwenders. Somit lässt sich der Dialog an jeder Position in der Szene in eine angenehm zu bedienende Position bringen.
+
+Dort kann die gewünschte CVS-Datei ausgewählt werden. Danach lässt sich über die Checkbox-Liste auswählen, welche Attributskombinationen in der Szene visualisiert werden sollen.
 Mit dem Import-Button schließt sich der Dialog und die Scatterplot-Matrix wird aufgebaut. 
 
-Nun kann der Anwender mit Hilfe des Steuerkreuzes oder Steuerpads (siehe Bsp. <<htc_vive_pro>>) zwischen den Scatterplots umher wandern. Ist ein Datenpunkt von besonderem Interesse, kann dieser mit Hilfe des _Wands_ und drücken des Triggers selektiert werden. Der Datenpunkt erscheint nun in roter Farbe und größerer Skalierung. Das Hervorheben des Datenpunkts findet hierbei in jedem Scatterplot statt, der diesen Punkt beinhaltet. 
+Nun kann der Anwender mit Hilfe des Steuerkreuzes oder Steuerpads (siehe Bsp. <<htc_vive_pro>>) zwischen den Scatterplots umher wandern ( Abb. <<scatterplot_matrix>>). 
+
+[[scatterplot_matrix, Abb. {counter:figure-counter}]]
+.Scatterplot Matrix
+image::scatterplot_matrix.png[width=300, align=center]
+
+Ist ein Datenpunkt von besonderem Interesse, kann dieser mit Hilfe des _Wands_ und drücken des Triggers selektiert werden. Der Datenpunkt erscheint nun in roter Farbe und größerer Skalierung (Abb. <<datapoint_selection>>).
+
+[[datapoint_selection, Abb. {counter: figure-counter}]]
+.Selektion eines Datenpunktes
+image::datapoint_selection.png[width=300, align=center]
+
+Das Hervorheben des Datenpunkts findet hierbei in jedem Scatterplot statt, der diesen Punkt beinhaltet. 
 Zusätzlich zum visuellen Hervorheben des Punktes wird relativ zu dessen Position und stets zum Anwender gerichtet eine Liste der drei Attribute und Werte des Datenpunktes dargestellt.
 
-Sollten dichtere Punktwolken vorliegen und die Auswahl eines Punkes deshalb zu schwierig sein, lässt sich über das Import Menü die größe der Datenpunkte in Echtzeit ändern. Die zuständigen Buttons finden sich unter dem Import Button. Umgekehrt lassen sich die Punkte auch vergrößern um beispielsweise bei wenigen Punkten eine bessere Visualisierung zu erzielen.
+Sollten dichtere Punktwolken vorliegen und die Auswahl eines Punkes deshalb zu schwierig sein, lässt sich über das Import Menü die größe der Datenpunkte (Abb. <<datapoint_scaling>>) in Echtzeit ändern. Die zuständigen Buttons finden sich unter dem Importieren-Button (Abb. <<import_dialog>>). Umgekehrt lassen sich die Punkte auch vergrößern um beispielsweise bei wenigen Punkten eine bessere Visualisierung zu erzielen.
+
+[[datapoint_scaling, Abb. {counter: figure-counter}]]
+[caption=, grid="none", frame="none"]
+.Skalierung von Datenpunkten
+|===
+| image:datapoint_size_normal.png[width=200, align=center] | image:datapoint_size_minimized.png[width=200, align=center]
+|===
+
+=== Aufgewendete Zeit
+VIEL
