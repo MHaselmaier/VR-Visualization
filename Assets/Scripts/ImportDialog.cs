@@ -27,6 +27,7 @@ public class ImportDialog : MonoBehaviour {
     private Text pointSize;
     private Button increment;
 
+    private GameObject headNode;
     private vrButtons wandButtons;
 
     private string csvDirectoryName = "Datasets";
@@ -74,6 +75,7 @@ public class ImportDialog : MonoBehaviour {
         this.increment = GameObject.Find("button_increment").GetComponent<Button>();
         this.increment.onClick.AddListener(onButtonIncrement);
 
+        this.headNode = GameObject.Find("HeadNode");
         this.wandButtons = MiddleVR.VRDeviceMgr.GetJoystickByIndex(0).GetButtonsDevice();
 		setVisible(false);
 
@@ -124,9 +126,8 @@ public class ImportDialog : MonoBehaviour {
 
         if (renderer.enabled)
         {
-            GameObject head = GameObject.Find("HeadNode");
-            transform.position = head.transform.position + head.transform.forward * 7;
-            transform.rotation = Quaternion.LookRotation(transform.position - head.transform.position);
+            this.transform.position = this.headNode.transform.position + this.headNode.transform.forward * 7;
+            this.transform.rotation = Quaternion.LookRotation(transform.position - this.headNode.transform.position);
         }
     }
 
