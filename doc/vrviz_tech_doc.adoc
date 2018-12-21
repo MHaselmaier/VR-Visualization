@@ -170,43 +170,6 @@ VRAction    |                    |                    |
 <-----------++
 ....
 
-=== Programmablauf
-Das folgende Diagramm stellt den Programmablauf beim erstmaligen Starten der Anwendung dar:
-
-* Blub
-** Blub
-* blub
-
-Blub
-
-. Ich
-.. Mag 
-... Züge
-. du
-.. magst
-... LKW
-.... Tut Tut
-
-
-==== Neue Subüberschrift
-Blub <<referenz_auf_bereich>>
-
-[[referenz_auf_bereich]]
-.Mein Bereich
-====
-Übernimmt Ascii Zeug
-====
-
-[source, c#]
-.Source Code
-----
-public void Foo(){
-
-}
-----
-
-Und noch Ref auf Überschrift <<Neue Subüberschrift>>.
-
 == Ehrenwörtliche Erklärung
 Hiermit erklären wir, {author}, ehrenwörtlich, 
 * dass die abgegebene Projektarbeit selbstständig und ohne fremde Hilfe von uns angefertigt wurde und keine anderen als in der
