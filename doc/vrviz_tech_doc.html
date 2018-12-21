@@ -614,6 +614,67 @@ entsprechenden Buttons klickt.</p>
 </div>
 </div>
 <div class="sect2">
+<h3 id="_scatterplotmatrix">ScatterplotMatrix</h3>
+<div class="paragraph">
+<p>Die <em>ScatterplotMatrix</em> kapselt und erzeugt <em>Scatterplots</em>. Nachdem eine <em>ScatterplotMatrix</em> erzeugt
+wurde sollte immer die Methode <em>Initialize(CSVDataSource, int[,], float)</em> aufgerufen werden. Durch
+den Aufruf dieser Methode wird die Referenz auf die eingelesene CSV-Datei gesetzt, die gewünschten
+Scatterplots angegeben und die initiale Größe der <em>DataPoints</em> definiert. In ihr wir die private
+Methode <em>CreateScatterplots(CSVDataSource, int[,])</em> aufgerufen. Hierdurch werden die angegebenen
+<em>Scatterplots</em> erzeugt. Zum Erzeugen der Scatterplots wird die Coroutine <em>CreateScatterplotsCoroutine(GameObjec, CSVDataSource, int[,], int)</em>
+verwendet. Mit dem Frame wird ein <em>Scatterplot</em> erzeugt. Diese Variante wurde gewählt, damit die
+Anwendung während dem Erzeugen der <em>Scatterplots</em> nicht einfriert. Die letzte Method der Komponente
+<em>ScatterplotMatrix</em> ist <em>SelectDataPoint(int)</em>. Sie wird von einem <em>DataPoint</em> mit seinem Index aufgerufen,
+wenn er vom Benutzer ausgewählt wird. Aus der <em>ScatterplotMatrix</em> wird der Index des jeweiligen <em>DataPoints</em>
+an alle <em>Scatterplots</em> weitergegeben. Somit benachrichtigt ein ausgewählter <em>DataPoint</em> über die <em>ScatterplotMatrix</em>
+alle <em>Scatterplots</em> und diese können den <em>DataPoint</em> mit dem gegebenen Index hervorheben.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_scatterplot">Scatterplot</h3>
+<div class="paragraph">
+<p>Einem <em>Scatterplot</em> sind immer drei Spalten der CSV-Datei zugeordnet, welche über die Attribute <em>xDim</em>,
+<em>yDim</em> und <em>zDim</em> bestimmt sind. Wie auch schon bei der <em>ScatterplotMatrix</em> sollte nach dem Erzeugen
+eines <em>Scatterplot</em> immer die Methode <em>Initialize(CSVDataSource, float, float, float, int, int ,int)</em>
+aufgerufen werden. Hierbei bestimmen die ersten beiden <em>float</em>-Werte die Position des <em>Scatterplots</em>
+in der Ebene, der letzte <em>float</em>-Wert bestimmt die initiale <em>DataPoint</em> Größe. Die letzten drei <em>int</em>-Werte
+definieren die drei bereits angesprochenen Spalten der CSV-Datei. Durch den Aufruf von <em>Initialize(..)</em>
+werden außerdem die Axen des <em>Scatterplots</em> beschriftet und die einzelnen <em>DataPoints</em> erzeugt.
+Wurde ein <em>DataPoint</em> vom Benutzer ausgewählt, wird die Methode <em>SelectDataPoint(int)</em> aufgerufen (vgl. <a href="#_scatterplotmatrix">ScatterplotMatrix</a>).
+Der <em>Scatterplot</em> iterriert über alle seiner <em>DataPoints</em> und hebt den durch den Index bestimmten <em>DataPoint</em>
+hervor.</p>
+</div>
+<div class="paragraph">
+<p>Ein wichtiger Teil der <em>Scatterplot</em> Komponente ist die Methode <em>OnMVRWandEnter(VRSelection)</em>. Diese
+Methode wird immer dann aufgerufen, wenn der Wand auf den <em>Scatterplot</em> trifft. In diesem Fall wird
+der Collider des <em>Scatterplots</em> deaktiviert und die Collider aller seiner <em>DataPoints</em> werden aktiviert.
+War zuvor ein anderer <em>Scatterplot</em> vom Wand ausgewählt, so werden die Collider seiner <em>DataPoints</em> wieder
+deaktiviert und sein eigener Collider aktiviert, damit er das nächste Mal wieder darauf reagieren kann.
+Durch dieses Vorgehen wird die maximale Anzahl an aktivierten Collidern in Unity begrenzt. Würde dies nicht
+so gehandhabt werden, kann es passiert, dass Unity eine Fehlermeldung wirft, wenn zu viele <em>DataPoints</em>
+erzeugt werden.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_datapoint">DataPoint</h3>
+<div class="paragraph">
+<p>Die Komponente <em>DataPoint</em> visuaisiert eine Zeile der CSV-Datei als Kugel in einem Scatterplot.
+Auch nach dem Erzeugen eines <em>DataPoints</em> sollte immer die <em>Initialize(int, float, Vector3)</em> Methode
+aufgerufen werden. Durch den Index erhält der <em>DataPoint</em> seine zuordnung zu einer Zeile der CSV-Datei,
+die Größe des <em>DataPoints</em> wird durch den <em>float</em>-Wert definiert und seine Position durch den <em>Vector3</em>.
+Außerdem wird bei der Initialisierung der Text des Attributsdialog gesetzt. Dieser wird angezeigt,
+wenn der Benutzer den <em>DataPoint</em> auswählt. Über die Methode <em>GetData()</em> können die Werte des <em>DataPoints</em>
+erhalten werden. Der Rückgabewert der Methode ist ein zweidimensionales <em>string</em>-Array. Die erste Dimension
+repräsentiert die drei Achsen des <em>DataPoints</em> in der zweiten wird der Identifizierer der CSV-Spalte mit dem
+Index 0 angegeben und der entsprechende Werte des <em>DataPoints</em> mit Index 1.</p>
+</div>
+<div class="paragraph">
+<p>Wenn der Benutzer den <em>DataPoint</em> auswählt, wird die Methode <em>VRAction(VRSelection)</em> aufgerufen.
+Der <em>DataPoint</em> gibt dann seinen Index an die <em>ScatterplotMatrix</em> über die Methode <em>SelectDataPoint(int)</em>
+weiter (vgl. <a href="#_scatterplotmatrix">ScatterplotMatrix</a>), damit alle <em>Scatterplots</em> benachrichtigt werden können.</p>
+</div>
+</div>
+<div class="sect2">
 <h3 id="_programmablauf">Programmablauf</h3>
 <div class="paragraph">
 <p>Das folgende Diagramm stellt den Programmablauf beim erstmaligen Starten der Anwendung dar:</p>
@@ -744,7 +805,7 @@ entsprechenden Buttons klickt.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-12-21 14:18:38 +0100
+Last updated 2018-12-21 14:58:54 +0100
 </div>
 </div>
 </body>
