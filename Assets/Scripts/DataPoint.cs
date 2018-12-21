@@ -10,7 +10,7 @@ public class DataPoint : MonoBehaviour
     /// <summary>
     /// The index of this DataPoint in the CSV-File.
     /// </summary>
-    private int index;
+    public int index;
 
     /// <summary>
     /// The size of the DataPoints.
