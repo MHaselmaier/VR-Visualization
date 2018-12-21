@@ -574,6 +574,17 @@ Entsprechend wurde als alternative Lösung MiddleVR erfolgreich evaluiert und im
 </div>
 </div>
 <div class="sect1">
+<h2 id="_problematiken">Problematiken</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Es scheint derzeit bei größer dimensionalen Datensätzen zu Fehlern in der Anwendung zu kommen. So werden Scatterplots gerendert, die im Importdialog nicht ausgewählt wurden. Das bedeutet, dass Checkboxen den Zustand <em>IsOn</em> mit <em>true</em> führen (erfassbar mit Hilfe des Inspektors des Unity Editors), während eine visuelle Selektion nicht erkennbar ist.
+Dieses Verhalten tritt mehreren Tests nach zu Urteilen lediglich dann auf, wenn die Steuerung des Dialogs mittels VR-Hardware, also dem Wand, stattfindet.
+Wird der Dialog mit Hilfe der Maus bedient - hierzu muss der Rendermode des ImportDialog auf Screen Space-Camera gestellt werden - tritt dieses Verhalten nicht auf.
+Die Anwendung funktioniert jedoch mit kleineren Datensätzen in denen entsprechend eine geringere Anzahl an Kombinationen möglich sind auch mit VR-Hardware fehlerfrei. Es werden mehrere Datensets der Applikation beigelegt. Einwandfrei funktioniert hier das <em>iris.csv</em> Datenset.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_architektur_der_anwendung">Architektur der Anwendung</h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -630,7 +641,13 @@ Anwendung während dem Erzeugen der <em>Scatterplots</em> nicht einfriert. Die l
 <em>ScatterplotMatrix</em> ist <em>SelectDataPoint(int)</em>. Sie wird von einem <em>DataPoint</em> mit seinem Index aufgerufen,
 wenn er vom Benutzer ausgewählt wird. Aus der <em>ScatterplotMatrix</em> wird der Index des jeweiligen <em>DataPoints</em>
 an alle <em>Scatterplots</em> weitergegeben. Somit benachrichtigt ein ausgewählter <em>DataPoint</em> über die <em>ScatterplotMatrix</em>
-alle <em>Scatterplots</em>. Diese heben den <em>DataPoint</em> mit dem gegebenen Index hervor.</p>
+alle <em>Scatterplots</em> (siehe <a href="#data_point_selection">Abb. 2</a>). Diese heben den <em>DataPoint</em> mit dem gegebenen Index hervor.</p>
+</div>
+<div id="data_point_selection" class="imageblock">
+<div class="content">
+<img src="imgs/diag-36f08e3bcfb0e9b90f66e6257c3884b3.png" alt="diag 36f08e3bcfb0e9b90f66e6257c3884b3" width="650" height="294">
+</div>
+<div class="title">Abbildung 2. Sequenzdiagramm: <em>DataPoint</em> Selektion</div>
 </div>
 </div>
 <div class="sect2">
@@ -643,7 +660,7 @@ aufgerufen werden. Hierbei bestimmen die ersten beiden <em>float</em>-Werte die 
 in der Ebene, während der letzte <em>float</em>-Wert die initiale <em>DataPoint</em> Größe bestimmt. Die letzten drei <em>int</em>-Werte
 definieren die drei bereits angesprochenen Spalten der CSV-Datei. Durch den Aufruf von <em>Initialize(..)</em>
 werden außerdem die Axen des <em>Scatterplots</em> beschriftet und die einzelnen <em>DataPoints</em> erzeugt.
-Wurde ein <em>DataPoint</em> vom Benutzer ausgewählt, wird die Methode <em>SelectDataPoint(int)</em> aufgerufen (vgl. <a href="#_scatterplotmatrix">ScatterplotMatrix</a>).
+Wurde ein <em>DataPoint</em> vom Benutzer ausgewählt, wird die Methode <em>SelectDataPoint(int)</em> aufgerufen (vgl. <a href="#data_point_selection">Abb. 2</a>).
 Der <em>Scatterplot</em> iteriert über alle seine <em>DataPoints</em> und hebt den durch den Index bestimmten <em>DataPoint</em>
 hervor.</p>
 </div>
@@ -673,14 +690,16 @@ Index 0 angegeben und der entsprechende Werte des <em>DataPoints</em> mit Index 
 <div class="paragraph">
 <p>Wenn der Benutzer den <em>DataPoint</em> auswählt, wird die Methode <em>VRAction(VRSelection)</em> aufgerufen.
 Der <em>DataPoint</em> gibt dann seinen Index an die <em>ScatterplotMatrix</em> über die Methode <em>SelectDataPoint(int)</em>
-weiter (vgl. <a href="#_scatterplotmatrix">ScatterplotMatrix</a>), damit alle <em>Scatterplots</em> benachrichtigt werden können.</p>
+weiter (vgl. <a href="#data_point_selection">Abb. 2</a>), damit alle <em>Scatterplots</em> benachrichtigt werden können.</p>
 </div>
-<div id="data_point_selection" class="imageblock">
-<div class="content">
-<img src="imgs/diag-289653c7c728e3ca314639b40b36bc3e.png" alt="diag 289653c7c728e3ca314639b40b36bc3e" width="650" height="266">
 </div>
-<div class="title">Abbildung 2. Sequenzdiagramm: <em>DataPoint</em> Selektion</div>
 </div>
+</div>
+<div class="sect1">
+<h2 id="_aufgewendete_zeit">Aufgewendete Zeit</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Die Arbeitszeit des Projekts wird für beide Projektbeteiligten zusammen auf ca. <em>180</em> Stunden geschätzt. Ein zeitintensiver Aspekt war hierbei, dass funktionierende Lösungen beim Testen auf dem Labor-Rechner mit VR-Hardware einiges an Nacharbeit erforderten, da während der Entwicklung meist keine entsprechende Hardware für schnelle Tests zur Verfügung stand.</p>
 </div>
 </div>
 </div>
@@ -740,7 +759,7 @@ Stellen innerhalb der Abhandlung gekennzeichnet sind.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-12-21 15:50:21 +0100
+Last updated 2018-12-21 16:53:31 +0100
 </div>
 </div>
 </body>

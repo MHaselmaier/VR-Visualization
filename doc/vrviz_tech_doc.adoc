@@ -28,6 +28,12 @@ Die Möglichkeiten des Frameworks zur Datenvisualisierung wurden nach ersten Tes
 Probleme traten jedoch beim Versuch der Integration einer Vive-Pro Konfiguration auf, da VRTK seit einiger Zeit nicht mehr aktualisiert wird. Entsprechend kam es zu Komplikationen mit der aktuellen API der Vive-Pro (SteamVR, <<SteamVR>>). 
 Entsprechend wurde als alternative Lösung MiddleVR erfolgreich evaluiert und im Projekt statt VRTK integriert.
 
+== Problematiken
+Es scheint derzeit bei größer dimensionalen Datensätzen zu Fehlern in der Anwendung zu kommen. So werden Scatterplots gerendert, die im Importdialog nicht ausgewählt wurden. Das bedeutet, dass Checkboxen den Zustand _IsOn_ mit _true_ führen (erfassbar mit Hilfe des Inspektors des Unity Editors), während eine visuelle Selektion nicht erkennbar ist. 
+Dieses Verhalten tritt mehreren Tests nach zu Urteilen lediglich dann auf, wenn die Steuerung des Dialogs mittels VR-Hardware, also dem Wand, stattfindet. 
+Wird der Dialog mit Hilfe der Maus bedient - hierzu muss der Rendermode des ImportDialog auf Screen Space-Camera gestellt werden - tritt dieses Verhalten nicht auf.
+Die Anwendung funktioniert jedoch mit kleineren Datensätzen in denen entsprechend eine geringere Anzahl an Kombinationen möglich sind auch mit VR-Hardware fehlerfrei. Es werden mehrere Datensets der Applikation beigelegt. Einwandfrei funktioniert hier das _iris.csv_ Datenset. 
+
 == Architektur der Anwendung
 
 Zur Visualisierung der Daten stellt die VR-Anwendung vier Komponenten zur Verfügung, 
@@ -112,7 +118,7 @@ Anwendung während dem Erzeugen der _Scatterplots_ nicht einfriert. Die letzte M
 _ScatterplotMatrix_ ist _SelectDataPoint(int)_. Sie wird von einem _DataPoint_ mit seinem Index aufgerufen,
 wenn er vom Benutzer ausgewählt wird. Aus der _ScatterplotMatrix_ wird der Index des jeweiligen _DataPoints_
 an alle _Scatterplots_ weitergegeben. Somit benachrichtigt ein ausgewählter _DataPoint_ über die _ScatterplotMatrix_
-alle _Scatterplots_ (siehe <<data_point_selection>>. Diese heben den _DataPoint_ mit dem gegebenen Index hervor.
+alle _Scatterplots_ (siehe <<data_point_selection>>). Diese heben den _DataPoint_ mit dem gegebenen Index hervor.
 
 [[data_point_selection, Abb. {counter:figure-counter}]]
 [ditaa]
@@ -171,6 +177,9 @@ Index 0 angegeben und der entsprechende Werte des _DataPoints_ mit Index 1.
 Wenn der Benutzer den _DataPoint_ auswählt, wird die Methode _VRAction(VRSelection)_ aufgerufen.
 Der _DataPoint_ gibt dann seinen Index an die _ScatterplotMatrix_ über die Methode _SelectDataPoint(int)_
 weiter (vgl. <<data_point_selection>>), damit alle _Scatterplots_ benachrichtigt werden können.
+
+== Aufgewendete Zeit
+Die Arbeitszeit des Projekts wird für beide Projektbeteiligten zusammen auf ca. _180_ Stunden geschätzt. Ein zeitintensiver Aspekt war hierbei, dass funktionierende Lösungen beim Testen auf dem Labor-Rechner mit VR-Hardware einiges an Nacharbeit erforderten, da während der Entwicklung meist keine entsprechende Hardware für schnelle Tests zur Verfügung stand.
 
 == Ehrenwörtliche Erklärung
 Hiermit erklären wir, {author}, ehrenwörtlich, 

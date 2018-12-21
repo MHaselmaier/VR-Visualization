@@ -11,7 +11,7 @@ VR-Visualization.exe --config "path/to/my/config.vrx"
 
 Hiermit wird der voreingestellte Pfad überschrieben und die angegebene Konfigurationsdatei stattdessen geladen.
 
-=== Kurzeinleitung
+=== Bedienung der Anwendung
 Das Projekt kann über das https://github.com/MHaselmaier/VR-Visualization.git[GitHub-Repository] bezogen werden. Folgendes beinhaltet das Repository:
 
 * Dokumentation als .pdf, .html und dessen Sourcen
@@ -59,7 +59,13 @@ Sollten dichtere Punktwolken vorliegen und die Auswahl eines Punkes deshalb zu s
 | image:datapoint_size_normal.png[width=200, align=center] | image:datapoint_size_minimized.png[width=200, align=center]
 |===
 
-=== Aufgewendete Zeit
-TODO
+=== Hinzufügen von Datensätzen
+Die Anwendung unterstützt auch in kompilierter Variante das Hinzufügen von Datensätzen. Hierbei wird mit Hilfe des _StreamingAsset_ Mechanismus auf das gleichnamige Verzeichnis zugegriffen. 
+Dieses befindet sich vom Verzeichnis der _VR-Visualisierung.exe_ aus in folgendem Unterverzeichnis: 
+----
+VR-Visualisierung_Data/StreamingAssets/
+----
+
+Hier können Dateien mit _.csv_ Endung abgelegt werden. Beim Starten der Anwendung greift diese dann auf den Inhalt des Verzeichnisses zu. 
 
 include::bib.adoc[]
