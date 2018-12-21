@@ -535,14 +535,14 @@ Die Attribute und Werte des selektierten Datenpunks werden relativ zu seiner Pos
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Während der Navigation in UI Komponenten fiel auf, dass Tasteneingaben nicht <em>debounced</em> werden. So werden beispielsweise Checkboxen schwer steuerbar. Auch andere UI Komponenten waren unter diesen Bedingungen nicht zufiedenstellend nutzbar.
+Während der Navigation in UI Komponenten fiel auf, dass Tasteneingaben nicht <em>debounced</em> werden. So werden beispielsweise Checkboxen schwer steuerbar. Auch andere UI Komponenten waren unter diesen Bedingungen nicht zufriedenstellend nutzbar.
 Entsprechend wurde innerhalb der zuständigen MiddleVR Klasse <em>VRCanvas</em> die Abfrage von Tastenevents auf <em>Toogled</em> umgestellt, um so ein <em>pressed</em> / <em>released</em> Verhalten zu erhalten.
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p><strong>IATK</strong> (<a href="#IATK">[iatk]</a>): Das Toolkit stellt eine Reihe von Funktionalitäten für das Arbeiten mit Daten zur Verfügung. Unter anderem ist ein CSV-Parser enthalten, der im Gegensatz zu einem üblichen CSV-Parser Wertnormalisierungen unabhängig vom vorliegenden Datentyp vornimmt.</p>
+<p><strong>IATK</strong> (<a href="#IATK">[iatk]</a>): Das Toolkit stellt eine Reihe von Funktionalitäten für das Visualisieren von Daten zur Verfügung. Unter anderem ist ein CSV-Parser enthalten, der im Gegensatz zu einem üblichen CSV-Parser Wertnormalisierungen unabhängig vom vorliegenden Datentyp vornimmt.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -551,13 +551,16 @@ Entsprechend wurde innerhalb der zuständigen MiddleVR Klasse <em>VRCanvas</em> 
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Es musste eine Anpassung am Parser vorgenommen werden. Dort wird in der Methode <em>GetOriginalValue</em> ein Float-Wert als Index für ein Array genommen. Hierbei wird die implizite Typkonvertierung und die daraus resultierende Abrundung zum Problem, da an diesem Punkt ein Runden zur nächsten Ganzzahl erfolgen sollte. Dieser Fehler wurde mittels <em>Mathf.Round</em> behoben.
+Es musste eine Anpassung am Parser vorgenommen werden. Dort wird in der Methode <em>GetOriginalValue</em> der normalisierte Wert auf seinen originalen Wertebereich zurückgebracht.
+Hierbei kann es zu Rundungsfehlern kommen, zum Beispiel 0,9999 statt den erwarteten 1,0. Ist der gesuchte Wert vom Typ <em>string</em>, wird der resultierende Wert als Index in einem
+Array verwendet. Hierfür wird der <em>float</em> Wert in einen <em>int</em> gecastet. Dies führte dazu, dass der falsche originale <em>string</em>-Wert zurückgegeben wurde. Zur Lösung wurde der resultierende
+Wert zuerst mit <em>Mathf.round()</em> gerundet, bevor ein cast zu <em>int</em> stattfindet.
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>Die Möglichkeiten des Frameworks zur Datenvisualisierung wurden nach ersten Tests mit dem Framework verworfen, da eine Eigenimplementierung der nötigen Visualisierungskomponenten mit den nötigen Interaktionsmöglichkeiten, wie der Datenpunktauswahl (siehe <a href="#Kurzeinleitung">[Kurzeinleitung]</a>, <a href="#datapoint_selection">[datapoint_selection]</a>) somit umsetzbar wurde.</p>
+<p>Die Möglichkeiten des Frameworks zur Datenvisualisierung wurden nach ersten Tests mit dem Framework aufgrund von schlechter Dokumentation verworfen. Es wurde eine Eigenimplementierung der nötigen Visualisierungskomponenten mit den nötigen Interaktionsmöglichkeiten, wie der Datenpunktauswahl (siehe <a href="#Kurzeinleitung">[Kurzeinleitung]</a>, <a href="#datapoint_selection">[datapoint_selection]</a>) umgesetzt.</p>
 </div>
 </div>
 <div class="sect2">
@@ -595,7 +598,7 @@ werden die Komponenten genauer beschrieben.</p>
 <div class="sect2">
 <h3 id="_visualizer">Visualizer</h3>
 <div class="paragraph">
-<p>Die Schnittstelle des <em>Visualizer</em> besteht drei Methoden und einem Attribut. Die Methoden
+<p>Die Schnittstelle des <em>Visualizer</em> besteht aus drei Methoden und einem Attribut. Die Methode
 <em>LoadDataSource(TextAsset)</em> wird vom <em>ImportDialog</em> aufgerufen, wenn der Benutzer im DropDown-Menü
 eine neue CSV-Datei auswählt. Neben dem eigentlichen Laden der CSV-Datei werden zusätzlich alle
 möglichen 3er-Kombinationen der in der Datei enthaltenen Dimensionen gebildet. Hierzu wird
@@ -606,7 +609,7 @@ der jeweiligen Dimension der CSV-Datei. Der <em>ImportDialog</em> erhält die 3e
 -Array über die Methode <em>GetPossibleScatterplots()</em>. Somit können dem Benutzer die möglichen
 <em>Scatterplot</em>-Varianten angezeigt werden. Wird der <em>Importieren</em>-Button angeklickt, ruft der <em>ImportDialog</em>
 die Methode <em>CreateScatterplotMatrix(int[])</em> auf. Über den Parameter werden die Indizes der vom Benutzer
-gewünschten <em>Scatterplots</em> übergeben. Es wird dann eine neue <em>ScatterplotMatrix</em> instantiiert. Wurder
+gewünschten <em>Scatterplots</em> übergeben. Es wird dann eine neue <em>ScatterplotMatrix</em> instantiiert. Wurde
 vorher bereits eine <em>ScatterplotMatrix</em> erzeugt, wird diese gelöscht. Es ist somit zu jeder Zeit immer
 nur eine <em>ScatterplotMatrix</em> in der Szene. Über das Attribut <em>pointSize</em> kann die Größe der <em>DataPoints</em>
 angepasst werden. Der <em>ImportDialog</em> inkrementiert bzw. dekrementiert diesen Wert, wenn der Benutzer die
@@ -617,17 +620,17 @@ entsprechenden Buttons klickt.</p>
 <h3 id="_scatterplotmatrix">ScatterplotMatrix</h3>
 <div class="paragraph">
 <p>Die <em>ScatterplotMatrix</em> kapselt und erzeugt <em>Scatterplots</em>. Nachdem eine <em>ScatterplotMatrix</em> erzeugt
-wurde sollte immer die Methode <em>Initialize(CSVDataSource, int[,], float)</em> aufgerufen werden. Durch
+wurde, sollte immer die Methode <em>Initialize(CSVDataSource, int[,], float)</em> aufgerufen werden. Durch
 den Aufruf dieser Methode wird die Referenz auf die eingelesene CSV-Datei gesetzt, die gewünschten
 Scatterplots angegeben und die initiale Größe der <em>DataPoints</em> definiert. In ihr wir die private
 Methode <em>CreateScatterplots(CSVDataSource, int[,])</em> aufgerufen. Hierdurch werden die angegebenen
 <em>Scatterplots</em> erzeugt. Zum Erzeugen der Scatterplots wird die Coroutine <em>CreateScatterplotsCoroutine(GameObjec, CSVDataSource, int[,], int)</em>
-verwendet. Mit dem Frame wird ein <em>Scatterplot</em> erzeugt. Diese Variante wurde gewählt, damit die
+verwendet. Mit jedem Frame wird ein <em>Scatterplot</em> erzeugt. Diese Variante wurde gewählt, damit die
 Anwendung während dem Erzeugen der <em>Scatterplots</em> nicht einfriert. Die letzte Method der Komponente
 <em>ScatterplotMatrix</em> ist <em>SelectDataPoint(int)</em>. Sie wird von einem <em>DataPoint</em> mit seinem Index aufgerufen,
 wenn er vom Benutzer ausgewählt wird. Aus der <em>ScatterplotMatrix</em> wird der Index des jeweiligen <em>DataPoints</em>
 an alle <em>Scatterplots</em> weitergegeben. Somit benachrichtigt ein ausgewählter <em>DataPoint</em> über die <em>ScatterplotMatrix</em>
-alle <em>Scatterplots</em> und diese können den <em>DataPoint</em> mit dem gegebenen Index hervorheben.</p>
+alle <em>Scatterplots</em>. Diese heben den <em>DataPoint</em> mit dem gegebenen Index hervor.</p>
 </div>
 </div>
 <div class="sect2">
@@ -637,11 +640,11 @@ alle <em>Scatterplots</em> und diese können den <em>DataPoint</em> mit dem gege
 <em>yDim</em> und <em>zDim</em> bestimmt sind. Wie auch schon bei der <em>ScatterplotMatrix</em> sollte nach dem Erzeugen
 eines <em>Scatterplot</em> immer die Methode <em>Initialize(CSVDataSource, float, float, float, int, int ,int)</em>
 aufgerufen werden. Hierbei bestimmen die ersten beiden <em>float</em>-Werte die Position des <em>Scatterplots</em>
-in der Ebene, der letzte <em>float</em>-Wert bestimmt die initiale <em>DataPoint</em> Größe. Die letzten drei <em>int</em>-Werte
+in der Ebene, während der letzte <em>float</em>-Wert die initiale <em>DataPoint</em> Größe bestimmt. Die letzten drei <em>int</em>-Werte
 definieren die drei bereits angesprochenen Spalten der CSV-Datei. Durch den Aufruf von <em>Initialize(..)</em>
 werden außerdem die Axen des <em>Scatterplots</em> beschriftet und die einzelnen <em>DataPoints</em> erzeugt.
 Wurde ein <em>DataPoint</em> vom Benutzer ausgewählt, wird die Methode <em>SelectDataPoint(int)</em> aufgerufen (vgl. <a href="#_scatterplotmatrix">ScatterplotMatrix</a>).
-Der <em>Scatterplot</em> iterriert über alle seiner <em>DataPoints</em> und hebt den durch den Index bestimmten <em>DataPoint</em>
+Der <em>Scatterplot</em> iteriert über alle seine <em>DataPoints</em> und hebt den durch den Index bestimmten <em>DataPoint</em>
 hervor.</p>
 </div>
 <div class="paragraph">
@@ -650,22 +653,21 @@ Methode wird immer dann aufgerufen, wenn der Wand auf den <em>Scatterplot</em> t
 der Collider des <em>Scatterplots</em> deaktiviert und die Collider aller seiner <em>DataPoints</em> werden aktiviert.
 War zuvor ein anderer <em>Scatterplot</em> vom Wand ausgewählt, so werden die Collider seiner <em>DataPoints</em> wieder
 deaktiviert und sein eigener Collider aktiviert, damit er das nächste Mal wieder darauf reagieren kann.
-Durch dieses Vorgehen wird die maximale Anzahl an aktivierten Collidern in Unity begrenzt. Würde dies nicht
-so gehandhabt werden, kann es passiert, dass Unity eine Fehlermeldung wirft, wenn zu viele <em>DataPoints</em>
-erzeugt werden.</p>
+Durch dieses Vorgehen wird die maximale Anzahl an aktivierten Collidern in Unity begrenzt. Diese Mechanik
+wurde eingebaut, da Unity bei einer gewissen Anzahl an Objekten mit Collider eine Fehlermeldung wirft.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_datapoint">DataPoint</h3>
 <div class="paragraph">
-<p>Die Komponente <em>DataPoint</em> visuaisiert eine Zeile der CSV-Datei als Kugel in einem Scatterplot.
+<p>Die Komponente <em>DataPoint</em> visualisiert eine Zeile der CSV-Datei als Kugel in einem Scatterplot.
 Auch nach dem Erzeugen eines <em>DataPoints</em> sollte immer die <em>Initialize(int, float, Vector3)</em> Methode
-aufgerufen werden. Durch den Index erhält der <em>DataPoint</em> seine zuordnung zu einer Zeile der CSV-Datei,
-die Größe des <em>DataPoints</em> wird durch den <em>float</em>-Wert definiert und seine Position durch den <em>Vector3</em>.
+aufgerufen werden. Durch den Index erhält der <em>DataPoint</em> seine Zuordnung zu einer Zeile der CSV-Datei.
+Die Größe des <em>DataPoints</em> wird durch den <em>float</em>-Wert definiert und seine Position durch den <em>Vector3</em>.
 Außerdem wird bei der Initialisierung der Text des Attributsdialog gesetzt. Dieser wird angezeigt,
 wenn der Benutzer den <em>DataPoint</em> auswählt. Über die Methode <em>GetData()</em> können die Werte des <em>DataPoints</em>
 erhalten werden. Der Rückgabewert der Methode ist ein zweidimensionales <em>string</em>-Array. Die erste Dimension
-repräsentiert die drei Achsen des <em>DataPoints</em> in der zweiten wird der Identifizierer der CSV-Spalte mit dem
+repräsentiert die drei Achsen des <em>DataPoints</em>. In der zweiten Dimension wird der <em>Identifier</em> der CSV-Spalte mit dem
 Index 0 angegeben und der entsprechende Werte des <em>DataPoints</em> mit Index 1.</p>
 </div>
 <div class="paragraph">
@@ -673,102 +675,27 @@ Index 0 angegeben und der entsprechende Werte des <em>DataPoints</em> mit Index 
 Der <em>DataPoint</em> gibt dann seinen Index an die <em>ScatterplotMatrix</em> über die Methode <em>SelectDataPoint(int)</em>
 weiter (vgl. <a href="#_scatterplotmatrix">ScatterplotMatrix</a>), damit alle <em>Scatterplots</em> benachrichtigt werden können.</p>
 </div>
-</div>
-<div class="sect2">
-<h3 id="_programmablauf">Programmablauf</h3>
-<div class="paragraph">
-<p>Das folgende Diagramm stellt den Programmablauf beim erstmaligen Starten der Anwendung dar:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Blub</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Blub</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>blub</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Blub</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Ich</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>Mag</p>
-<div class="olist lowerroman">
-<ol class="lowerroman" type="i">
-<li>
-<p>Züge</p>
-</li>
-</ol>
-</div>
-</li>
-</ol>
-</div>
-</li>
-<li>
-<p>du</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>magst</p>
-<div class="olist lowerroman">
-<ol class="lowerroman" type="i">
-<li>
-<p>LKW</p>
-<div class="olist upperalpha">
-<ol class="upperalpha" type="A">
-<li>
-<p>Tut Tut</p>
-</li>
-</ol>
-</div>
-</li>
-</ol>
-</div>
-</li>
-</ol>
-</div>
-</li>
-</ol>
-</div>
-<div class="sect3">
-<h4 id="_neue_subüberschrift">Neue Subüberschrift</h4>
-<div class="paragraph">
-<p>Blub <a href="#referenz_auf_bereich">Mein Bereich</a></p>
-</div>
-<div id="referenz_auf_bereich" class="exampleblock">
-<div class="title">Beispiel 1. Mein Bereich</div>
+<div id="data_point_selection" class="imageblock">
 <div class="content">
+<img src="imgs/diag-f9d269a8c00a2001e96c27135144d4e1.png" alt="diag f9d269a8c00a2001e96c27135144d4e1" width="650" height="266">
+</div>
+<div class="title">Abbildung 2. Sequenzdiagramm: <em>DataPoint</em> Selektion</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_ehrenwörtliche_erklärung">Ehrenwörtliche Erklärung</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>Übernimmt Ascii Zeug</p>
-</div>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">Listing 1. Source Code</div>
-<div class="content">
-<pre class="pygments highlight"><code data-lang="c#"><span></span><span class="tok-k">public</span> <span class="tok-k">void</span> <span class="tok-nf">Foo</span><span class="tok-p">(){</span>
-
-<span class="tok-p">}</span></code></pre>
-</div>
+<p>Hiermit erklären wir, Matthias Haselmaier, Andreas M. Brunnet, ehrenwörtlich,
+* dass die abgegebene Projektarbeit selbstständig und ohne fremde Hilfe von uns angefertigt wurde und keine anderen als in der
+Abhandlung angegebenen Hilfen benutzt wurden;
+* dass die Übernahme wörtlicher Zitate aus der Literatur sowie die Verwendung der Gedanken anderer Autoren an den entsprechenden
+Stellen innerhalb der Abhandlung gekennzeichnet sind.</p>
 </div>
 <div class="paragraph">
-<p>Und noch Ref auf Überschrift <a href="#_neue_subüberschrift">Neue Subüberschrift</a>.</p>
-</div>
-</div>
+<p>21.12.2018,</p>
 </div>
 </div>
 </div>
@@ -805,7 +732,7 @@ weiter (vgl. <a href="#_scatterplotmatrix">ScatterplotMatrix</a>), damit alle <e
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-12-21 14:58:54 +0100
+Last updated 2018-12-21 15:34:12 +0100
 </div>
 </div>
 </body>
