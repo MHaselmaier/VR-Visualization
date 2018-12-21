@@ -149,6 +149,27 @@ Wenn der Benutzer den _DataPoint_ auswählt, wird die Methode _VRAction(VRSelect
 Der _DataPoint_ gibt dann seinen Index an die _ScatterplotMatrix_ über die Methode _SelectDataPoint(int)_
 weiter (vgl. <<ScatterplotMatrix>>), damit alle _Scatterplots_ benachrichtigt werden können.
 
+[[data_point_selection, Abb. {counter:figure-counter}]]
+[ditaa]
+.Sequenzdiagramm: _DataPoint_ Selektion
+....
+        +---------+     +-----------------+     +-----------+
+        |DataPoint|     |ScatterplotMatrix|     |Scatterplot|
+        +---------+     +-----------------+     +-----------+
+            |                    |                    |
+VRAction    |                    |                    |
+----------->++  SelectDataPoint  |                    |
+            ||------------------>++  SeleczDataPoint  |
+            ||                   ||------------------>++
+            ||                   ||         ShowText  ||
+            ||++<----------------||-------------------||
+            ||||                 ||                   ||
+            ||++-----------------||------------------>||
+            ||                   ||<------------------++
+            ||<------------------++
+<-----------++
+....
+
 === Programmablauf
 Das folgende Diagramm stellt den Programmablauf beim erstmaligen Starten der Anwendung dar:
 
