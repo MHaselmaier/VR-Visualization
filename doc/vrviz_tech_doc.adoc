@@ -10,6 +10,31 @@
 :source-highlighter: pygments
 :figure-counter: 0
 
+== Vorwort
+Im Rahmen der Veranstaltung _{vr}_ wurde eine VR-Anwendung auf Basis der Unity 3D-Engine entwickelt, mit deren Hilfe eine Betrachung von Machine Learning Daten im Raum ermöglicht wird. Hierbei hat der Anwender die Möglichkeit innerhalb der als Scatterplots visualisierten Daten umher zu wandern. Darüber hinaus lässt sich ein für den Nutzer interessanter Datenpunkt mittels VR üblicher Selektiergestik auswählen. 
+Die Attribute und Werte des selektierten Datenpunks werden relativ zu seiner Position dem Nutzer dargestellt. Über das Hervorheben des selektierten Punktes in sämtlichen Scatterplot-Matrizen hat der Anwender direkte Übersicht über die Verteilung des Punktes innerhalb des Datensets.
+
+== Software und Bibliotheken
+=== Verwendete Software und Bibliotheken
+*MiddleVR* (<<MiddleVR>>): Dient der Entkopplung von VR-Hardware und der Applikation. Als Middleware abstrahiert MiddleVR Eingaben durch Hardware wie der HTC Vive Pro und stellt diese auf Seite der Anwendung als verallgemeinerte Schnittstelle zur Verfügung.
+
+[NOTE]
+Während der Navigation in UI Komponenten fiel auf, dass Tasteneingaben nicht _debounced_ werden. So werden beispielsweise Checkboxen schwer steuerbar. Auch andere UI Komponenten waren unter diesen Bedingungen nicht zufiedenstellend nutzbar.
+Entsprechend wurde innerhalb der zuständigen MiddleVR Klasse _VRCanvas_ die Abfrage von Tastenevents auf _Toogled_ umgestellt, um so ein _pressed_ / _released_ Verhalten zu erhalten.
+
+*IATK* (<<IATK>>): Das Toolkit stellt eine Reihe von Funktionalitäten für das Arbeiten mit Daten zur Verfügung. Unter anderem ist ein CSV-Parser enthalten, der im Gegensatz zu einem üblichen CSV-Parser Wertnormalisierungen unabhängig vom vorliegenden Datentyp vornimmt. 
+
+[NOTE]
+Es musste eine Anpassung am Parser vorgenommen werden. Dort wird in der Methode _GetOriginalValue_ ein Float-Wert als Index für ein Array genommen. Hierbei wird die implizite Typkonvertierung und die daraus resultierende Abrundung zum Problem, da an diesem Punkt ein Runden zur nächsten Ganzzahl erfolgen sollte. Dieser Fehler wurde mittels _Mathf.Round_ behoben.
+
+Die Möglichkeiten des Frameworks zur Datenvisualisierung wurden nach ersten Tests mit dem Framework verworfen, da eine Eigenimplementierung der nötigen Visualisierungskomponenten mit den nötigen Interaktionsmöglichkeiten, wie der Datenpunktauswahl (siehe <<Kurzeinleitung>>, <<datapoint_selection>>) somit umsetzbar wurde. 
+
+=== Verworfene Software und Bibliotheken
+*VRTK* (<<VRTK>>): Wie auch MiddleVR dient VRTK der Entkopplung von Eingabegeräten und der Applikation. Eine erste Integration in das Projekt verlief ohne größere Probleme, sodass das Testen der Anwendung mittels Maus und Tastatur (Modus: Simulation) möglich war. 
+Probleme traten jedoch beim Versuch der Integration einer Vive-Pro Konfiguration auf, da VRTK seit einiger Zeit nicht mehr aktualisiert wird. Entsprechend kam es zu Komplikationen mit der aktuellen API der Vive-Pro (SteamVR, <<SteamVR>>). 
+Entsprechend wurde als alternative Lösung MiddleVR erfolgreich evaluiert und im Projekt statt VRTK integriert.
+
+
 == Architektur der Anwendung
 
 Zur Visualisierung der Daten stellt die VR-Anwendung vier Komponenten zur Verfügung, 

@@ -4,6 +4,7 @@ ADOC=asciidoctor -r asciidoctor-diagram
 all: pdf html
 
 pdf: vrviz_tech_doc_pdf vrviz_user_doc_pdf
+	rm -r .asciidoctor
 
 vrviz_tech_doc_pdf: vrviz_tech_doc.adoc
 	$(ADOC_PDF) $< 
