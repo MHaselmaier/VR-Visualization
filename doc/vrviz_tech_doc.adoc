@@ -16,10 +16,10 @@ Entsprechend wurde innerhalb der zuständigen MiddleVR Klasse _VRCanvas_ die Abf
 *IATK* (<<IATK>>): Das Toolkit stellt eine Reihe von Funktionalitäten für das Visualisieren von Daten zur Verfügung. Unter anderem ist ein CSV-Parser enthalten, der im Gegensatz zu einem üblichen CSV-Parser Wertnormalisierungen unabhängig vom vorliegenden Datentyp vornimmt. 
 
 [NOTE]
-Es musste eine Anpassung am Parser vorgenommen werden. Dort wird in der Methode _GetOriginalValue_ der normalisiert Wert auf seinen originalen originalen Wertebereich gebracht.
+Es musste eine Anpassung am Parser vorgenommen werden. Dort wird in der Methode _GetOriginalValue_ der normalisierte Wert auf seinen originalen Wertebereich zurückgebracht.
 Hierbei kann es zu Rundungsfehlern kommen, zum Beispiel 0,9999 statt den erwarteten 1,0. Ist der gesuchte Wert vom Typ _string_, wird der resultierende Wert als Index in einem 
-Array verwendet. Hierfür wird der _float_ Wert in einen _int_ gecastet. Die führte dazu, dass der falsche originale _string_-Wert zurückgegeben wurde. Zur Lösung wurde der resultierende
-Wert zuerst mit _Mathf.round()_ gerundet, bevor es in einen _int_ gecastet wird.
+Array verwendet. Hierfür wird der _float_ Wert in einen _int_ gecastet. Dies führte dazu, dass der falsche originale _string_-Wert zurückgegeben wurde. Zur Lösung wurde der resultierende
+Wert zuerst mit _Mathf.round()_ gerundet, bevor ein cast zu _int_ stattfindet.
 
 Die Möglichkeiten des Frameworks zur Datenvisualisierung wurden nach ersten Tests mit dem Framework aufgrund von schlechter Dokumentation verworfen. Es wurde eine Eigenimplementierung der nötigen Visualisierungskomponenten mit den nötigen Interaktionsmöglichkeiten, wie der Datenpunktauswahl (siehe <<Kurzeinleitung>>, <<datapoint_selection>>) umgesetzt. 
 
