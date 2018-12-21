@@ -1,0 +1,17 @@
+= VR-Visualization
+Das Repository zur Projektarbeit für die Vorlesung Virtual Reality.
+
+== Vorwort
+Das Ziel dieses Projektes ist die Visualisierung von unter Anderem Machine Learning Datensets innerhalb einer 3D Umgebung. Hierbei lassen 
+sich sämtliche 3-Kombinationen von Attributen als Scatterplot innerhalb einer Scatterplot-Matrix visualisieren. 
+Es besteht die Möglichkeit des Umherwanders zwischen den Scatterplots und die Selektion interessanter Datenpunkte (Scatterplot übergreifend).
+
+
+== Bestandteile
+Es sollten alle für die Abgabe nötigen Komponenten im Repository enthalten sein.
+* Dokumentation
+** Anleitung
+** Technische Dokumentation
+* Sourcen
+* Lauffähiger Build
+
