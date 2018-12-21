@@ -1,0 +1,9 @@
+[bibliography]
+== Quellen / Ressourcen
+- [[[MiddleVR, mvr]]]: https://www.middlevr.com/home
+- [[[IATK, iatk]]] Immersive Analytics Toolkit: https://github.com/MaximeCordeil/IATK
+- [[[VRTK, vrtk]]] Virtual Reality Toolkit: https://vrtoolkit.readme.io
+- [[[SteamVR, svr]]]: https://steamcommunity.com/steamvr
+- [[[GitHub-Repository, github]]] Projekt Repository: https://github.com/MHaselmaier/VR-Visualization.git
+- [[[Unity-Documentation, udoc]]]: https://docs.unity3d.com/Manual/index.html
+- [[[MiddleVR-Documentation, mdoc]]]: https://www.middlevr.com/doc/current/
