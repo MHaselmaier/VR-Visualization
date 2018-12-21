@@ -124,7 +124,7 @@ alle _Scatterplots_ (siehe <<data_point_selection>>. Diese heben den _DataPoint_
             |                    |                    |
 VRAction    |                    |                    |
 ----------->++  SelectDataPoint  |                    |
-            ||------------------>++  SeleczDataPoint  |
+            ||------------------>++  SelectDataPoint  |
             ||                   ||------------------>++
             ||                   ||         ShowText  ||
             ||++<----------------||-------------------||
@@ -174,6 +174,7 @@ weiter (vgl. <<data_point_selection>>), damit alle _Scatterplots_ benachrichtigt
 
 == Ehrenwörtliche Erklärung
 Hiermit erklären wir, {author}, ehrenwörtlich, 
+
 * dass die abgegebene Projektarbeit selbstständig und ohne fremde Hilfe von uns angefertigt wurde und keine anderen als in der
 Abhandlung angegebenen Hilfen benutzt wurden;
 * dass die Übernahme wörtlicher Zitate aus der Literatur sowie die Verwendung der Gedanken anderer Autoren an den entsprechenden
