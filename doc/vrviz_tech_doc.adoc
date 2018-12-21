@@ -112,7 +112,30 @@ Anwendung während dem Erzeugen der _Scatterplots_ nicht einfriert. Die letzte M
 _ScatterplotMatrix_ ist _SelectDataPoint(int)_. Sie wird von einem _DataPoint_ mit seinem Index aufgerufen,
 wenn er vom Benutzer ausgewählt wird. Aus der _ScatterplotMatrix_ wird der Index des jeweiligen _DataPoints_
 an alle _Scatterplots_ weitergegeben. Somit benachrichtigt ein ausgewählter _DataPoint_ über die _ScatterplotMatrix_
-alle _Scatterplots_. Diese heben den _DataPoint_ mit dem gegebenen Index hervor.
+alle _Scatterplots_ (siehe <<data_point_selection>>. Diese heben den _DataPoint_ mit dem gegebenen Index hervor.
+
+[[data_point_selection, Abb. {counter:figure-counter}]]
+[ditaa]
+.Sequenzdiagramm: _DataPoint_ Selektion
+....
+        +---------+     +-----------------+     +-----------+
+        |DataPoint|     |ScatterplotMatrix|     |Scatterplot|
+        +---------+     +-----------------+     +-----------+
+            |                    |                    |
+VRAction    |                    |                    |
+----------->++  SelectDataPoint  |                    |
+            ||------------------>++  SeleczDataPoint  |
+            ||                   ||------------------>++
+            ||                   ||         ShowText  ||
+            ||++<----------------||-------------------||
+            ||||                 ||                   ||
+            ||++-----------------||------------------>||
+            ||                   ||<------------------++
+            ||<------------------++                   |
+<-----------++                   |                    |
+            |                    |                    |
+            |                    |                    |
+....
 
 === Scatterplot
 Einem _Scatterplot_ sind immer drei Spalten der CSV-Datei zugeordnet, welche über die Attribute _xDim_,
@@ -122,7 +145,7 @@ aufgerufen werden. Hierbei bestimmen die ersten beiden _float_-Werte die Positio
 in der Ebene, während der letzte _float_-Wert die initiale _DataPoint_ Größe bestimmt. Die letzten drei _int_-Werte
 definieren die drei bereits angesprochenen Spalten der CSV-Datei. Durch den Aufruf von _Initialize(..)_ 
 werden außerdem die Axen des _Scatterplots_ beschriftet und die einzelnen _DataPoints_ erzeugt.
-Wurde ein _DataPoint_ vom Benutzer ausgewählt, wird die Methode _SelectDataPoint(int)_ aufgerufen (vgl. <<ScatterplotMatrix>>).
+Wurde ein _DataPoint_ vom Benutzer ausgewählt, wird die Methode _SelectDataPoint(int)_ aufgerufen (vgl. <<data_point_selection>>).
 Der _Scatterplot_ iteriert über alle seine _DataPoints_ und hebt den durch den Index bestimmten _DataPoint_
 hervor.
 
@@ -147,28 +170,7 @@ Index 0 angegeben und der entsprechende Werte des _DataPoints_ mit Index 1.
 
 Wenn der Benutzer den _DataPoint_ auswählt, wird die Methode _VRAction(VRSelection)_ aufgerufen.
 Der _DataPoint_ gibt dann seinen Index an die _ScatterplotMatrix_ über die Methode _SelectDataPoint(int)_
-weiter (vgl. <<ScatterplotMatrix>>), damit alle _Scatterplots_ benachrichtigt werden können.
-
-[[data_point_selection, Abb. {counter:figure-counter}]]
-[ditaa]
-.Sequenzdiagramm: _DataPoint_ Selektion
-....
-        +---------+     +-----------------+     +-----------+
-        |DataPoint|     |ScatterplotMatrix|     |Scatterplot|
-        +---------+     +-----------------+     +-----------+
-            |                    |                    |
-VRAction    |                    |                    |
------------>++  SelectDataPoint  |                    |
-            ||------------------>++  SeleczDataPoint  |
-            ||                   ||------------------>++
-            ||                   ||         ShowText  ||
-            ||++<----------------||-------------------||
-            ||||                 ||                   ||
-            ||++-----------------||------------------>||
-            ||                   ||<------------------++
-            ||<------------------++
-<-----------++
-....
+weiter (vgl. <<data_point_selection>>), damit alle _Scatterplots_ benachrichtigt werden können.
 
 == Ehrenwörtliche Erklärung
 Hiermit erklären wir, {author}, ehrenwörtlich, 
