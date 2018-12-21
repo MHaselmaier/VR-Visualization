@@ -1,13 +1,15 @@
 ﻿using IATK;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
+/// <summary>
+/// Capsules and creates Scatterplots.
+/// </summary>
 public class ScatterplotMatrix : MonoBehaviour
 {
-    public CSVDataSource dataSource;
-
+    /// <summary>
+    /// The size of the DataPoints.
+    /// </summary>
     private float _pointSize;
     public float pointSize
     {
@@ -24,24 +26,45 @@ public class ScatterplotMatrix : MonoBehaviour
 
     private Scatterplot[] scatterplots = new Scatterplot[0];
 
+    /// <summary>
+    /// Initializes the ScatterplotMatrix.
+    /// Should always be called after creating this component.
+    /// </summary>
+    /// /// <param name="dataSource"></param>
+    /// /// <param name="dimCombinations"></param>
+    /// /// <param name="pointSize"></param>
     public void Initialize(CSVDataSource dataSource, int[,] dimCombinations, float pointSize)
     {
-        this.dataSource = dataSource;
         this.pointSize = pointSize;
 
-        CreateScatterplots(dimCombinations);
+        CreateScatterplots(dataSource, dimCombinations);
     }
 
-    private void CreateScatterplots(int[,] dimCombinations)
+    /// <summary>
+    /// Calls the subroutine which creates the Scatterplots.
+    /// </summary>
+    /// <param name="dimCombinations"></param>
+    /// <param name="dimCombinations"></param>
+    private void CreateScatterplots(CSVDataSource dataSource, int[,] dimCombinations)
     {
         GameObject scatterplotPrefab = Resources.Load("Prefabs/Scatterplot") as GameObject;
         int matrixWidth = (int)(Mathf.Sqrt(dimCombinations.GetLength(0)) + 1);
 
         scatterplots = new Scatterplot[dimCombinations.GetLength(0)];
-        StartCoroutine(CreateScatterplotsCoroutine(scatterplotPrefab, dimCombinations, matrixWidth));
+        StartCoroutine(CreateScatterplotsCoroutine(scatterplotPrefab, dataSource, dimCombinations, matrixWidth));
     }
 
-    IEnumerator CreateScatterplotsCoroutine(GameObject scatterplotPrefab, int[,] dimCombinations, int matrixWidth)
+    /// <summary>
+    /// Creates the Scatterplots in a subroutine, one per frame.
+    /// This was done to keep the programm from freezen when creating 
+    /// the Scatterplots.
+    /// </summary>
+    /// <param name="scatterplotPrefab"></param>
+    /// /// <param name="dataSource"></param>
+    /// <param name="dimCombinations"></param>
+    /// <param name="matrixWidth"></param>
+    /// <returns></returns>
+    IEnumerator CreateScatterplotsCoroutine(GameObject scatterplotPrefab, CSVDataSource dataSource, int[,] dimCombinations, int matrixWidth)
     {
         for (int i = 0; dimCombinations.GetLength(0) > i; ++i)
         {
@@ -61,6 +84,11 @@ public class ScatterplotMatrix : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Delegates the call to all the Scatterplots.
+    /// This Method is called from DataPoint when it is selected by the user.
+    /// </summary>
+    /// <param name="index"></param>
     public void SelectDataPoint(int index)
     {
         foreach (Scatterplot scatterplot in scatterplots)

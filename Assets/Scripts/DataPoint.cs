@@ -1,13 +1,20 @@
 ﻿using IATK;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Represents one DataPoint as a sphere.
+/// </summary>
 public class DataPoint : MonoBehaviour
 {
-    public int index = -1;
+    /// <summary>
+    /// The index of this DataPoint in the CSV-File.
+    /// </summary>
+    private int index;
 
+    /// <summary>
+    /// The size of the DataPoints.
+    /// </summary>
     private float _pointSize;
     public float pointSize
     {
@@ -20,8 +27,20 @@ public class DataPoint : MonoBehaviour
     }
 
     private Scatterplot scatterplot;
+    
+    /// <summary>
+    /// The dialog which holds the attribute values of this DataPoint.
+    /// Will be shown when the DataPoint is selected.
+    /// </summary>
     private GameObject attributes;
 
+    /// <summary>
+    /// Initializes the DataPoint.
+    /// Should always be called after creating this component.
+    /// </summary>
+    /// <param name="index"></param>
+    /// <param name="pointSize"></param>
+    /// <param name="position"></param>
     public void Initialize(int index, float pointSize, Vector3 position)
     {
         this.index = index;
@@ -35,6 +54,10 @@ public class DataPoint : MonoBehaviour
         ShowText(false);
     }
 
+    /// <summary>
+    /// Sets the text inside the attribute dialog and
+    /// fits the backgound to the width of the text.
+    /// </summary>
     private void initTextMeshes()
     {
         var data = GetData();
@@ -57,6 +80,11 @@ public class DataPoint : MonoBehaviour
         background.localPosition = newPosition;
     }
 
+    /// <summary>
+    /// Utility method to get the width of a TextMesh.
+    /// </summary>
+    /// <param name="mesh"></param>
+    /// <returns></returns>
     private float GetTextMeshWidth(TextMesh mesh)
     {
         // from http://answers.unity.com/comments/1072098/view.html
@@ -72,11 +100,21 @@ public class DataPoint : MonoBehaviour
         return width * mesh.characterSize * 0.1f * mesh.transform.localScale.x;
     }
 
+    /// <summary>
+    /// Set wether the attribute dialog is shown or not.
+    /// </summary>
+    /// <param name="show"></param>
     public void ShowText(bool show)
     {
         attributes.SetActive(show);
     }
     
+    /// <summary>
+    /// Returns the data from the CSV-File which this DataPoint represents.
+    /// The first dimension holds the three columns.
+    /// The second dimension holds the columns identifier in index 0 and the value in index 1.
+    /// </summary>
+    /// <returns></returns>
     public string[,] GetData()
     {
         CSVDataSource dataSource = scatterplot.dataSource;
@@ -98,6 +136,14 @@ public class DataPoint : MonoBehaviour
         return data;
     }
 
+    /// <summary>
+    /// This is called when the user selects the DataPoint.
+    /// The call is delegated to the ScatterplotMatrix so that it
+    /// can be forwarded to all the Scatterplots.
+    /// This way if a DataPoint with a given index is selected, the
+    /// same DataPoint in other Scatterplots are highlighted as well.
+    /// </summary>
+    /// <param name="iSelection"></param>
     protected void VRAction(VRSelection iSelection)
     {
         ScatterplotMatrix scatterplotMatrix = scatterplot.GetComponentInParent<ScatterplotMatrix>();

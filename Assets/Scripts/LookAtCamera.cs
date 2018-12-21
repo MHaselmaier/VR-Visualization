@@ -1,9 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class LookAtCamera : MonoBehaviour
 {
+    /// <summary>
+    /// Reference to the MiddleVR HeadNode.
+    /// </summary>
     private GameObject headNode;
 
     void Start()

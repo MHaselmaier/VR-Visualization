@@ -1,15 +1,15 @@
-﻿using System.IO;
-using System.Linq;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
-using UnityEditor;
 using System;
 
-public class ImportDialog : MonoBehaviour {
-
+/// <summary>
+/// This sets up the ImportDialog and handles user interactions.
+/// It communicates with the Visualizer to load CSV-Files, create
+/// ScatterplotMatrices and change the size of DataPoints.
+/// </summary>
+public class ImportDialog : MonoBehaviour
+{
 	public Visualizer visualizer;
 
     private GameObject scatterplotTogglePrefab;
@@ -27,148 +27,193 @@ public class ImportDialog : MonoBehaviour {
     private Text pointSize;
     private Button increment;
 
+    /// <summary>
+    /// Reference to the MiddleVR HeadNode.
+    /// </summary>
     private GameObject headNode;
+    /// <summary>
+    /// Reference to the buttons of the wand.
+    /// </summary>
     private vrButtons wandButtons;
 
     private string csvDirectoryName = "Datasets";
+    /// <summary>
+    /// All the found CSV-Files
+    /// </summary>
     private TextAsset[] dataFiles;
 
 	// Use this for initialization
-	void Start () {
-        this.scatterplotTogglePrefab = Resources.Load("Prefabs/checkbox") as GameObject;
+	void Start()
+    {
+        scatterplotTogglePrefab = Resources.Load("Prefabs/checkbox") as GameObject;
 
-        this.renderer = this.gameObject.GetComponent<Canvas>();
-        this.collider = this.gameObject.GetComponent<BoxCollider>();
-        this.panel = GameObject.Find("Panel");
+        renderer = gameObject.GetComponent<Canvas>();
+        collider = gameObject.GetComponent<BoxCollider>();
+        panel = GameObject.Find("Panel");
 
-		this.inputFiles = GameObject.Find("dropdown_input_files").GetComponent<Dropdown>();
-        this.inputFiles.onValueChanged.AddListener(InputFileSelectionChanged);
+		inputFiles = GameObject.Find("dropdown_input_files").GetComponent<Dropdown>();
+        inputFiles.onValueChanged.AddListener(InputFileSelectionChanged);
 
-        this.dataFiles = Resources.LoadAll<TextAsset>(csvDirectoryName);
-        foreach (TextAsset dataFile in this.dataFiles)
+        dataFiles = Resources.LoadAll<TextAsset>(csvDirectoryName);
+        foreach (TextAsset dataFile in dataFiles)
         {
-            this.inputFiles.options.Add(new Dropdown.OptionData() { text = dataFile.name });
+            inputFiles.options.Add(new Dropdown.OptionData() { text = dataFile.name });
         }
-        this.inputFiles.RefreshShownValue();
+        inputFiles.RefreshShownValue();
 
-        this.toggleList = GameObject.Find("toggle_list");
-        this.scrollbar = GameObject.Find("scrollbar").GetComponent<Scrollbar>();
+        toggleList = GameObject.Find("toggle_list");
+        scrollbar = GameObject.Find("scrollbar").GetComponent<Scrollbar>();
 
-        this.selectAll = GameObject.Find("button_select_all").GetComponent<Button>();
-        this.selectAll.onClick.AddListener(OnSelectAll);
-        this.deselectAll = GameObject.Find("button_deselect_all").GetComponent<Button>();
-        this.deselectAll.onClick.AddListener(OnDeselectAll);
+        selectAll = GameObject.Find("button_select_all").GetComponent<Button>();
+        selectAll.onClick.AddListener(OnSelectAll);
+        deselectAll = GameObject.Find("button_deselect_all").GetComponent<Button>();
+        deselectAll.onClick.AddListener(OnDeselectAll);
 
-        this.buttonImport = GameObject.Find("button_import").GetComponent<Button>();
-		this.buttonImport.onClick.AddListener(onButtonImportClicked);
+        buttonImport = GameObject.Find("button_import").GetComponent<Button>();
+		buttonImport.onClick.AddListener(OnButtonImportClicked);
 
-        this.decrement = GameObject.Find("button_decrement").GetComponent<Button>();
-        this.decrement.onClick.AddListener(onButtonDecrement);
-        this.pointSize = GameObject.Find("label_point_size_value").GetComponent<Text>();
-        this.pointSize.text = this.visualizer.pointSize.ToString();
-        this.increment = GameObject.Find("button_increment").GetComponent<Button>();
-        this.increment.onClick.AddListener(onButtonIncrement);
+        decrement = GameObject.Find("button_decrement").GetComponent<Button>();
+        decrement.onClick.AddListener(OnButtonDecrement);
+        pointSize = GameObject.Find("label_point_size_value").GetComponent<Text>();
+        pointSize.text = visualizer.pointSize.ToString();
+        increment = GameObject.Find("button_increment").GetComponent<Button>();
+        increment.onClick.AddListener(OnButtonIncrement);
 
-        this.headNode = GameObject.Find("HeadNode");
-        this.wandButtons = MiddleVR.VRDeviceMgr.GetJoystickByIndex(0).GetButtonsDevice();
-		setVisible(false);
+        headNode = GameObject.Find("HeadNode");
+        wandButtons = MiddleVR.VRDeviceMgr.GetJoystickByIndex(0).GetButtonsDevice();
+		SetVisible(false);
 
         // Call manually to trigger the loading of the CSV file
         InputFileSelectionChanged(0);
     }
 
+    /// <summary>
+    /// Once a new CSV-File from the DropdownMenu is chosen,
+    /// this method is called. The Visualizer than loads the file
+    /// and the possible Scatterplots are shown to the user.
+    /// </summary>
+    /// <param name="elem"></param>
     private void InputFileSelectionChanged(int elem)
     {
-        this.visualizer.LoadDataSource(this.dataFiles[elem]);
+        visualizer.LoadDataSource(dataFiles[elem]);
 
         CreateScatterplotToggles();
     }
 
+    /// <summary>
+    /// This creates a toggle button for every possible Scatterplot
+    /// of the currently selected CSV-File.
+    /// </summary>
     private void CreateScatterplotToggles()
     {
-        foreach (Transform toggle in this.toggleList.transform)
+        foreach (Transform toggle in toggleList.transform)
         {
             Destroy(toggle.gameObject);
         }
 
-        string[] possibleScatterplots = this.visualizer.GetPossibleScattersplots();
+        string[] possibleScatterplots = visualizer.GetPossibleScattersplots();
         int possibilities = possibleScatterplots.GetLength(0);
         for (int possibility = 0; possibilities > possibility; ++possibility)
         {
-            GameObject toggle = Instantiate(scatterplotTogglePrefab, this.toggleList.transform) as GameObject;
+            GameObject toggle = Instantiate(scatterplotTogglePrefab, toggleList.transform) as GameObject;
             toggle.GetComponentInChildren<Text>().text = possibleScatterplots[possibility];
             toggle.GetComponent<RectTransform>().anchoredPosition = (Vector3.down * 25 * possibility);
         }
-        this.toggleList.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 25 * possibilities);
+        toggleList.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 25 * possibilities);
         
-        this.scrollbar.value = 1;
+        scrollbar.value = 1;
     }
 
     // Update is called once per frame
-    void Update () {
-
-        if (8 >= this.toggleList.transform.childCount)
+    void Update()
+    {
+        if (8 >= toggleList.transform.childCount)
         {
-            this.scrollbar.size = 1;
+            scrollbar.size = 1;
         }
         
-        if(wandButtons.IsToggled(3))
+        if (wandButtons.IsToggled(3))
         {
-			setVisible(!renderer.enabled);
+			SetVisible(!renderer.enabled);
 		}
 
         if (renderer.enabled)
         {
-            this.transform.position = this.headNode.transform.position + this.headNode.transform.forward * 7;
-            this.transform.rotation = Quaternion.LookRotation(transform.position - this.headNode.transform.position);
+            transform.position = headNode.transform.position + headNode.transform.forward * 7;
+            transform.rotation = Quaternion.LookRotation(transform.position - headNode.transform.position);
         }
     }
 
-	void setVisible(bool value){
+    /// <summary>
+    /// Sets wether the ImportDialog is shown.
+    /// </summary>
+    /// <param name="value"></param>
+	void SetVisible(bool value)
+    {
 		renderer.enabled = value;
         collider.enabled = value;
         panel.SetActive(value);
 	}
 
+    /// <summary>
+    /// Handle for the select-all button.
+    /// </summary>
     void OnSelectAll()
     {
-        for (int i = 0; this.toggleList.transform.childCount > i; ++i)
+        for (int i = 0; toggleList.transform.childCount > i; ++i)
         {
-            this.toggleList.transform.GetChild(i).GetComponent<Toggle>().isOn = true;
+            toggleList.transform.GetChild(i).GetComponent<Toggle>().isOn = true;
         }
     }
 
+    /// <summary>
+    /// Handle for the deselect-all button.
+    /// </summary>
     void OnDeselectAll()
     {
-        for (int i = 0; this.toggleList.transform.childCount > i; ++i)
+        for (int i = 0; toggleList.transform.childCount > i; ++i)
         {
-            this.toggleList.transform.GetChild(i).GetComponent<Toggle>().isOn = false;
+            toggleList.transform.GetChild(i).GetComponent<Toggle>().isOn = false;
         }
     }
 
-	void onButtonImportClicked(){
+    /// <summary>
+    /// Handle for the import button.
+    /// Iterates through all scatterplot toggle buttons and creates
+    /// an array of the indeces of the activated ones.
+    /// This array is provided to the Visualizer so that it nows
+    /// which Scatterplots are to be created.
+    /// </summary>
+	void OnButtonImportClicked()
+    {
         List<int> scatterplotIndices = new List<int>();
-        for (int i = 0; this.toggleList.transform.childCount > i; ++i)
+        for (int i = 0; toggleList.transform.childCount > i; ++i)
         {
-            if (this.toggleList.transform.GetChild(i).GetComponent<Toggle>().isOn)
+            if (toggleList.transform.GetChild(i).GetComponent<Toggle>().isOn)
             {
                 scatterplotIndices.Add(i);
             }
         }
 
-		this.visualizer.CreateScatterplotMatrix(scatterplotIndices.ToArray());
-		setVisible(false);
+		visualizer.CreateScatterplotMatrix(scatterplotIndices.ToArray());
+		SetVisible(false);
 	}
 
-    void onButtonDecrement()
+    /// <summary>
+    /// Handle for the minus button.
+    /// </summary>
+    void OnButtonDecrement()
     {
-        this.visualizer.pointSize = Mathf.Max(0, (float)Math.Round(this.visualizer.pointSize - 0.001, 3));
-        this.pointSize.text = this.visualizer.pointSize.ToString();
+        visualizer.pointSize = Mathf.Max(0, (float)Math.Round(visualizer.pointSize - 0.001, 3));
+        pointSize.text = visualizer.pointSize.ToString();
     }
 
-    void onButtonIncrement()
+    /// <summary>
+    /// Handle for the plus button.
+    /// </summary>
+    void OnButtonIncrement()
     {
-        this.visualizer.pointSize = (float)Math.Round(this.visualizer.pointSize + 0.001, 3);
-        this.pointSize.text = this.visualizer.pointSize.ToString();
+        visualizer.pointSize = (float)Math.Round(visualizer.pointSize + 0.001, 3);
+        pointSize.text = visualizer.pointSize.ToString();
     }
 }

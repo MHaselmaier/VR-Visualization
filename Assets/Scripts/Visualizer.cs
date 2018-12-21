@@ -1,12 +1,16 @@
 ﻿using IATK;
-using System.IO;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
+/// <summary>
+/// Load's CSV-Files and creates ScatterplotMatrices.
+/// </summary>
 public class Visualizer : MonoBehaviour
 {
+    /// <summary>
+    /// The size of the DataPoints.
+    /// </summary>
     private float _pointSize = 0.02f;
     public float pointSize
     {
@@ -22,6 +26,12 @@ public class Visualizer : MonoBehaviour
     }
 
     private CSVDataSource dataSource;
+
+    /// <summary>
+    /// A list of all possible Scatterplots for the currently loaded CSV-File.
+    /// The first dimension of the array is the index of a possible Scatterplot.
+    /// The second dimension contains the three indeces of the column of the CSV-File.
+    /// </summary>
     private int[,] possibleScatterplots;
 
     private ScatterplotMatrix scatterplotMatrix;
@@ -44,19 +54,13 @@ public class Visualizer : MonoBehaviour
             Debug.LogError("Datafile is null!");
         }
     }
-
-    public string[] GetIdentifiers()
-    {
-        if (!dataSource.IsLoaded) return new string[0];
-
-        string[] identifiers = new string[dataSource.DimensionCount];
-        for (int i = 0; identifiers.GetLength(0) > i; ++i)
-        {
-            identifiers[i] = dataSource[i].Identifier;
-        }
-        return identifiers;
-    }
-
+    
+    /// <summary>
+    /// Creates a ScatterplotMatrix with the chosen Scatterplots.
+    /// </summary>
+    /// <param name="scatterplotIndices">
+    /// An array with the indeces of the chosen Scatterplots.
+    /// </param>
     public void CreateScatterplotMatrix(int[] scatterplotIndices)
     {
         if (dataSource.IsLoaded)
@@ -86,6 +90,12 @@ public class Visualizer : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Returns all possible Scatterplots in a string representation.
+    /// </summary>
+    /// <returns>
+    /// Array of: <identifier0> - <identifier1> - <identifier2>
+    /// </returns>
     public string[] GetPossibleScattersplots()
     {
         string[] possibilities = new string[possibleScatterplots.GetLength(0)];
@@ -122,6 +132,9 @@ public class Visualizer : MonoBehaviour
     }
 }
 
+/// <summary>
+/// Added an extension which creates all combination of size k of a given IEnumerabel.
+/// </summary>
 static class Extension
 {
     // Copied from https://stackoverflow.com/a/1898744

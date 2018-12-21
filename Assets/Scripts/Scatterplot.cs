@@ -1,12 +1,16 @@
 ﻿using IATK;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Capsules and creates DataPoints.
+/// </summary>
 public class Scatterplot : MonoBehaviour
 {
     public CSVDataSource dataSource;
 
+    /// <summary>
+    /// The size of the DataPoints.
+    /// </summary>
     private float _pointSize;
     public float pointSize
     {
@@ -20,10 +24,25 @@ public class Scatterplot : MonoBehaviour
             }
         }
     }
+
+    /// <summary>
+    /// The three indeces of the columns in the CSV-File.
+    /// </summary>
     public int xDim, yDim, zDim;
 
     private DataPoint[] dataPoints = new DataPoint[0];
 
+    /// <summary>
+    /// Initializes the ScatterplotMatrix.
+    /// Should always be called after creating this component.
+    /// </summary>
+    /// <param name="dataSource"></param>
+    /// <param name="matrixPosX"></param>
+    /// <param name="matrixPosZ"></param>
+    /// <param name="pointSize"></param>
+    /// <param name="xDim"></param>
+    /// <param name="yDim"></param>
+    /// <param name="zDim"></param>
     public void Initialize(CSVDataSource dataSource, float matrixPosX, float matrixPosZ, float pointSize, int xDim, int yDim, int zDim)
     {
         this.dataSource = dataSource;
@@ -39,6 +58,9 @@ public class Scatterplot : MonoBehaviour
         transform.Translate(new Vector3(matrixPosX + posOffset * matrixPosX, 0, matrixPosZ + posOffset * matrixPosZ));
     }
 
+    /// <summary>
+    /// Sets the text of the Axes to the identifiers of the columns of the CSV-File.
+    /// </summary>
     private void InitializeAxesLabel()
     {
         Transform axes = transform.Find("Axes");
@@ -61,6 +83,12 @@ public class Scatterplot : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Iterates through all DataPoints and highligths the selected one.
+    /// Also shows his attributes in a dialog.
+    /// This Method is called from ScatterplotMatrix.
+    /// </summary>
+    /// <param name="index"></param>
     public void SelectDataPoint(int index)
     {
         foreach (DataPoint dataPoint in dataPoints)
@@ -80,6 +108,10 @@ public class Scatterplot : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// This gets call if the Wand is 
+    /// </summary>
+    /// <param name="iSelection"></param>
     protected void OnMVRWandEnter(VRSelection iSelection)
     {
         foreach (Transform scatterplot in transform.parent)
