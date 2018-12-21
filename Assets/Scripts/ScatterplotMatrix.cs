@@ -43,7 +43,7 @@ public class ScatterplotMatrix : MonoBehaviour
     /// <summary>
     /// Calls the subroutine which creates the Scatterplots.
     /// </summary>
-    /// <param name="dimCombinations"></param>
+    /// <param name="dataSource"></param>
     /// <param name="dimCombinations"></param>
     private void CreateScatterplots(CSVDataSource dataSource, int[,] dimCombinations)
     {
@@ -60,7 +60,7 @@ public class ScatterplotMatrix : MonoBehaviour
     /// the Scatterplots.
     /// </summary>
     /// <param name="scatterplotPrefab"></param>
-    /// /// <param name="dataSource"></param>
+    /// <param name="dataSource"></param>
     /// <param name="dimCombinations"></param>
     /// <param name="matrixWidth"></param>
     /// <returns></returns>
