@@ -19,15 +19,18 @@ Die Attribute und Werte des selektierten Datenpunks werden relativ zu seiner Pos
 *MiddleVR* (<<MiddleVR>>): Dient der Entkopplung von VR-Hardware und der Applikation. Als Middleware abstrahiert MiddleVR Eingaben durch Hardware wie der HTC Vive Pro und stellt diese auf Seite der Anwendung als verallgemeinerte Schnittstelle zur Verfügung.
 
 [NOTE]
-Während der Navigation in UI Komponenten fiel auf, dass Tasteneingaben nicht _debounced_ werden. So werden beispielsweise Checkboxen schwer steuerbar. Auch andere UI Komponenten waren unter diesen Bedingungen nicht zufiedenstellend nutzbar.
+Während der Navigation in UI Komponenten fiel auf, dass Tasteneingaben nicht _debounced_ werden. So werden beispielsweise Checkboxen schwer steuerbar. Auch andere UI Komponenten waren unter diesen Bedingungen nicht zufriedenstellend nutzbar.
 Entsprechend wurde innerhalb der zuständigen MiddleVR Klasse _VRCanvas_ die Abfrage von Tastenevents auf _Toogled_ umgestellt, um so ein _pressed_ / _released_ Verhalten zu erhalten.
 
-*IATK* (<<IATK>>): Das Toolkit stellt eine Reihe von Funktionalitäten für das Arbeiten mit Daten zur Verfügung. Unter anderem ist ein CSV-Parser enthalten, der im Gegensatz zu einem üblichen CSV-Parser Wertnormalisierungen unabhängig vom vorliegenden Datentyp vornimmt. 
+*IATK* (<<IATK>>): Das Toolkit stellt eine Reihe von Funktionalitäten für das Visualisieren von Daten zur Verfügung. Unter anderem ist ein CSV-Parser enthalten, der im Gegensatz zu einem üblichen CSV-Parser Wertnormalisierungen unabhängig vom vorliegenden Datentyp vornimmt. 
 
 [NOTE]
-Es musste eine Anpassung am Parser vorgenommen werden. Dort wird in der Methode _GetOriginalValue_ ein Float-Wert als Index für ein Array genommen. Hierbei wird die implizite Typkonvertierung und die daraus resultierende Abrundung zum Problem, da an diesem Punkt ein Runden zur nächsten Ganzzahl erfolgen sollte. Dieser Fehler wurde mittels _Mathf.Round_ behoben.
+Es musste eine Anpassung am Parser vorgenommen werden. Dort wird in der Methode _GetOriginalValue_ der normalisiert Wert auf seinen originalen originalen Wertebereich gebracht.
+Hierbei kann es zu Rundungsfehlern kommen, zum Beispiel 0,9999 statt den erwarteten 1,0. Ist der gesuchte Wert vom Typ _string_, wird der resultierende Wert als Index in einem 
+Array verwendet. Hierfür wird der _float_ Wert in einen _int_ gecastet. Die führte dazu, dass der falsche originale _string_-Wert zurückgegeben wurde. Zur Lösung wurde der resultierende
+Wert zuerst mit _Mathf.round()_ gerundet, bevor es in einen _int_ gecastet wird.
 
-Die Möglichkeiten des Frameworks zur Datenvisualisierung wurden nach ersten Tests mit dem Framework verworfen, da eine Eigenimplementierung der nötigen Visualisierungskomponenten mit den nötigen Interaktionsmöglichkeiten, wie der Datenpunktauswahl (siehe <<Kurzeinleitung>>, <<datapoint_selection>>) somit umsetzbar wurde. 
+Die Möglichkeiten des Frameworks zur Datenvisualisierung wurden nach ersten Tests mit dem Framework aufgrund von schlechter Dokumentation verworfen. Es wurde eine Eigenimplementierung der nötigen Visualisierungskomponenten mit den nötigen Interaktionsmöglichkeiten, wie der Datenpunktauswahl (siehe <<Kurzeinleitung>>, <<datapoint_selection>>) umgesetzt. 
 
 === Verworfene Software und Bibliotheken
 *VRTK* (<<VRTK>>): Wie auch MiddleVR dient VRTK der Entkopplung von Eingabegeräten und der Applikation. Eine erste Integration in das Projekt verlief ohne größere Probleme, sodass das Testen der Anwendung mittels Maus und Tastatur (Modus: Simulation) möglich war. 
