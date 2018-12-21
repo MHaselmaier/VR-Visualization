@@ -24,7 +24,7 @@ Nach dem Starten findet sich der Nutzer im leeren 3D-Raum wieder.
 [[htc_vive_pro, Abb. {counter:figure-counter}]]
 .HTC Vive Pro Controller
 image::htc_vive_pro_controller.png[width=200, align=center]
-Für die UI Steuerung sind die _Menütaste_ und der _Trigger_ von Interesse (Bsp. <<htc_vive_pro>>). Nach Betätigen der Menütaste öffnet sich der Import Dialog (Abb. <<import_dialog>>). 
+Für die UI Steuerung sind die _Menütaste_ und der _Trigger_ von Interesse (<<htc_vive_pro>>). Nach Betätigen der Menütaste öffnet sich der Import Dialog (<<import_dialog>>). 
 
 [[import_dialog, Abb. {counter:figure-counter}]]
 .Dialog zum Datenimport
@@ -35,13 +35,13 @@ Der Dialog bewegt sich mit der Kamera des Anwenders. Somit lässt sich der Dialo
 Dort kann die gewünschte CVS-Datei ausgewählt werden. Danach lässt sich über die Checkbox-Liste auswählen, welche Attributskombinationen in der Szene visualisiert werden sollen.
 Mit dem Import-Button schließt sich der Dialog und die Scatterplot-Matrix wird aufgebaut. 
 
-Nun kann der Anwender mit Hilfe des Steuerkreuzes oder Steuerpads (siehe Bsp. <<htc_vive_pro>>) zwischen den Scatterplots umher wandern ( Abb. <<scatterplot_matrix>>). 
+Nun kann der Anwender mit Hilfe des Steuerkreuzes oder Steuerpads (siehe <<htc_vive_pro>>) zwischen den Scatterplots umher wandern (<<scatterplot_matrix>>). 
 
 [[scatterplot_matrix, Abb. {counter:figure-counter}]]
 .Scatterplot Matrix
 image::scatterplot_matrix.png[width=300, align=center]
 
-Ist ein Datenpunkt von besonderem Interesse, kann dieser mit Hilfe des _Wands_ und drücken des Triggers selektiert werden. Der Datenpunkt erscheint nun in roter Farbe und größerer Skalierung (Abb. <<datapoint_selection>>).
+Ist ein Datenpunkt von besonderem Interesse, kann dieser mit Hilfe des _Wands_ und drücken des Triggers selektiert werden. Der Datenpunkt erscheint nun in roter Farbe und größerer Skalierung (<<datapoint_selection>>).
 
 [[datapoint_selection, Abb. {counter:figure-counter}]]
 .Selektion eines Datenpunktes
@@ -50,7 +50,7 @@ image::datapoint_selection.png[width=300, align=center]
 Das Hervorheben des Datenpunkts findet hierbei in jedem Scatterplot statt, der diesen Punkt beinhaltet. 
 Zusätzlich zum visuellen Hervorheben des Punktes wird relativ zu dessen Position und stets zum Anwender gerichtet eine Liste der drei Attribute und Werte des Datenpunktes dargestellt.
 
-Sollten dichtere Punktwolken vorliegen und die Auswahl eines Punkes deshalb zu schwierig sein, lässt sich über das Import Menü die größe der Datenpunkte (Abb. <<datapoint_scaling>>) in Echtzeit ändern. Die zuständigen Buttons finden sich unter dem Importieren-Button (Abb. <<import_dialog>>). Umgekehrt lassen sich die Punkte auch vergrößern um beispielsweise bei wenigen Punkten eine bessere Visualisierung zu erzielen.
+Sollten dichtere Punktwolken vorliegen und die Auswahl eines Punkes deshalb zu schwierig sein, lässt sich über das Import Menü die größe der Datenpunkte (<<datapoint_scaling>>) in Echtzeit ändern. Die zuständigen Buttons finden sich unter dem Importieren-Button (<<import_dialog>>). Umgekehrt lassen sich die Punkte auch vergrößern um beispielsweise bei wenigen Punkten eine bessere Visualisierung zu erzielen.
 
 [[datapoint_scaling, Abb. {counter: figure-counter}]]
 [caption=, grid="none", frame="none"]

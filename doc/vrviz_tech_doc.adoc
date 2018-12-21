@@ -2,9 +2,9 @@
 include::header.adoc[]
 
 == Vorwort
-Im Rahmen der Veranstaltung _{vr}_ wurde eine VR-Anwendung auf Basis der Unity 3D-Engine entwickelt, mit deren Hilfe eine Betrachung von Machine Learning Daten im Raum ermöglicht wird. Hierbei hat der Anwender die Möglichkeit innerhalb der als Scatterplots visualisierten Daten umher zu wandern. Darüber hinaus lässt sich ein für den Nutzer interessanter Datenpunkt mittels VR üblicher Selektiergestik auswählen.
-Die Attribute und Werte des selektierten Datenpunks werden relativ zu seiner Position dem Nutzer dargestellt. Über das Hervorheben des selektierten Punktes in sämtlichen Scatterplot-Matrizen hat der Anwender direkte Übersicht über die Verteilung des Punktes innerhalb des Datensets.
-Ziel der Anwendung soll es sein, Machine Learning Daten, die in textueller Form (csv oder ähnliches) oft schwer zu deuten sind, fassbarer und besser deutbar zu machen. Entsprechend bot sich {vr} als Möglichkeit der räumlichen Darstellung dieser Daten an. Entsprechend soll die Anwendung in diesem Bereich als unterstützendes Werkzeug zum Einsatz kommen.
+Im Rahmen der Veranstaltung _{vr}_ wurde eine VR-Anwendung auf Basis der Unity 3D-Engine entwickelt, mit deren Hilfe eine Betrachtung von Machine Learning Daten im Raum ermöglicht wird. Hierbei hat der Anwender die Möglichkeit innerhalb der als Scatterplots visualisierten Daten umher zu wandern. Darüber hinaus lässt sich ein für den Nutzer interessanter Datenpunkt mittels VR üblicher Selektiergestik auswählen.
+Die Attribute und Werte des selektierten Datenpunkts werden relativ zu seiner Position dem Nutzer dargestellt. Über das Hervorheben des selektierten Punktes in sämtlichen Scatterplot-Matrizen hat der Anwender direkte Übersicht über die Verteilung des Punktes innerhalb des Datensets.
+Ziel der Anwendung soll es sein, Machine Learning Daten, die in textueller Form (CSV oder ähnliches) oft schwer zu deuten sind, fassbarer und besser deutbar zu machen. Entsprechend bot sich {vr} als Möglichkeit der räumlichen Darstellung dieser Daten an. Die Anwendung soll in diesem Bereich als unterstützendes Werkzeug zum Einsatz kommen.
 
 == Software und Bibliotheken
 === Verwendete Software und Bibliotheken
@@ -31,9 +31,9 @@ Entsprechend wurde als alternative Lösung MiddleVR erfolgreich evaluiert und im
 
 == Problematiken
 Es scheint derzeit bei größer dimensionalen Datensätzen zu Fehlern in der Anwendung zu kommen. So werden Scatterplots gerendert, die im Importdialog nicht ausgewählt wurden. Das bedeutet, dass Checkboxen den Zustand _IsOn_ mit _true_ führen (erfassbar mit Hilfe des Inspektors des Unity Editors), während eine visuelle Selektion nicht erkennbar ist. 
-Dieses Verhalten tritt mehreren Tests nach zu Urteilen lediglich dann auf, wenn die Steuerung des Dialogs mittels VR-Hardware, also dem Wand, stattfindet. 
+Dieses Verhalten tritt mehreren Tests nach zu Urteilen lediglich dann auf, wenn die Steuerung des Dialogs mittels VR-Hardware, also dem _Wand_, stattfindet. 
 Wird der Dialog mit Hilfe der Maus bedient - hierzu muss der Rendermode des ImportDialog auf Screen Space-Camera gestellt werden - tritt dieses Verhalten nicht auf.
-Die Anwendung funktioniert jedoch mit kleineren Datensätzen in denen entsprechend eine geringere Anzahl an Kombinationen möglich sind auch mit VR-Hardware fehlerfrei. Es werden mehrere Datensets der Applikation beigelegt. Einwandfrei funktioniert hier das _iris.csv_ Datenset. 
+Die Anwendung funktioniert jedoch mit kleineren Datensätzen in denen entsprechend eine geringere Anzahl an Kombinationen möglich sind auch mit VR-Hardware fehlerfrei. Es werden mehrere Datensets der Applikation beigelegt. Einwandfrei funktioniert hier das _Iris.csv_ Datenset. 
 
 == Architektur der Anwendung
 
@@ -61,14 +61,14 @@ werden die Komponenten genauer beschrieben.
             +-----------------+
                         |   +-----------+
                         +-->|Scatterplot|
-                        :   +-----------+
+                        |   +-----------+
                         |           |   +---------+
                         |           +-->|DataPoint|
                         |           |   +---------+
                         |           |
                         |           |   +---------+
                         |           +-->|DataPoint|
-                        |           :   +---------+
+                        |           |   +---------+
                         |           |
                         |           |   +---------+
                         |           +-->|DataPoint|
@@ -82,7 +82,7 @@ werden die Komponenten genauer beschrieben.
                                     |
                                     |   +---------+
                                     +-->|DataPoint|
-                                    :   +---------+
+                                    |   +---------+
                                     |
                                     |   +---------+
                                     +-->|DataPoint|
@@ -157,9 +157,9 @@ Der _Scatterplot_ iteriert über alle seine _DataPoints_ und hebt den durch den 
 hervor.
 
 Ein wichtiger Teil der _Scatterplot_ Komponente ist die Methode _OnMVRWandEnter(VRSelection)_. Diese 
-Methode wird immer dann aufgerufen, wenn der Wand auf den _Scatterplot_ trifft. In diesem Fall wird
+Methode wird immer dann aufgerufen, wenn der _Wand_ auf den _Scatterplot_ trifft. In diesem Fall wird
 der Collider des _Scatterplots_ deaktiviert und die Collider aller seiner _DataPoints_ werden aktiviert.
-War zuvor ein anderer _Scatterplot_ vom Wand ausgewählt, so werden die Collider seiner _DataPoints_ wieder
+War zuvor ein anderer _Scatterplot_ vom _Wand_ ausgewählt, so werden die Collider seiner _DataPoints_ wieder
 deaktiviert und sein eigener Collider aktiviert, damit er das nächste Mal wieder darauf reagieren kann.
 Durch dieses Vorgehen wird die maximale Anzahl an aktivierten Collidern in Unity begrenzt. Diese Mechanik 
 wurde eingebaut, da Unity bei einer gewissen Anzahl an Objekten mit Collider eine Fehlermeldung wirft.
