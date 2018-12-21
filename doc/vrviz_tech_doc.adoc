@@ -142,6 +142,21 @@ Durch dieses Vorgehen wird die maximale Anzahl an aktivierten Collidern in Unity
 so gehandhabt werden, kann es passiert, dass Unity eine Fehlermeldung wirft, wenn zu viele _DataPoints_
 erzeugt werden.
 
+=== DataPoint
+Die Komponente _DataPoint_ visuaisiert eine Zeile der CSV-Datei als Kugel in einem Scatterplot.
+Auch nach dem Erzeugen eines _DataPoints_ sollte immer die _Initialize(int, float, Vector3)_ Methode
+aufgerufen werden. Durch den Index erhält der _DataPoint_ seine zuordnung zu einer Zeile der CSV-Datei,
+die Größe des _DataPoints_ wird durch den _float_-Wert definiert und seine Position durch den _Vector3_.
+Außerdem wird bei der Initialisierung der Text des Attributsdialog gesetzt. Dieser wird angezeigt, 
+wenn der Benutzer den _DataPoint_ auswählt. Über die Methode _GetData()_ können die Werte des _DataPoints_
+erhalten werden. Der Rückgabewert der Methode ist ein zweidimensionales _string_-Array. Die erste Dimension
+repräsentiert die drei Achsen des _DataPoints_ in der zweiten wird der Identifizierer der CSV-Spalte mit dem 
+Index 0 angegeben und der entsprechende Werte des _DataPoints_ mit Index 1.
+
+Wenn der Benutzer den _DataPoint_ auswählt, wird die Methode _VRAction(VRSelection)_ aufgerufen.
+Der _DataPoint_ gibt dann seinen Index an die _ScatterplotMatrix_ über die Methode _SelectDataPoint(int)_
+weiter (vgl. <<ScatterplotMatrix>>), damit alle _Scatterplots_ benachrichtigt werden können.
+
 === Programmablauf
 Das folgende Diagramm stellt den Programmablauf beim erstmaligen Starten der Anwendung dar:
 
