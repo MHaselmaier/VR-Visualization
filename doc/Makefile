@@ -13,6 +13,7 @@ vrviz_user_doc_pdf: vrviz_user_doc.adoc
 	$(ADOC_PDF) $<
 
 html: vrviz_tech_doc_html vrviz_user_doc_html
+	rm -r .asciidoctor
 
 vrviz_tech_doc_html: vrviz_tech_doc.adoc
 	$(ADOC) $<
