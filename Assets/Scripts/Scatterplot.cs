@@ -109,7 +109,18 @@ public class Scatterplot : MonoBehaviour
     }
 
     /// <summary>
-    /// This gets call if the Wand is 
+    /// This gets call if the Wand enters a Scatterplot.
+    /// Normally the colliders of the DataPoints are disabled.
+    /// This is done because Unity can only handle so many colliders
+    /// at once. If the user imports to many DataPoints, Unity 
+    /// throws an error. Because of this the colliders of the DataPoints
+    /// are only enabled if the Wand enters their Scatterplot. The
+    /// collider of this Scatterplot gets disabled so the Wand can 
+    /// interact with the DataPoints. Once another Scatterplot is entered
+    /// by the Wand the collider of the previous entered Scatterplot is
+    /// enabled again and the colliders of his included DataPoints are 
+    /// disabled. This reduces the amount of active colliders at a time
+    /// dramatically.
     /// </summary>
     /// <param name="iSelection"></param>
     protected void OnMVRWandEnter(VRSelection iSelection)
