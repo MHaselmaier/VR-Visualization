@@ -9,6 +9,7 @@ Es besteht die Möglichkeit des Umherwanders zwischen den Scatterplots und die S
 
 == Bestandteile
 Es sollten alle für die Abgabe nötigen Komponenten im Repository enthalten sein.
+
 * Dokumentation
 ** Anleitung
 ** Technische Dokumentation
