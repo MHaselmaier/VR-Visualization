@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using System.IO;
 
 /// <summary>
 /// This sets up the ImportDialog and handles user interactions.
@@ -54,10 +55,16 @@ public class ImportDialog : MonoBehaviour
 		inputFiles = GameObject.Find("dropdown_input_files").GetComponent<Dropdown>();
         inputFiles.onValueChanged.AddListener(InputFileSelectionChanged);
 
-        dataFiles = Resources.LoadAll<TextAsset>(csvDirectoryName);
-        foreach (TextAsset dataFile in dataFiles)
+        //dataFiles = Resources.LoadAll<TextAsset>(csvDirectoryName);
+        FileInfo[] fileInfos = new DirectoryInfo(Application.streamingAssetsPath).GetFiles("*.csv");
+
+        dataFiles = new TextAsset[fileInfos.Length];
+        int textAssetIndex = 0;
+        foreach (FileInfo fileInfo in fileInfos)
         {
-            inputFiles.options.Add(new Dropdown.OptionData() { text = dataFile.name });
+            inputFiles.options.Add(new Dropdown.OptionData() { text = fileInfo.Name });
+            dataFiles[textAssetIndex] = new TextAsset(File.ReadAllText(fileInfo.FullName));
+            dataFiles[textAssetIndex++].name = fileInfo.Name;
         }
         inputFiles.RefreshShownValue();
 
