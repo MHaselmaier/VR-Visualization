@@ -186,4 +186,13 @@ public void Foo(){
 
 Und noch Ref auf Überschrift <<Neue Subüberschrift>>.
 
+== Ehrenwörtliche Erklärung
+Hiermit erklären wir, {author}, ehrenwörtlich, 
+* dass die abgegebene Projektarbeit selbstständig und ohne fremde Hilfe von uns angefertigt wurde und keine anderen als in der
+Abhandlung angegebenen Hilfen benutzt wurden;
+* dass die Übernahme wörtlicher Zitate aus der Literatur sowie die Verwendung der Gedanken anderer Autoren an den entsprechenden
+Stellen innerhalb der Abhandlung gekennzeichnet sind.
+
+21.12.2018, 
+
 include::bib.adoc[]
