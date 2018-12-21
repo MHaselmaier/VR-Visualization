@@ -159,7 +159,7 @@ weiter (vgl. <<ScatterplotMatrix>>), damit alle _Scatterplots_ benachrichtigt we
             |                    |                    |
 VRAction    |                    |                    |
 ----------->++  SelectDataPoint  |                    |
-            ||------------------>++  SeleczDataPoint  |
+            ||------------------>++  SelectDataPoint  |
             ||                   ||------------------>++
             ||                   ||         ShowText  ||
             ||++<----------------||-------------------||
