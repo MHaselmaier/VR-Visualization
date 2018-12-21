@@ -1,17 +1,8 @@
 = Technische Dokumentation VR-Visualization: Virtual Reality, Master Informatik
-:author: Matthias Haselmaier, Andreas M. Brunnet
-:vr: Virtual Reality
-:icons: font
-:imagesdir: imgs/
-:figure-caption: Abbildung
-:listing-caption: Listing
-:example-caption: Beispiel
-:table-caption: Tabelle
-:source-highlighter: pygments
-:figure-counter: 0
+include::header.adoc[]
 
 == Vorwort
-Im Rahmen der Veranstaltung _{vr}_ wurde eine VR-Anwendung auf Basis der Unity 3D-Engine entwickelt, mit deren Hilfe eine Betrachung von Machine Learning Daten im Raum ermöglicht wird. Hierbei hat der Anwender die Möglichkeit innerhalb der als Scatterplots visualisierten Daten umher zu wandern. Darüber hinaus lässt sich ein für den Nutzer interessanter Datenpunkt mittels VR üblicher Selektiergestik auswählen. 
+Im Rahmen der Veranstaltung _{vr}_ wurde eine VR-Anwendung auf Basis der Unity 3D-Engine entwickelt, mit deren Hilfe eine Betrachung von Machine Learning Daten im Raum ermöglicht wird. Hierbei hat der Anwender die Möglichkeit innerhalb der als Scatterplots visualisierten Daten umher zu wandern. Darüber hinaus lässt sich ein für den Nutzer interessanter Datenpunkt mittels VR üblicher Selektiergestik auswählen.
 Die Attribute und Werte des selektierten Datenpunks werden relativ zu seiner Position dem Nutzer dargestellt. Über das Hervorheben des selektierten Punktes in sämtlichen Scatterplot-Matrizen hat der Anwender direkte Übersicht über die Verteilung des Punktes innerhalb des Datensets.
 
 == Software und Bibliotheken
@@ -25,10 +16,10 @@ Entsprechend wurde innerhalb der zuständigen MiddleVR Klasse _VRCanvas_ die Abf
 *IATK* (<<IATK>>): Das Toolkit stellt eine Reihe von Funktionalitäten für das Visualisieren von Daten zur Verfügung. Unter anderem ist ein CSV-Parser enthalten, der im Gegensatz zu einem üblichen CSV-Parser Wertnormalisierungen unabhängig vom vorliegenden Datentyp vornimmt. 
 
 [NOTE]
-Es musste eine Anpassung am Parser vorgenommen werden. Dort wird in der Methode _GetOriginalValue_ der normalisiert Wert auf seinen originalen originalen Wertebereich gebracht.
+Es musste eine Anpassung am Parser vorgenommen werden. Dort wird in der Methode _GetOriginalValue_ der normalisierte Wert auf seinen originalen Wertebereich zurückgebracht.
 Hierbei kann es zu Rundungsfehlern kommen, zum Beispiel 0,9999 statt den erwarteten 1,0. Ist der gesuchte Wert vom Typ _string_, wird der resultierende Wert als Index in einem 
-Array verwendet. Hierfür wird der _float_ Wert in einen _int_ gecastet. Die führte dazu, dass der falsche originale _string_-Wert zurückgegeben wurde. Zur Lösung wurde der resultierende
-Wert zuerst mit _Mathf.round()_ gerundet, bevor es in einen _int_ gecastet wird.
+Array verwendet. Hierfür wird der _float_ Wert in einen _int_ gecastet. Dies führte dazu, dass der falsche originale _string_-Wert zurückgegeben wurde. Zur Lösung wurde der resultierende
+Wert zuerst mit _Mathf.round()_ gerundet, bevor ein cast zu _int_ stattfindet.
 
 Die Möglichkeiten des Frameworks zur Datenvisualisierung wurden nach ersten Tests mit dem Framework aufgrund von schlechter Dokumentation verworfen. Es wurde eine Eigenimplementierung der nötigen Visualisierungskomponenten mit den nötigen Interaktionsmöglichkeiten, wie der Datenpunktauswahl (siehe <<Kurzeinleitung>>, <<datapoint_selection>>) umgesetzt. 
 
@@ -36,7 +27,6 @@ Die Möglichkeiten des Frameworks zur Datenvisualisierung wurden nach ersten Tes
 *VRTK* (<<VRTK>>): Wie auch MiddleVR dient VRTK der Entkopplung von Eingabegeräten und der Applikation. Eine erste Integration in das Projekt verlief ohne größere Probleme, sodass das Testen der Anwendung mittels Maus und Tastatur (Modus: Simulation) möglich war. 
 Probleme traten jedoch beim Versuch der Integration einer Vive-Pro Konfiguration auf, da VRTK seit einiger Zeit nicht mehr aktualisiert wird. Entsprechend kam es zu Komplikationen mit der aktuellen API der Vive-Pro (SteamVR, <<SteamVR>>). 
 Entsprechend wurde als alternative Lösung MiddleVR erfolgreich evaluiert und im Projekt statt VRTK integriert.
-
 
 == Architektur der Anwendung
 
@@ -93,7 +83,7 @@ werden die Komponenten genauer beschrieben.
 ....
 
 === Visualizer
-Die Schnittstelle des _Visualizer_ besteht drei Methoden und einem Attribut. Die Methoden
+Die Schnittstelle des _Visualizer_ besteht aus drei Methoden und einem Attribut. Die Methode
 _LoadDataSource(TextAsset)_ wird vom _ImportDialog_ aufgerufen, wenn der Benutzer im DropDown-Menü
 eine neue CSV-Datei auswählt. Neben dem eigentlichen Laden der CSV-Datei werden zusätzlich alle
 möglichen 3er-Kombinationen der in der Datei enthaltenen Dimensionen gebildet. Hierzu wird 
@@ -104,7 +94,7 @@ der jeweiligen Dimension der CSV-Datei. Der _ImportDialog_ erhält die 3er-Kombi
 -Array über die Methode _GetPossibleScatterplots()_. Somit können dem Benutzer die möglichen
 _Scatterplot_-Varianten angezeigt werden. Wird der _Importieren_-Button angeklickt, ruft der _ImportDialog_
 die Methode _CreateScatterplotMatrix(int[])_ auf. Über den Parameter werden die Indizes der vom Benutzer
-gewünschten _Scatterplots_ übergeben. Es wird dann eine neue _ScatterplotMatrix_ instantiiert. Wurder
+gewünschten _Scatterplots_ übergeben. Es wird dann eine neue _ScatterplotMatrix_ instantiiert. Wurde
 vorher bereits eine _ScatterplotMatrix_ erzeugt, wird diese gelöscht. Es ist somit zu jeder Zeit immer
 nur eine _ScatterplotMatrix_ in der Szene. Über das Attribut _pointSize_ kann die Größe der _DataPoints_
 angepasst werden. Der _ImportDialog_ inkrementiert bzw. dekrementiert diesen Wert, wenn der Benutzer die
@@ -112,28 +102,28 @@ entsprechenden Buttons klickt.
 
 === ScatterplotMatrix
 Die _ScatterplotMatrix_ kapselt und erzeugt _Scatterplots_. Nachdem eine _ScatterplotMatrix_ erzeugt
-wurde sollte immer die Methode _Initialize(CSVDataSource, int[,], float)_ aufgerufen werden. Durch 
+wurde, sollte immer die Methode _Initialize(CSVDataSource, int[,], float)_ aufgerufen werden. Durch 
 den Aufruf dieser Methode wird die Referenz auf die eingelesene CSV-Datei gesetzt, die gewünschten
 Scatterplots angegeben und die initiale Größe der _DataPoints_ definiert. In ihr wir die private
 Methode _CreateScatterplots(CSVDataSource, int[,])_ aufgerufen. Hierdurch werden die angegebenen
 _Scatterplots_ erzeugt. Zum Erzeugen der Scatterplots wird die Coroutine _CreateScatterplotsCoroutine(GameObjec, CSVDataSource, int[,], int)_
-verwendet. Mit dem Frame wird ein _Scatterplot_ erzeugt. Diese Variante wurde gewählt, damit die
+verwendet. Mit jedem Frame wird ein _Scatterplot_ erzeugt. Diese Variante wurde gewählt, damit die
 Anwendung während dem Erzeugen der _Scatterplots_ nicht einfriert. Die letzte Method der Komponente
 _ScatterplotMatrix_ ist _SelectDataPoint(int)_. Sie wird von einem _DataPoint_ mit seinem Index aufgerufen,
 wenn er vom Benutzer ausgewählt wird. Aus der _ScatterplotMatrix_ wird der Index des jeweiligen _DataPoints_
 an alle _Scatterplots_ weitergegeben. Somit benachrichtigt ein ausgewählter _DataPoint_ über die _ScatterplotMatrix_
-alle _Scatterplots_ und diese können den _DataPoint_ mit dem gegebenen Index hervorheben.
+alle _Scatterplots_. Diese heben den _DataPoint_ mit dem gegebenen Index hervor.
 
 === Scatterplot
 Einem _Scatterplot_ sind immer drei Spalten der CSV-Datei zugeordnet, welche über die Attribute _xDim_,
 _yDim_ und _zDim_ bestimmt sind. Wie auch schon bei der _ScatterplotMatrix_ sollte nach dem Erzeugen
 eines _Scatterplot_ immer die Methode _Initialize(CSVDataSource, float, float, float, int, int ,int)_
 aufgerufen werden. Hierbei bestimmen die ersten beiden _float_-Werte die Position des _Scatterplots_ 
-in der Ebene, der letzte _float_-Wert bestimmt die initiale _DataPoint_ Größe. Die letzten drei _int_-Werte
+in der Ebene, während der letzte _float_-Wert die initiale _DataPoint_ Größe bestimmt. Die letzten drei _int_-Werte
 definieren die drei bereits angesprochenen Spalten der CSV-Datei. Durch den Aufruf von _Initialize(..)_ 
 werden außerdem die Axen des _Scatterplots_ beschriftet und die einzelnen _DataPoints_ erzeugt.
 Wurde ein _DataPoint_ vom Benutzer ausgewählt, wird die Methode _SelectDataPoint(int)_ aufgerufen (vgl. <<ScatterplotMatrix>>).
-Der _Scatterplot_ iterriert über alle seiner _DataPoints_ und hebt den durch den Index bestimmten _DataPoint_
+Der _Scatterplot_ iteriert über alle seine _DataPoints_ und hebt den durch den Index bestimmten _DataPoint_
 hervor.
 
 Ein wichtiger Teil der _Scatterplot_ Komponente ist die Methode _OnMVRWandEnter(VRSelection)_. Diese 
@@ -141,19 +131,18 @@ Methode wird immer dann aufgerufen, wenn der Wand auf den _Scatterplot_ trifft. 
 der Collider des _Scatterplots_ deaktiviert und die Collider aller seiner _DataPoints_ werden aktiviert.
 War zuvor ein anderer _Scatterplot_ vom Wand ausgewählt, so werden die Collider seiner _DataPoints_ wieder
 deaktiviert und sein eigener Collider aktiviert, damit er das nächste Mal wieder darauf reagieren kann.
-Durch dieses Vorgehen wird die maximale Anzahl an aktivierten Collidern in Unity begrenzt. Würde dies nicht
-so gehandhabt werden, kann es passiert, dass Unity eine Fehlermeldung wirft, wenn zu viele _DataPoints_
-erzeugt werden.
+Durch dieses Vorgehen wird die maximale Anzahl an aktivierten Collidern in Unity begrenzt. Diese Mechanik 
+wurde eingebaut, da Unity bei einer gewissen Anzahl an Objekten mit Collider eine Fehlermeldung wirft.
 
 === DataPoint
-Die Komponente _DataPoint_ visuaisiert eine Zeile der CSV-Datei als Kugel in einem Scatterplot.
+Die Komponente _DataPoint_ visualisiert eine Zeile der CSV-Datei als Kugel in einem Scatterplot.
 Auch nach dem Erzeugen eines _DataPoints_ sollte immer die _Initialize(int, float, Vector3)_ Methode
-aufgerufen werden. Durch den Index erhält der _DataPoint_ seine zuordnung zu einer Zeile der CSV-Datei,
-die Größe des _DataPoints_ wird durch den _float_-Wert definiert und seine Position durch den _Vector3_.
+aufgerufen werden. Durch den Index erhält der _DataPoint_ seine Zuordnung zu einer Zeile der CSV-Datei.
+Die Größe des _DataPoints_ wird durch den _float_-Wert definiert und seine Position durch den _Vector3_.
 Außerdem wird bei der Initialisierung der Text des Attributsdialog gesetzt. Dieser wird angezeigt, 
 wenn der Benutzer den _DataPoint_ auswählt. Über die Methode _GetData()_ können die Werte des _DataPoints_
 erhalten werden. Der Rückgabewert der Methode ist ein zweidimensionales _string_-Array. Die erste Dimension
-repräsentiert die drei Achsen des _DataPoints_ in der zweiten wird der Identifizierer der CSV-Spalte mit dem 
+repräsentiert die drei Achsen des _DataPoints_. In der zweiten Dimension wird der _Identifier_ der CSV-Spalte mit dem 
 Index 0 angegeben und der entsprechende Werte des _DataPoints_ mit Index 1.
 
 Wenn der Benutzer den _DataPoint_ auswählt, wird die Methode _VRAction(VRSelection)_ aufgerufen.

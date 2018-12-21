@@ -1,0 +1,10 @@
+:author: Matthias Haselmaier, Andreas M. Brunnet
+:vr: Virtual Reality
+:icons: font
+:imagesdir: imgs/
+:figure-caption: Abbildung
+:listing-caption: Listing
+:example-caption: Beispiel
+:table-caption: Tabelle
+:source-highlighter: pygments
+:figure-counter: 0

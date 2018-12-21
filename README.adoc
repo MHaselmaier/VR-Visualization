@@ -6,6 +6,7 @@ Das Ziel dieses Projektes ist die Visualisierung von unter Anderem Machine Learn
 sich sämtliche 3-Kombinationen von Attributen als Scatterplot innerhalb einer Scatterplot-Matrix visualisieren. 
 Es besteht die Möglichkeit des Umherwanders zwischen den Scatterplots und die Selektion interessanter Datenpunkte (Scatterplot übergreifend).
 
+image::doc/imgs/datapoint_selection.png[]
 
 == Bestandteile
 Es sollten alle für die Abgabe nötigen Komponenten im Repository enthalten sein.
@@ -15,4 +16,3 @@ Es sollten alle für die Abgabe nötigen Komponenten im Repository enthalten sei
 ** Technische Dokumentation
 * Sourcen
 * Lauffähiger Build
-

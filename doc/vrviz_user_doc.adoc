@@ -1,15 +1,5 @@
 = Anleitung für VR-Visualization: Virtual Reality, Master Informatik
-:author: Matthias Haselmaier, Andreas M. Brunnet
-:vr: Virtual Reality
-:icons: font
-:imagesdir: imgs/
-:figure-caption: Abbildung
-:listing-caption: Listing
-:example-caption: Beispiel
-:table-caption: Tabelle
-:source-highlighter: pygments
-:figure-counter: 0
-
+include::header.adoc[]
 
 == Benutzung
 Die Anwendung benötigt zum Starten eine vorhandene MiddleVR Konfigurationsdatei. Die Voreinstellung des Pfades verweist auf die Datei am VR-Labor Rechner. Kann diese Datei nicht gefunden werden oder wird die Anwendung auf einem anderen System ausgeführt, muss diese mit folgendem zusätzlichen Argument gestartet werden:
@@ -27,6 +17,7 @@ Das Projekt kann über das https://github.com/MHaselmaier/VR-Visualization.git[G
 * Dokumentation als .pdf, .html und dessen Sourcen
 * Applikationssourcen
 * Lauffähiger Build im entsprechenden Verzeichnis (Auf VR-Lab Rechner getestet)
+
 
 Nach dem Starten findet sich der Nutzer im leeren 3D-Raum wieder.
 
@@ -69,6 +60,6 @@ Sollten dichtere Punktwolken vorliegen und die Auswahl eines Punkes deshalb zu s
 |===
 
 === Aufgewendete Zeit
-VIEL
+TODO
 
 include::bib.adoc[]
